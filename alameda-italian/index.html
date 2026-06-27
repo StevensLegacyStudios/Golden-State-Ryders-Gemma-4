@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Isola — Alameda Italian 🍝</title>
+<meta name="description" content="A friendly guide to the best Italian food on the Island — Alameda, CA. Menus, photos, contact info, and live open-now hours." />
+<style>
+  :root{
+    --sea:#0b6e8f;        /* Alameda bay blue */
+    --sea-deep:#063a4d;
+    --sky:#7ecbe0;
+    --sand:#f4e9d6;       /* beach sand */
+    --sand-warm:#efe0c4;
+    --coral:#ff6f59;      /* sunset coral */
+    --sunset:#f5a623;     /* golden hour */
+    --olive:#5a7d3c;      /* basil */
+    --ink:#16323d;
+    --card:#fffdf8;
+    --open:#2e9e5b;
+    --closed:#c0533f;
+    --shadow:0 8px 28px rgba(6,58,77,.14);
+    --page1:#fbf6ec; --page2:#f4e9d6; --glow:rgba(126,203,224,.45);
+    --wave:#fbf6ec;
+  }
+  /* 🌙 Alameda night theme */
+  body[data-theme="night"]{
+    --sand:#16323d; --sand-warm:#1d4250; --card:#13303b; --ink:#eaf4f7;
+    --sea:#0e7fa3; --sea-deep:#04222d;
+    --page1:#0a1a22; --page2:#04222d; --glow:rgba(14,127,163,.35);
+    --wave:#0a1a22; --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  body[data-theme="night"] .tag{font-size:.72rem;background:#234a59;color:#cfe6ee}
+  body[data-theme="night"] .desc{color:#acc6d0}
+  body[data-theme="night"] .addr,body[data-theme="night"] .hours-now,
+  body[data-theme="night"] .countline,body[data-theme="night"] .dish .d-desc{color:#9fbcc6}
+  body[data-theme="night"] .btn-web{background:#234a59;color:#cfe6ee}
+  body[data-theme="night"] .rating{background:#0a1a22;color:#f5c451}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 480px at 80% -120px, var(--glow), transparent 60%),
+      linear-gradient(180deg, var(--page1) 0%, var(--page2) 100%);
+    min-height:100vh;
+    transition:background .4s ease, color .4s ease;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:relative;
+    color:#fff;
+    padding:34px 20px 70px;
+    text-align:center;
+    background:linear-gradient(160deg,var(--sea) 0%, var(--sea-deep) 100%);
+    overflow:hidden;
+  }
+  header .wave{position:absolute;left:0;right:0;bottom:-1px;line-height:0}
+  header .wave svg{width:100%;height:60px;display:block}
+  .badge-pill{
+    display:inline-block;background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.35);
+    padding:5px 14px;border-radius:999px;font-size:.78rem;letter-spacing:.06em;
+    text-transform:uppercase;margin-bottom:14px;backdrop-filter:blur(4px);
+  }
+  header h1{
+    margin:0;font-size:2.7rem;font-weight:800;letter-spacing:-.5px;
+    text-shadow:0 2px 10px rgba(0,0,0,.18);
+  }
+  header h1 .accent{color:var(--sunset)}
+  header p.tag{margin:10px auto 0;max-width:560px;font-size:1.05rem;opacity:.95}
+  .clock{
+    margin-top:16px;font-size:.92rem;background:rgba(0,0,0,.18);
+    display:inline-flex;gap:8px;align-items:center;padding:7px 16px;border-radius:999px;
+  }
+  .clock .dot{width:9px;height:9px;border-radius:50%;background:var(--sunset);box-shadow:0 0 0 4px rgba(245,166,35,.3)}
+  .theme-toggle{
+    position:absolute;top:16px;right:16px;z-index:4;cursor:pointer;
+    width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);
+    background:rgba(255,255,255,.15);color:#fff;font-size:1.2rem;line-height:1;
+    backdrop-filter:blur(4px);transition:transform .2s, background .2s;
+  }
+  .theme-toggle:hover{transform:scale(1.1) rotate(-12deg);background:rgba(255,255,255,.28)}
+
+  .sort-wrap{
+    display:flex;align-items:center;gap:8px;background:var(--card);
+    border-radius:14px;padding:9px 14px;box-shadow:var(--shadow);font-size:.86rem;color:var(--sea-deep);font-weight:600;
+  }
+  .sort-wrap select{
+    border:0;background:transparent;font:inherit;color:inherit;cursor:pointer;outline:0;font-weight:700;
+  }
+  body[data-theme="night"] .sort-wrap,body[data-theme="night"] .search,body[data-theme="night"] .chip{color:#eaf4f7}
+  body[data-theme="night"] .search input{color:#eaf4f7}
+  body[data-theme="night"] .sort-wrap select option{color:#000}
+
+  /* favorite heart */
+  .fav{
+    position:absolute;bottom:12px;right:12px;cursor:pointer;border:0;
+    width:40px;height:40px;border-radius:50%;font-size:1.15rem;line-height:1;
+    background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.25);
+    transition:transform .15s;
+  }
+  .fav:hover{transform:scale(1.15)}
+  .fav.on{background:var(--coral)}
+  .surprise-btn{
+    border:0;cursor:pointer;font-size:.86rem;font-weight:700;color:#fff;background:var(--sunset);
+    padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);transition:transform .12s, filter .15s;
+  }
+  .surprise-btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+  .flash{animation:flash 1.3s ease}
+  @keyframes flash{0%,100%{box-shadow:var(--shadow)}30%{box-shadow:0 0 0 4px var(--sunset),0 16px 40px rgba(245,166,35,.5)}}
+
+  /* ---------- Controls ---------- */
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  .controls{
+    margin:-34px auto 6px;position:relative;z-index:3;max-width:1080px;
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;
+  }
+  .search{
+    flex:1 1 280px;max-width:420px;display:flex;align-items:center;gap:8px;
+    background:var(--card);border-radius:14px;padding:11px 15px;box-shadow:var(--shadow);
+  }
+  .search input{border:0;outline:0;font-size:1rem;width:100%;background:transparent;color:var(--ink)}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .chip{
+    border:0;cursor:pointer;font-size:.86rem;font-weight:600;
+    padding:10px 15px;border-radius:999px;background:var(--card);color:var(--sea-deep);
+    box-shadow:var(--shadow);transition:transform .12s ease, background .2s;
+  }
+  .chip:hover{transform:translateY(-2px)}
+  .chip.active{background:var(--coral);color:#fff}
+  .countline{text-align:center;color:#5b6f78;font-size:.85rem;margin:14px 0 2px}
+
+  /* ---------- Grid ---------- */
+  .grid{
+    display:grid;gap:22px;padding:18px 0 10px;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  }
+  .card{
+    background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;transition:transform .15s ease, box-shadow .15s ease;
+    border:1px solid rgba(6,58,77,.06);
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(6,58,77,.20)}
+  .photo{position:relative;height:188px;background:linear-gradient(135deg,var(--sky),var(--sea));overflow:hidden}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo .fallback{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-size:4rem;background:linear-gradient(135deg,#ffd9a0,#ff9a76);
+  }
+  .status{
+    position:absolute;top:12px;left:12px;font-size:.74rem;font-weight:700;
+    padding:6px 11px;border-radius:999px;color:#fff;display:flex;align-items:center;gap:6px;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+  }
+  .status .pulse{width:8px;height:8px;border-radius:50%;background:#fff}
+  .status.open{background:var(--open)}
+  .status.closed{background:var(--closed)}
+  .rating{
+    position:absolute;top:12px;right:12px;background:rgba(255,255,255,.94);
+    color:#b8860b;font-weight:700;font-size:.82rem;padding:5px 10px;border-radius:999px;
+  }
+  .body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+  .name{margin:0;font-size:1.32rem;font-weight:800;color:var(--sea-deep)}
+  .price{color:var(--olive);font-weight:700}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 6px}
+  .tag{font-size:.72rem;background:var(--sand-warm);color:#6a5326;padding:4px 9px;border-radius:999px;font-weight:600}
+  .desc{font-size:.9rem;color:#48606b;line-height:1.45;margin:6px 0 12px}
+  .hours-now{font-size:.84rem;margin:0 0 12px;color:#3a525c}
+  .hours-now b{color:var(--ink)}
+
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+  .actions a{
+    text-decoration:none;text-align:center;font-size:.85rem;font-weight:600;
+    padding:10px 8px;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:6px;
+    transition:filter .15s, transform .12s;
+  }
+  .actions a:hover{filter:brightness(1.05);transform:translateY(-1px)}
+  .btn-call{background:var(--olive);color:#fff}
+  .btn-map{background:var(--sea);color:#fff}
+  .btn-web{background:var(--sand-warm);color:#6a5326}
+  .btn-book{background:var(--coral);color:#fff}
+  .addr{font-size:.82rem;color:#5b6f78;margin:2px 0 12px;display:flex;gap:6px;align-items:flex-start}
+
+  details{margin-top:14px;border-top:1px dashed rgba(6,58,77,.18);padding-top:12px}
+  details summary{
+    cursor:pointer;font-weight:700;color:var(--coral);list-style:none;
+    display:flex;align-items:center;justify-content:space-between;font-size:.95rem;
+  }
+  details summary::-webkit-details-marker{display:none}
+  details summary .chev{transition:transform .2s}
+  details[open] summary .chev{transform:rotate(180deg)}
+  .menu-sec{margin-top:12px}
+  .menu-sec h4{
+    margin:12px 0 6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;
+    color:var(--sea);border-bottom:1px solid var(--sand-warm);padding-bottom:4px;
+  }
+  .dish{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:.88rem}
+  .dish .d-name{font-weight:600;color:var(--ink)}
+  .dish .d-desc{font-size:.78rem;color:#6b7d85;display:block;font-weight:400}
+  .dish .d-price{color:var(--olive);font-weight:700;white-space:nowrap}
+  .full-menu{display:inline-block;margin-top:12px;font-size:.82rem;color:var(--sea);font-weight:600;text-decoration:none}
+  .full-menu:hover{text-decoration:underline}
+
+  .empty{text-align:center;padding:50px 20px;color:#5b6f78}
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top:30px;background:var(--sea-deep);color:#cfe6ee;text-align:center;
+    padding:30px 20px 36px;font-size:.84rem;line-height:1.6;
+  }
+  footer a{color:var(--sunset);text-decoration:none}
+  footer .disc{font-size:.74rem;opacity:.7;max-width:640px;margin:14px auto 0}
+
+  @media(max-width:480px){
+    header h1{font-size:2.1rem}
+    .actions{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle day/night theme" title="Toggle day / night">🌙</button>
+  <span class="badge-pill">🌴 The Island • Alameda, CA</span>
+  <h1>Isola <span class="accent">Italian</span></h1>
+  <p class="tag">Your friendly guide to the best Italian food on the Island — menus, photos, and who's open right now.</p>
+  <div class="clock" id="clock"><span class="dot"></span><span id="clock-text">Loading island time…</span></div>
+  <div class="wave">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="#fbf6ec" d="M0,32 C240,64 480,0 720,24 C960,48 1200,8 1440,32 L1440,60 L0,60 Z"></path></svg>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="search">
+    <span>🔍</span>
+    <input id="search" type="text" placeholder="Search dishes, places, vibes…" aria-label="Search" />
+  </div>
+  <div class="filters" id="filters">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="open">🟢 Open Now</button>
+    <button class="chip" data-filter="fav">❤️ Favorites</button>
+    <button class="chip" data-filter="pizza">🍕 Pizza</button>
+    <button class="chip" data-filter="pasta">🍝 Pasta</button>
+    <button class="chip" data-filter="waterfront">🌊 Waterfront</button>
+  </div>
+  <div class="sort-wrap">
+    <span>↕️ Sort</span>
+    <select id="sort">
+      <option value="smart">Open first</option>
+      <option value="rating">Top rated</option>
+      <option value="name">Name A–Z</option>
+    </select>
+  </div>
+  <button class="surprise-btn" id="surprise">🎲 Surprise me</button>
+</div>
+
+<div class="wrap">
+  <p class="countline" id="count"></p>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">🍅 No spots match that — try another search or filter.</div>
+</div>
+
+<footer>
+  <strong>Isola — Alameda Italian</strong> · A friendly neighborhood food guide for the Island 🌴<br>
+  Hours & menus shown for convenience — please call ahead to confirm, especially on holidays.<br>
+  <div class="disc">
+    Built with 🧡 in Alameda. Menu prices are approximate and subject to change.
+    Info compiled from each restaurant's website &amp; public listings (Yelp, OpenTable).
+  </div>
+</footer>
+
+<script>
+/* ===========================================================
+   RESTAURANT DATA
+   hours: index 0=Sun ... 6=Sat. Each day = array of [openHr, closeHr]
+   intervals in 24h decimal (e.g. 17.5 = 5:30pm). [] = closed.
+   =========================================================== */
+const RESTAURANTS = [
+  {
+    name:"Trabocco Kitchen & Cocktails",
+    emoji:"🍤",
+    img:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=70",
+    rating:"4.5",
+    price:"$$$",
+    tags:["Pasta","Seafood","Cocktails","Patio"],
+    cats:["pasta"],
+    desc:"Chef-owner Giuseppe Naccarelli's seasonal Abruzzo-inspired cooking with a sleek bar and year-round outdoor dining at South Shore.",
+    address:"2213 South Shore Center, Alameda, CA 94501",
+    phone:"+15105211152",
+    phoneLabel:"(510) 521-1152",
+    website:"https://trabocco.com",
+    menuUrl:"https://trabocco.com/menu/",
+    reserve:"https://www.opentable.com/r/trabocco-alameda",
+    hours:[[[11.5,21]],[],[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,22]],[[11.5,22]]],
+    menu:[
+      {sec:"Antipasti",items:[
+        {n:"Burrata & Prosciutto",d:"Creamy burrata, San Daniele prosciutto, grilled bread",p:"$18"},
+        {n:"Calamari Fritti",d:"Crispy calamari, spicy arrabbiata aioli",p:"$17"}]},
+      {sec:"Pasta",items:[
+        {n:"Pappardelle al Ragù di Agnello",d:"House pappardelle, slow-braised lamb ragù",p:"$28"},
+        {n:"Risotto ai Frutti di Mare",d:"Seafood risotto with clams, mussels & shrimp",p:"$30"}]},
+      {sec:"Secondi",items:[
+        {n:"Pollo alla Contadina",d:"Wood-fired half chicken, rosemary potatoes",p:"$29"},
+        {n:"Seafood Platter",d:"Wood-fired catch of the day, market veg",p:"$42"}]},
+      {sec:"Dolci",items:[
+        {n:"Tiramisù",d:"The house classic — guest favorite",p:"$12"}]}
+    ]
+  },
+  {
+    name:"The Star on Park",
+    emoji:"🍕",
+    img:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=70",
+    rating:"4.4",
+    price:"$$",
+    tags:["Deep-Dish","Pizza","Craft Cocktails","Bar"],
+    cats:["pizza"],
+    desc:"Downtown's artisan pizzeria & cocktail bar — Chicago-style deep dish and thin crust with a serious full bar.",
+    address:"1400 Park St, Alameda, CA 94501",
+    phone:"+15108327827",
+    phoneLabel:"(510) 832-7827",
+    website:"https://thestaronpark.com",
+    menuUrl:"https://thestaronpark.com/menu/",
+    reserve:"https://www.opentable.com/r/the-star-on-park-alameda",
+    hours:[[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,22]],[[11.5,22]]],
+    menu:[
+      {sec:"Starters",items:[
+        {n:"Wedge Salad",d:"Iceberg, blue cheese, bacon, buttermilk ranch",p:"$13"},
+        {n:"Garlic Knots",d:"House dough, garlic butter, marinara",p:"$9"}]},
+      {sec:"Deep Dish",items:[
+        {n:"Classic Cheese",d:"Chicago-style, two-cheese blend, chunky tomato",p:"$24"},
+        {n:"The Works",d:"Sausage, pepperoni, peppers, onion, mushroom",p:"$29"}]},
+      {sec:"Thin Crust",items:[
+        {n:"Margherita",d:"Fresh mozzarella, basil, San Marzano",p:"$19"},
+        {n:"Hot Honey Pepperoni",d:"Pepperoni cups, mozzarella, chili honey",p:"$22"}]}
+    ]
+  },
+  {
+    name:"Tomatina",
+    emoji:"🍝",
+    img:"https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=70",
+    rating:"4.1",
+    price:"$$",
+    tags:["Pasta","Pizza","Piadine","Family"],
+    cats:["pasta","pizza"],
+    desc:"Relaxed Park Street neighborhood Italian — hearty unpretentious pasta, pizza and piadine. Great for families and groups.",
+    address:"1338 Park St, Alameda, CA 94501",
+    phone:"+15105211000",
+    phoneLabel:"(510) 521-1000",
+    website:"https://tomatina.com/menu/tomatina-alameda-1338-park-street",
+    menuUrl:"https://tomatina.com/menu/tomatina-alameda-1338-park-street",
+    reserve:"https://www.opentable.com/r/tomatina-alameda",
+    hours:[[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,22]],[[11,22]]],
+    menu:[
+      {sec:"Salads",items:[
+        {n:"Mixta",d:"Greens, gorgonzola, pickled onion, candied walnuts, honey-mustard",p:"$13"},
+        {n:"Caesar",d:"Romaine, parmesan, garlic croutons",p:"$11"}]},
+      {sec:"Pasta",items:[
+        {n:"Spaghetti & Meatballs",d:"House marinara, beef-pork meatballs",p:"$18"},
+        {n:"Penne al Pesto",d:"Basil pesto, pine nuts, parmesan",p:"$16"}]},
+      {sec:"Piadine & Pizza",items:[
+        {n:"Margherita Pizza",d:"Mozzarella, tomato, basil",p:"$16"},
+        {n:"Chicken Piadina",d:"Italian flatbread, grilled chicken, greens",p:"$15"}]}
+    ]
+  },
+  {
+    name:"Pasta Pelican",
+    emoji:"🌊",
+    img:"https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=70",
+    rating:"4.3",
+    price:"$$",
+    tags:["Waterfront","Pasta","Seafood","Wine"],
+    cats:["pasta","waterfront"],
+    desc:"Classic waterfront dining on the Oakland Estuary — traditional Italian & Americana with marina views and a big wine list.",
+    address:"2455 Mariner Square Dr, Alameda, CA 94501",
+    phone:"+15108647427",
+    phoneLabel:"(510) 864-7427",
+    website:"https://www.pastapelican.com",
+    menuUrl:"https://www.pastapelican.com/menu/",
+    reserve:"https://www.pastapelican.com/reservations/",
+    hours:[[[11.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,21]],[[11.5,21]]],
+    menu:[
+      {sec:"Antipasti",items:[
+        {n:"Steamed Clams",d:"White wine, garlic, herbs, grilled bread",p:"$17"},
+        {n:"Caprese",d:"Tomato, fresh mozzarella, basil, balsamic",p:"$14"}]},
+      {sec:"Pasta",items:[
+        {n:"Linguine alle Vongole",d:"Fresh clams, garlic, white wine",p:"$24"},
+        {n:"Fettuccine Alfredo",d:"Parmesan cream, add chicken or prawns",p:"$21"}]},
+      {sec:"From the Sea",items:[
+        {n:"Cioppino",d:"San Francisco seafood stew, tomato broth",p:"$32"},
+        {n:"Grilled Salmon",d:"Seasonal vegetables, lemon butter",p:"$28"}]}
+    ]
+  },
+  {
+    name:"Pizzeria Pappo",
+    emoji:"🍕",
+    img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=70",
+    rating:"4.4",
+    price:"$$",
+    tags:["Wood-Fired","Pizza","Antipasti","Cozy"],
+    cats:["pizza"],
+    desc:"Crispy thin-crust wood-fired pizza on Santa Clara Ave with sharp seasonal salads and a fun soft-serve finish.",
+    address:"709 Santa Clara Ave, Alameda, CA 94501",
+    phone:"+15104730613",
+    phoneLabel:"(510) 473-0613",
+    website:"https://pizzeriapappo.com",
+    menuUrl:"https://pizzeriapappo.com/order",
+    reserve:"https://pizzeriapappo.com/contact-us",
+    hours:[[],[],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]]],
+    menu:[
+      {sec:"To Start",items:[
+        {n:"Golden Beet Salad",d:"Roasted beets, citrus, goat cheese, pistachio",p:"$14"},
+        {n:"Wings",d:"Crispy wings, dill pickle ranch",p:"$13"}]},
+      {sec:"Wood-Fired Pizza",items:[
+        {n:"Margherita",d:"San Marzano, fresh mozzarella, basil",p:"$18"},
+        {n:"Sausage & Fennel",d:"House sausage, fennel, chili, mozzarella",p:"$21"}]},
+      {sec:"Sweet",items:[
+        {n:"Soft Serve",d:"Vanilla, olive oil & flaky salt",p:"$7"}]}
+    ]
+  },
+  {
+    name:"East End",
+    emoji:"🍕",
+    img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=70",
+    rating:"4.4",
+    price:"$$",
+    tags:["Wood-Fired","Oysters","Cocktails","Date Night"],
+    cats:["pizza"],
+    desc:"Park Street favorite slinging native-yeast sourdough wood-fired pizzas since 2011, plus shucked-to-order oysters, craft cocktails and seasonal small plates. Lively, dinner-only.",
+    address:"1650 Park St, Unit A, Alameda, CA 94501",
+    phone:"+15102639630",
+    phoneLabel:"(510) 263-9630",
+    website:"https://www.eastendalameda.com",
+    menuUrl:"https://www.eastendalameda.com/food",
+    reserve:"https://www.eastendalameda.com/make-a-reservation-at-east-end",
+    hours:[[],[],[[17,21]],[[17,21]],[[17,21]],[[17,21.5]],[[17,21]]],
+    menu:[
+      {sec:"Wood-Fired Pizza",items:[
+        {n:"Margherita",d:"Red sauce, hand-pulled mozzarella, fresh basil",p:"$18"},
+        {n:"Diablita",d:"Red sauce, Calabrian chiles, house cheese, goat cheese, shaved garlic",p:"$18"},
+        {n:"Caruso",d:"Béchamel, fire-roasted leeks, sottocenere",p:"$18"}]},
+      {sec:"To Share",items:[
+        {n:"Wings",d:"Mary's wings, Calabrian glaze, roasted garlic buttermilk",p:"$15"},
+        {n:"Garlic Toast",d:"Fried garlic-drenched sourdough, parm, herbs",p:"$9"},
+        {n:"Arugula Salad",d:"Fava beans, shaved fennel, preserved lemon, pecorino",p:"$13"},
+        {n:"Kennebec Fries",d:"Hand-cut, tomato jam & Calabrian aiolis",p:"$10"}]}
+    ]
+  },
+  {
+    name:"C'era Una Volta",
+    emoji:"🍝",
+    img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=800&q=70",
+    rating:"4.1",
+    price:"$$",
+    tags:["Tuscan","Handmade Pasta","Wine List","Vegan Options"],
+    cats:["pasta"],
+    desc:"Authentic Tuscan kitchen from a Florentine-trained chef — handmade pastas, risottos and a deep Italian wine list. A longtime island favorite for lunch and early dinner.",
+    address:"800 W Tower Ave, Alameda, CA 94501",
+    phone:"+15107694828",
+    phoneLabel:"(510) 769-4828",
+    website:"https://www.ceraunavolta.us",
+    menuUrl:"https://www.ceraunavolta.us/chefs-specials-menu",
+    reserve:"https://www.ceraunavolta.us",
+    hours:[[],[[11,16]],[[11,18]],[[11,18]],[[11,18]],[[11,18]],[[11,14]]],
+    menu:[
+      {sec:"Antipasti",items:[
+        {n:"Piatto Freddo Misto",d:"Prosciutto, coppa, salame, olives, cheese, cured veg",p:"$18"},
+        {n:"Insalata Ave Cesare",d:"Romaine, anchovies, Parmigiano, crostini",p:"$11"},
+        {n:"Insalata Barbabietole",d:"Roasted beets, greens, pistachios, balsamic",p:"$11"}]},
+      {sec:"Pasta & Risotto",items:[
+        {n:"Gnocchi ai Tartufo",d:"Truffle gnocchi, porcini cream, Parmigiano",p:"$20"},
+        {n:"Ravioli ai Carciofi",d:"Artichoke ravioli, cream & walnut sauce",p:"$19"},
+        {n:"Tagliolini con Branzino",d:"Egg pasta, lightly spicy tomato, branzino",p:"$21"},
+        {n:"Risotto ai Funghi",d:"Creamy mushroom risotto",p:"$18"}]}
+    ]
+  },
+  {
+    name:"The Park Street Tavern",
+    emoji:"🍷",
+    img:"https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=800&q=70",
+    rating:"4.7",
+    price:"$$$",
+    tags:["Italian-Mediterranean","Pasta","Cocktails","Date Night"],
+    cats:["pasta"],
+    desc:"A warm, quaint Park Street dining room serving Greek- and Italian-influenced Mediterranean plates with house pasta, scaloppini and steaks. Known for its cocktail program.",
+    address:"1901 Park St, Alameda, CA 94501",
+    phone:"+15106712867",
+    phoneLabel:"(510) 671-2867",
+    website:"https://theparkstreettavern.com",
+    menuUrl:"https://theparkstreettavern.com/alameda-the-park-street-tavern-food-menu",
+    reserve:"https://www.opentable.com/r/the-park-street-tavern-reservations-alameda",
+    hours:[[[16,21]],[[17,21]],[[17,21]],[[17,21]],[[17,21]],[[17,21]],[[17,21]]],
+    menu:[
+      {sec:"Starters",items:[
+        {n:"Spanakopita",d:"Flaky phyllo, spinach & feta",p:"$14"},
+        {n:"Halloumi",d:"Grilled Mediterranean cheese",p:"$15"},
+        {n:"Sautéed Prawns",d:"Shareable, Mediterranean-style",p:"$18"}]},
+      {sec:"Pasta & Mains",items:[
+        {n:"Capellini Scampi",d:"Angel hair, shrimp, garlic white-wine scampi",p:"$35"},
+        {n:"Chicken Scaloppini Piccata",d:"Lemon-caper butter, house noodles",p:"$33"},
+        {n:"Veal Scaloppini",d:"Thin veal cutlets, classic preparation",p:"$38"},
+        {n:"14oz Ribeye",d:"Grilled ribeye with sides",p:"$59"}]}
+    ]
+  },
+  {
+    name:"Santoro's Italian Market & Deli",
+    emoji:"🥪",
+    img:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=70",
+    rating:"4.6",
+    price:"$$",
+    tags:["Italian Deli","Sandwiches","Boar's Head","Casual"],
+    cats:["pasta"],
+    desc:"West End Italian market and deli famous for huge handmade sandwiches on fresh Semifreddi's bread, plus daily specials like lasagna and chicken parm and imported groceries.",
+    address:"475 Santa Clara Ave, Alameda, CA 94501",
+    phone:"+15102178710",
+    phoneLabel:"(510) 217-8710",
+    website:"https://www.santorosalameda.com",
+    menuUrl:"https://www.santorosalameda.com",
+    reserve:"https://www.santorosalameda.com",
+    hours:[[],[[10.5,15]],[[10.5,15]],[[10.5,15]],[[10.5,15]],[[10.5,15]],[[11,15]]],
+    menu:[
+      {sec:"Sandwiches",items:[
+        {n:"Italian Combo",d:"Capicola, salami, mortadella, provolone & veg",p:"$17.50"},
+        {n:"Meatball",d:"House meatballs in red sauce (Friday special)",p:"$15"},
+        {n:"Chicken Parm",d:"Breaded chicken, marinara, melted cheese",p:"$15"}]},
+      {sec:"From the Deli Case",items:[
+        {n:"Lasagna",d:"Layered pasta with meat & cheese (daily special)",p:"$14"},
+        {n:"Pasta Salad",d:"House-made deli-case pasta salad",p:"$6"},
+        {n:"Marinated Mushrooms & Artichokes",d:"Imported Italian antipasti",p:"$8"},
+        {n:"Pizza Slice",d:"House Italian-style pizza by the slice",p:"$5"}]}
+    ]
+  },
+  {
+    name:"Alameda Pizza",
+    emoji:"🍕",
+    img:"https://images.unsplash.com/photo-1571066811602-716837d681de?auto=format&fit=crop&w=800&q=70",
+    rating:"4.0",
+    price:"$$",
+    tags:["Casual","Deep Dish","Calzones","Family"],
+    cats:["pizza","pasta"],
+    desc:"A casual, seat-yourself Webster Street pizzeria serving hand-made thin and deep-dish pies, calzones, lasagna and made-to-order pasta. A longtime West End spot for dine-in or takeout.",
+    address:"1538 Webster St, Alameda, CA 94501",
+    phone:"+15105237149",
+    phoneLabel:"(510) 523-7149",
+    website:"https://alamedapizza.gotoeat.net",
+    menuUrl:"https://alamedapizza.gotoeat.net/menu",
+    reserve:"https://order.online/store/alameda-pizza-alameda-526075/",
+    hours:[[[12,20]],[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,21]]],
+    menu:[
+      {sec:"Pizza & Calzones",items:[
+        {n:"Vegetarian Pizza",d:"Mushrooms, peppers, tomatoes, onions, olives",p:"$24"},
+        {n:"BBQ Chicken Pizza",d:"BBQ sauce, chicken, red & green onions",p:"$23.50"},
+        {n:"Calzone",d:"Ricotta, mozzarella, tomato sauce, custom fillings",p:"$15"}]},
+      {sec:"Pasta",items:[
+        {n:"Ravioli",d:"Cheese ravioli, marinara or meat sauce",p:"$17.50"},
+        {n:"Baked Ziti",d:"Baked pasta, tomato sauce, melted cheese",p:"$16"},
+        {n:"Shrimp Scampi",d:"Pasta, shrimp, garlic butter scampi",p:"$18"},
+        {n:"Lasagna",d:"Layered baked pasta, meat sauce & cheese",p:"$17"}]}
+    ]
+  }
+];
+
+/* ===========================================================
+   HELPERS — open-now in America/Los_Angeles
+   =========================================================== */
+function nowLA(){
+  const parts=new Intl.DateTimeFormat('en-US',{
+    timeZone:'America/Los_Angeles',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false
+  }).formatToParts(new Date());
+  const map={};parts.forEach(p=>map[p.type]=p.value);
+  const days={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  let h=parseInt(map.hour,10); if(h===24)h=0;
+  return {day:days[map.weekday], dec:h+parseInt(map.minute,10)/60, hh:map.hour, mm:map.minute};
+}
+function fmt(t){
+  let h=Math.floor(t), m=Math.round((t-h)*60);
+  const ap=h>=12?'pm':'am'; let hh=h%12; if(hh===0)hh=12;
+  return m===0?`${hh}${ap}`:`${hh}:${String(m).padStart(2,'0')}${ap}`;
+}
+function dayHoursText(intervals){
+  if(!intervals||!intervals.length) return "Closed";
+  return intervals.map(iv=>`${fmt(iv[0])}–${fmt(iv[1])}`).join(", ");
+}
+function status(r){
+  const n=nowLA();
+  const today=r.hours[n.day]||[];
+  for(const iv of today){
+    if(n.dec>=iv[0] && n.dec<iv[1]){
+      const closeSoon=(iv[1]-n.dec)<=1;
+      return {open:true, label:closeSoon?`Closes ${fmt(iv[1])}`:"Open now", until:iv[1]};
+    }
+  }
+  // find next opening today
+  for(const iv of today){
+    if(n.dec<iv[0]) return {open:false, label:`Opens ${fmt(iv[0])}`};
+  }
+  return {open:false, label:"Closed now"};
+}
+
+/* ===========================================================
+   RENDER
+   =========================================================== */
+const grid=document.getElementById('grid');
+const emptyEl=document.getElementById('empty');
+const countEl=document.getElementById('count');
+let activeFilter='all';
+let query='';
+let sortBy='smart';
+
+/* favorites in localStorage */
+function loadFavs(){try{return new Set(JSON.parse(localStorage.getItem('isola-favs')||'[]'))}catch(e){return new Set()}}
+let favs=loadFavs();
+function saveFavs(){try{localStorage.setItem('isola-favs',JSON.stringify([...favs]))}catch(e){}}
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+
+function maps(addr){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`}
+
+function card(r){
+  const st=status(r);
+  const n=nowLA();
+  const todayTxt=dayHoursText(r.hours[n.day]);
+  const menuHtml=r.menu.map(s=>`
+    <div class="menu-sec">
+      <h4>${s.sec}</h4>
+      ${s.items.map(i=>`
+        <div class="dish">
+          <span class="d-name">${i.n}<span class="d-desc">${i.d}</span></span>
+          <span class="d-price">${i.p}</span>
+        </div>`).join('')}
+    </div>`).join('');
+
+  const id=slug(r.name);
+  const isFav=favs.has(id);
+  return `
+  <article class="card" id="card-${id}" data-id="${id}" data-cats="${r.cats.join(' ')}" data-open="${st.open}"
+           data-rating="${r.rating}"
+           data-text="${(r.name+' '+r.tags.join(' ')+' '+r.desc+' '+r.menu.map(s=>s.items.map(i=>i.n).join(' ')).join(' ')).toLowerCase()}">
+    <div class="photo">
+      <div class="fallback">${r.emoji}</div>
+      <img src="${r.img}" alt="${r.name} food" loading="lazy"
+           onload="this.style.opacity=1" style="opacity:0;transition:opacity .4s"
+           onerror="this.remove()">
+      <span class="status ${st.open?'open':'closed'}"><span class="pulse"></span>${st.label}</span>
+      <span class="rating">★ ${r.rating}</span>
+      <button class="fav ${isFav?'on':''}" data-fav="${id}" title="Save to favorites" aria-label="Save to favorites">${isFav?'❤️':'🤍'}</button>
+    </div>
+    <div class="body">
+      <h2 class="name">${r.name} <span class="price">${r.price}</span></h2>
+      <div class="tags">${r.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <p class="desc">${r.desc}</p>
+      <div class="addr">📍 <span>${r.address}</span></div>
+      <p class="hours-now">🕒 <b>Today:</b> ${todayTxt}</p>
+      <div class="actions">
+        <a class="btn-call" href="tel:${r.phone}">📞 ${r.phoneLabel}</a>
+        <a class="btn-map" href="${maps(r.address)}" target="_blank" rel="noopener">🗺️ Directions</a>
+        <a class="btn-web" href="${r.website}" target="_blank" rel="noopener">🌐 Website</a>
+        <a class="btn-book" href="${r.reserve}" target="_blank" rel="noopener">📅 Reserve</a>
+      </div>
+      <details>
+        <summary>📖 View Menu <span class="chev">▾</span></summary>
+        ${menuHtml}
+        <a class="full-menu" href="${r.menuUrl}" target="_blank" rel="noopener">See the full menu →</a>
+      </details>
+    </div>
+  </article>`;
+}
+
+function sorted(){
+  const list=[...RESTAURANTS];
+  if(sortBy==='rating') list.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));
+  else if(sortBy==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  else { // smart: open now first, then by rating
+    list.sort((a,b)=>{
+      const oa=status(a).open?1:0, ob=status(b).open?1:0;
+      if(oa!==ob) return ob-oa;
+      return parseFloat(b.rating)-parseFloat(a.rating);
+    });
+  }
+  return list;
+}
+
+function render(){
+  grid.innerHTML=sorted().map(card).join('');
+  applyFilter();
+}
+
+function applyFilter(){
+  const cards=[...grid.children];
+  let shown=0;
+  cards.forEach(c=>{
+    const cats=c.dataset.cats;
+    const isOpen=c.dataset.open==='true';
+    const text=c.dataset.text;
+    let ok=true;
+    if(activeFilter==='open') ok=isOpen;
+    else if(activeFilter==='fav') ok=favs.has(c.dataset.id);
+    else if(activeFilter!=='all') ok=cats.includes(activeFilter);
+    if(ok && query) ok=text.includes(query);
+    c.style.display=ok?'':'none';
+    if(ok)shown++;
+  });
+  emptyEl.style.display=shown?'none':'block';
+  if(activeFilter==='fav' && !shown){
+    emptyEl.textContent='🤍 No favorites yet — tap the heart on a spot to save it.';
+  } else {
+    emptyEl.textContent='🍅 No spots match that — try another search or filter.';
+  }
+  const openCount=RESTAURANTS.filter(r=>status(r).open).length;
+  countEl.textContent=`${shown} spot${shown!==1?'s':''} shown · ${openCount} open right now on the Island`;
+}
+
+/* ---- clock ---- */
+function tick(){
+  const n=nowLA();
+  const txt=new Intl.DateTimeFormat('en-US',{
+    timeZone:'America/Los_Angeles',weekday:'long',hour:'numeric',minute:'2-digit',hour12:true
+  }).format(new Date());
+  document.getElementById('clock-text').textContent=`Alameda · ${txt}`;
+}
+
+/* ---- events ---- */
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b)return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  b.classList.add('active');
+  activeFilter=b.dataset.filter;
+  applyFilter();
+});
+document.getElementById('search').addEventListener('input',e=>{
+  query=e.target.value.trim().toLowerCase();
+  applyFilter();
+});
+
+/* favorite toggle (event delegation) */
+grid.addEventListener('click',e=>{
+  const b=e.target.closest('.fav'); if(!b)return;
+  const id=b.dataset.fav;
+  if(favs.has(id)){favs.delete(id);b.classList.remove('on');b.textContent='🤍';}
+  else{favs.add(id);b.classList.add('on');b.textContent='❤️';}
+  saveFavs();
+  if(activeFilter==='fav') applyFilter();
+});
+
+/* sort */
+document.getElementById('sort').addEventListener('change',e=>{
+  sortBy=e.target.value; render();
+});
+
+/* surprise me — pick a random OPEN spot (fallback: any), reveal it */
+document.getElementById('surprise').addEventListener('click',()=>{
+  const open=RESTAURANTS.filter(r=>status(r).open);
+  const pool=open.length?open:RESTAURANTS;
+  const pick=pool[Math.floor(Math.random()*pool.length)];
+  // reset filters so the pick is visible
+  activeFilter='all';query='';
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.filter==='all'));
+  document.getElementById('search').value='';
+  applyFilter();
+  const el=document.getElementById('card-'+slug(pick.name));
+  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
+});
+
+/* theme toggle with persistence */
+const themeBtn=document.getElementById('theme-toggle');
+function applyTheme(t){
+  if(t==='night'){document.body.dataset.theme='night';themeBtn.textContent='☀️';}
+  else{delete document.body.dataset.theme;themeBtn.textContent='🌙';}
+}
+applyTheme(localStorage.getItem('isola-theme')||'day');
+themeBtn.addEventListener('click',()=>{
+  const next=document.body.dataset.theme==='night'?'day':'night';
+  applyTheme(next);
+  try{localStorage.setItem('isola-theme',next);}catch(e){}
+});
+
+/* ---- init ---- */
+render();
+tick();
+setInterval(()=>{tick();render();},60000); // refresh status every minute
+</script>
+</body>
+</html>
