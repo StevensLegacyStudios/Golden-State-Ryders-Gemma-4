@@ -1,48 +1,48 @@
-# 🌴 Isola — Alameda Italian
+# 🌴 Isola — Alameda Eats
 
-A friendly, Alameda island-themed web app for finding the best Italian food on the Island.
-Single self-contained file (`index.html`) — no build, no dependencies. Just open it.
+A friendly, fast, Alameda island-themed web app for finding the best restaurants in **Alameda, CA** —
+**all cuisines**, with live "open now," menus, photos, and one-tap call / directions / order.
+Single self-contained `index.html` (no build) + a few static pages. Deploys free on GitHub Pages.
+
+**Live:** https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/
 
 ## Features
-- **Live "Open Now"** — each spot shows open/closed/closing-soon, computed in real time using Pacific time (updates every minute).
-- **Food photos** for every restaurant (with emoji fallback if offline).
-- **Full menus** — expandable per card with signature dishes & prices.
-- **One-tap contact** — call, get directions (Google Maps), website, and reserve.
-- **Filters & search** — All / Open Now / ❤️ Favorites / Pizza / Pasta / Waterfront, plus free-text search across dishes, tags, and vibes.
-- **❤️ Favorites** — tap the heart to save a spot; remembered across visits (localStorage).
-- **↕️ Sorting** — Open first / Top rated / Name A–Z.
-- **🎲 Surprise me** — picks a random open spot and jumps you to it.
-- **🌙 Day/Night theme** — Alameda bay daytime + island-night palette, remembered across visits.
-- **Mobile-friendly** responsive layout.
+- 🟢 **Live "Open Now"** — open / closed / "closes soon," computed in real time (Pacific), refreshed every minute.
+- 🍽️ **22 restaurants, every cuisine** — Italian, Mexican, Thai, Chinese, Vietnamese, Japanese, Indian, American, Seafood, Cafe, Mediterranean, Vegetarian. Filter by cuisine.
+- 🔎 **Filters** — Open Now · Favorites · ⭐ Featured · 🌊 Waterfront · 🌿 Patio · 🍳 Breakfast · 🥗 Veg-friendly · cuisine chips · free-text search.
+- 📖 **Full menus**, 📸 photos, ❤️ favorites (saved), ↕️ sorting, 🎲 surprise picker, 🌙 day/night theme.
+- 📞 **One-tap** call / directions / website / smart **Order**-or-**Reserve** button.
 
-## Run it
-Open the file in any browser:
+## SEO (built in)
+- Keyword-tuned `<title>`/meta, Open Graph + Twitter cards, canonical.
+- **JSON-LD structured data** (Restaurant + OpeningHours + ItemList + WebSite + Breadcrumb) generated from the data → eligible for Google rich results / AI overviews.
+- `sitemap.xml`, `robots.txt`, `.nojekyll`, semantic HTML (`<main>`, `<article>`, `<address>`), "Updated" freshness stamp.
+- **Next SEO step (highest impact):** a custom domain + per-cuisine landing pages (`/italian`, `/patio`, `/open-now`). A single page can't rank for everything.
 
-```
-open alameda-italian/index.html        # macOS
-xdg-open alameda-italian/index.html    # Linux
-```
+## 💰 Monetization — how to turn it on
+Edit the `CONFIG` block at the top of `index.html`:
 
-Or serve locally:
-
-```
-python3 -m http.server 8000
-# then visit http://localhost:8000/alameda-italian/
+```js
+const CONFIG = {
+  CONTACT_EMAIL: "StevensLegacyStudios@gmail.com", // "Get Featured" + contact go here
+  ADSENSE_CLIENT: "",   // set "ca-pub-XX..." once AdSense-approved to turn on ads
+  FORMSPREE_ID:   ""    // set a formspree.io form id to collect newsletter emails
+};
 ```
 
-## The spots (10)
-| Restaurant | Vibe | Phone |
-|---|---|---|
-| Trabocco Kitchen & Cocktails | Upscale Abruzzo, patio | (510) 521-1152 |
-| The Star on Park | Chicago deep-dish + bar | (510) 832-7827 |
-| Tomatina | Casual family pasta/pizza | (510) 521-1000 |
-| Pasta Pelican | Waterfront Italian | (510) 864-7427 |
-| Pizzeria Pappo | Wood-fired thin crust | (510) 473-0613 |
-| East End | Wood-fired pizza + oysters | (510) 263-9630 |
-| C'era Una Volta | Authentic Tuscan, handmade pasta | (510) 769-4828 |
-| The Park Street Tavern | Italian-Mediterranean, date night | (510) 671-2867 |
-| Santoro's Italian Market & Deli | Italian deli & sandwiches | (510) 217-8710 |
-| Alameda Pizza | Casual pizza & pasta | (510) 523-7149 |
+1. **Featured listings (best near-term money, no traffic needed).** Set `featured: true` on any restaurant
+   object to pin it to the top with a "Featured" badge. Sell these to local restaurants (~$25–$50/mo or ~$300/yr,
+   founding-sponsor discount). The "Get Featured" button + footer route to your `CONTACT_EMAIL`.
+2. **Affiliate links.** "Order"/"Reserve" buttons use `rel="sponsored nofollow"`. Sign up for Uber Eats / DoorDash /
+   Grubhub / OpenTable / Restaurant.com affiliate programs and swap the `reserve:` URLs for your tagged links.
+   (FTC disclosure is already in the footer + `privacy.html`.)
+3. **AdSense.** Leave `ADSENSE_CLIENT` empty until approved (a new directory usually won't be approved at launch).
+   When ready, paste your `ca-pub-…` id and the ad slot turns on automatically. Add `ads.txt` at the site root.
+4. **Newsletter.** Create a free Formspree form, paste its id into `FORMSPREE_ID`, and the signup box collects emails.
 
-> Hours and prices are approximate and compiled from each restaurant's website and
-> public listings. Please call ahead to confirm, especially on holidays.
+## Growth (from the market research)
+Become the helpful regular in Alameda Facebook/Nextdoor groups · drop QR table-tents in restaurants ·
+Instagram "new this month / happy hour now" · pitch the Alameda Post/Sun · long-tail local SEO. Never sell *ranking* — sell *Featured placement* — to keep the guide trusted.
+
+## Run locally
+Open `index.html`, or `python3 -m http.server` then visit `/alameda-italian/`.

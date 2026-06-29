@@ -3,221 +3,186 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Isola — Alameda Italian 🍝</title>
-<meta name="description" content="A friendly guide to the best Italian food on the Island — Alameda, CA. Menus, photos, contact info, and live open-now hours." />
+<title>Best Restaurants in Alameda, CA — Open Now, Menus &amp; Hours | Isola Eats</title>
+<meta name="description" content="Find the best restaurants in Alameda, CA by cuisine or what's open right now. Menus, photos, hours, and tap-to-call directions for 22 island spots — Italian, Mexican, Thai, sushi, seafood, brunch &amp; more. Updated June 2026." />
+<meta name="keywords" content="Alameda restaurants, restaurants in Alameda CA, Alameda restaurants open now, best restaurants Alameda, Alameda food, Italian Mexican Thai sushi Alameda, Alameda waterfront restaurants, Alameda brunch" />
+<link rel="canonical" href="https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#0b6e8f" />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Isola — Alameda Eats: Best Restaurants in Alameda, Open Now" />
+<meta property="og:description" content="The Island's restaurant guide — see who's open right now, browse menus &amp; photos, and call, map, or order in one tap. 22 Alameda spots, every cuisine." />
+<meta property="og:url" content="https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/" />
+<meta property="og:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Isola — Alameda Eats" />
+<meta name="twitter:description" content="Best restaurants in Alameda, CA — open now, menus, photos, one-tap call/directions/order." />
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>" />
 <style>
   :root{
-    --sea:#0b6e8f;        /* Alameda bay blue */
-    --sea-deep:#063a4d;
-    --sky:#7ecbe0;
-    --sand:#f4e9d6;       /* beach sand */
-    --sand-warm:#efe0c4;
-    --coral:#ff6f59;      /* sunset coral */
-    --sunset:#f5a623;     /* golden hour */
-    --olive:#5a7d3c;      /* basil */
-    --ink:#16323d;
-    --card:#fffdf8;
-    --open:#2e9e5b;
-    --closed:#c0533f;
+    --sea:#0b6e8f; --sea-deep:#063a4d; --sky:#7ecbe0;
+    --sand:#f4e9d6; --sand-warm:#efe0c4;
+    --coral:#ff6f59; --sunset:#f5a623; --olive:#5a7d3c;
+    --ink:#16323d; --card:#fffdf8; --open:#2e9e5b; --closed:#c0533f;
     --shadow:0 8px 28px rgba(6,58,77,.14);
     --page1:#fbf6ec; --page2:#f4e9d6; --glow:rgba(126,203,224,.45);
-    --wave:#fbf6ec;
   }
-  /* 🌙 Alameda night theme */
   body[data-theme="night"]{
     --sand:#16323d; --sand-warm:#1d4250; --card:#13303b; --ink:#eaf4f7;
     --sea:#0e7fa3; --sea-deep:#04222d;
     --page1:#0a1a22; --page2:#04222d; --glow:rgba(14,127,163,.35);
-    --wave:#0a1a22; --shadow:0 10px 30px rgba(0,0,0,.45);
+    --shadow:0 10px 30px rgba(0,0,0,.45);
   }
-  body[data-theme="night"] .tag{font-size:.72rem;background:#234a59;color:#cfe6ee}
+  body[data-theme="night"] .tag,body[data-theme="night"] .updated{color:#dcebf0}
+  body[data-theme="night"] .tag{background:transparent}
+  body[data-theme="night"] .tag-chip{background:#234a59;color:#cfe6ee}
   body[data-theme="night"] .desc{color:#acc6d0}
   body[data-theme="night"] .addr,body[data-theme="night"] .hours-now,
   body[data-theme="night"] .countline,body[data-theme="night"] .dish .d-desc{color:#9fbcc6}
   body[data-theme="night"] .btn-web{background:#234a59;color:#cfe6ee}
   body[data-theme="night"] .rating{background:#0a1a22;color:#f5c451}
+  body[data-theme="night"] .news input{background:#0a1a22;color:#eaf4f7;border-color:#234a59}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    margin:0;
-    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    margin:0;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
     color:var(--ink);
-    background:
-      radial-gradient(1200px 480px at 80% -120px, var(--glow), transparent 60%),
+    background:radial-gradient(1200px 480px at 80% -120px, var(--glow), transparent 60%),
       linear-gradient(180deg, var(--page1) 0%, var(--page2) 100%);
-    min-height:100vh;
-    transition:background .4s ease, color .4s ease;
+    min-height:100vh;transition:background .4s ease, color .4s ease;
   }
 
-  /* ---------- Header ---------- */
-  header{
-    position:relative;
-    color:#fff;
-    padding:34px 20px 70px;
-    text-align:center;
-    background:linear-gradient(160deg,var(--sea) 0%, var(--sea-deep) 100%);
-    overflow:hidden;
-  }
+  header{position:relative;color:#fff;padding:30px 20px 64px;text-align:center;
+    background:linear-gradient(160deg,var(--sea) 0%, var(--sea-deep) 100%);overflow:hidden}
   header .wave{position:absolute;left:0;right:0;bottom:-1px;line-height:0}
   header .wave svg{width:100%;height:60px;display:block}
-  .badge-pill{
-    display:inline-block;background:rgba(255,255,255,.16);
-    border:1px solid rgba(255,255,255,.35);
-    padding:5px 14px;border-radius:999px;font-size:.78rem;letter-spacing:.06em;
-    text-transform:uppercase;margin-bottom:14px;backdrop-filter:blur(4px);
-  }
-  header h1{
-    margin:0;font-size:2.7rem;font-weight:800;letter-spacing:-.5px;
-    text-shadow:0 2px 10px rgba(0,0,0,.18);
-  }
+  .badge-pill{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+    padding:5px 14px;border-radius:999px;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;
+    margin-bottom:12px;backdrop-filter:blur(4px)}
+  header h1{margin:0;font-size:2.6rem;font-weight:800;letter-spacing:-.5px;text-shadow:0 2px 10px rgba(0,0,0,.18)}
   header h1 .accent{color:var(--sunset)}
-  header p.tag{margin:10px auto 0;max-width:560px;font-size:1.05rem;opacity:.95}
-  .clock{
-    margin-top:16px;font-size:.92rem;background:rgba(0,0,0,.18);
-    display:inline-flex;gap:8px;align-items:center;padding:7px 16px;border-radius:999px;
-  }
+  header p.tag{margin:10px auto 0;max-width:600px;font-size:1.05rem;opacity:.96;line-height:1.5}
+  .updated{margin:10px 0 0;font-size:.8rem;opacity:.8;letter-spacing:.02em}
+  .clock{margin-top:14px;font-size:.9rem;background:rgba(0,0,0,.18);display:inline-flex;gap:8px;
+    align-items:center;padding:7px 16px;border-radius:999px}
   .clock .dot{width:9px;height:9px;border-radius:50%;background:var(--sunset);box-shadow:0 0 0 4px rgba(245,166,35,.3)}
-  .theme-toggle{
-    position:absolute;top:16px;right:16px;z-index:4;cursor:pointer;
-    width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);
-    background:rgba(255,255,255,.15);color:#fff;font-size:1.2rem;line-height:1;
-    backdrop-filter:blur(4px);transition:transform .2s, background .2s;
-  }
+  .theme-toggle{position:absolute;top:16px;right:16px;z-index:4;cursor:pointer;width:42px;height:42px;
+    border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.15);color:#fff;
+    font-size:1.2rem;line-height:1;backdrop-filter:blur(4px);transition:transform .2s, background .2s}
   .theme-toggle:hover{transform:scale(1.1) rotate(-12deg);background:rgba(255,255,255,.28)}
 
-  .sort-wrap{
-    display:flex;align-items:center;gap:8px;background:var(--card);
-    border-radius:14px;padding:9px 14px;box-shadow:var(--shadow);font-size:.86rem;color:var(--sea-deep);font-weight:600;
-  }
-  .sort-wrap select{
-    border:0;background:transparent;font:inherit;color:inherit;cursor:pointer;outline:0;font-weight:700;
-  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  .controls{margin:-32px auto 6px;position:relative;z-index:3;max-width:1080px;display:flex;flex-wrap:wrap;
+    gap:10px;justify-content:center;align-items:center;padding:0 18px}
+  .search{flex:1 1 280px;max-width:440px;display:flex;align-items:center;gap:8px;background:var(--card);
+    border-radius:14px;padding:11px 15px;box-shadow:var(--shadow)}
+  .search input{border:0;outline:0;font-size:1rem;width:100%;background:transparent;color:var(--ink)}
+  .sort-wrap{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:14px;padding:9px 14px;
+    box-shadow:var(--shadow);font-size:.86rem;color:var(--sea-deep);font-weight:600}
+  .sort-wrap select{border:0;background:transparent;font:inherit;color:inherit;cursor:pointer;outline:0;font-weight:700}
   body[data-theme="night"] .sort-wrap,body[data-theme="night"] .search,body[data-theme="night"] .chip{color:#eaf4f7}
   body[data-theme="night"] .search input{color:#eaf4f7}
   body[data-theme="night"] .sort-wrap select option{color:#000}
-
-  /* favorite heart */
-  .fav{
-    position:absolute;bottom:12px;right:12px;cursor:pointer;border:0;
-    width:40px;height:40px;border-radius:50%;font-size:1.15rem;line-height:1;
-    background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.25);
-    transition:transform .15s;
-  }
-  .fav:hover{transform:scale(1.15)}
-  .fav.on{background:var(--coral)}
-  .surprise-btn{
-    border:0;cursor:pointer;font-size:.86rem;font-weight:700;color:#fff;background:var(--sunset);
-    padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);transition:transform .12s, filter .15s;
-  }
+  .surprise-btn{border:0;cursor:pointer;font-size:.86rem;font-weight:700;color:#fff;background:var(--sunset);
+    padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);transition:transform .12s, filter .15s}
   .surprise-btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
-  .flash{animation:flash 1.3s ease}
-  @keyframes flash{0%,100%{box-shadow:var(--shadow)}30%{box-shadow:0 0 0 4px var(--sunset),0 16px 40px rgba(245,166,35,.5)}}
 
-  /* ---------- Controls ---------- */
-  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-  .controls{
-    margin:-34px auto 6px;position:relative;z-index:3;max-width:1080px;
-    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;
-  }
-  .search{
-    flex:1 1 280px;max-width:420px;display:flex;align-items:center;gap:8px;
-    background:var(--card);border-radius:14px;padding:11px 15px;box-shadow:var(--shadow);
-  }
-  .search input{border:0;outline:0;font-size:1rem;width:100%;background:transparent;color:var(--ink)}
-  .filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-  .chip{
-    border:0;cursor:pointer;font-size:.86rem;font-weight:600;
-    padding:10px 15px;border-radius:999px;background:var(--card);color:var(--sea-deep);
-    box-shadow:var(--shadow);transition:transform .12s ease, background .2s;
-  }
+  .chiprow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:1080px;margin:12px auto 0;padding:0 18px}
+  .chiprow.cuisines{margin-top:8px}
+  .chip{border:0;cursor:pointer;font-size:.84rem;font-weight:600;padding:9px 14px;border-radius:999px;
+    background:var(--card);color:var(--sea-deep);box-shadow:var(--shadow);transition:transform .12s ease, background .2s;white-space:nowrap}
   .chip:hover{transform:translateY(-2px)}
   .chip.active{background:var(--coral);color:#fff}
-  .countline{text-align:center;color:#5b6f78;font-size:.85rem;margin:14px 0 2px}
+  .chip.feat.active{background:var(--sunset);color:#fff}
+  .countline{text-align:center;color:#5b6f78;font-size:.85rem;margin:16px 0 2px}
 
-  /* ---------- Grid ---------- */
-  .grid{
-    display:grid;gap:22px;padding:18px 0 10px;
-    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  }
-  .card{
-    background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);
-    display:flex;flex-direction:column;transition:transform .15s ease, box-shadow .15s ease;
-    border:1px solid rgba(6,58,77,.06);
-  }
+  .grid{display:grid;gap:22px;padding:14px 0 10px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+  .card{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);display:flex;
+    flex-direction:column;transition:transform .15s ease, box-shadow .15s ease;border:1px solid rgba(6,58,77,.06)}
   .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(6,58,77,.20)}
+  .card.is-featured{border:2px solid var(--sunset)}
   .photo{position:relative;height:188px;background:linear-gradient(135deg,var(--sky),var(--sea));overflow:hidden}
   .photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .photo .fallback{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    font-size:4rem;background:linear-gradient(135deg,#ffd9a0,#ff9a76);
-  }
-  .status{
-    position:absolute;top:12px;left:12px;font-size:.74rem;font-weight:700;
-    padding:6px 11px;border-radius:999px;color:#fff;display:flex;align-items:center;gap:6px;
-    box-shadow:0 2px 8px rgba(0,0,0,.25);
-  }
+  .photo .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-size:4rem;background:linear-gradient(135deg,#ffd9a0,#ff9a76)}
+  .status{position:absolute;top:12px;left:12px;font-size:.74rem;font-weight:700;padding:6px 11px;border-radius:999px;
+    color:#fff;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
   .status .pulse{width:8px;height:8px;border-radius:50%;background:#fff}
-  .status.open{background:var(--open)}
-  .status.closed{background:var(--closed)}
-  .rating{
-    position:absolute;top:12px;right:12px;background:rgba(255,255,255,.94);
-    color:#b8860b;font-weight:700;font-size:.82rem;padding:5px 10px;border-radius:999px;
-  }
+  .status.open{background:var(--open)} .status.closed{background:var(--closed)}
+  .featured-badge{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:var(--sunset);color:#fff;
+    font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
+    box-shadow:0 2px 8px rgba(0,0,0,.3)}
+  .rating{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.94);color:#b8860b;font-weight:700;
+    font-size:.82rem;padding:5px 10px;border-radius:999px}
   .body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
-  .name{margin:0;font-size:1.32rem;font-weight:800;color:var(--sea-deep)}
+  .name{margin:0;font-size:1.3rem;font-weight:800;color:var(--sea-deep)}
+  .cuisine-line{font-size:.8rem;color:var(--olive);font-weight:700;margin:3px 0 0}
   .price{color:var(--olive);font-weight:700}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 6px}
-  .tag{font-size:.72rem;background:var(--sand-warm);color:#6a5326;padding:4px 9px;border-radius:999px;font-weight:600}
+  .tag-chip{font-size:.72rem;background:var(--sand-warm);color:#6a5326;padding:4px 9px;border-radius:999px;font-weight:600}
   .desc{font-size:.9rem;color:#48606b;line-height:1.45;margin:6px 0 12px}
+  .addr{font-size:.82rem;color:#5b6f78;margin:2px 0 8px;display:flex;gap:6px;align-items:flex-start;font-style:normal}
   .hours-now{font-size:.84rem;margin:0 0 12px;color:#3a525c}
   .hours-now b{color:var(--ink)}
-
   .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
-  .actions a{
-    text-decoration:none;text-align:center;font-size:.85rem;font-weight:600;
-    padding:10px 8px;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:6px;
-    transition:filter .15s, transform .12s;
-  }
+  .actions a{text-decoration:none;text-align:center;font-size:.85rem;font-weight:600;padding:10px 8px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;gap:6px;transition:filter .15s, transform .12s}
   .actions a:hover{filter:brightness(1.05);transform:translateY(-1px)}
   .btn-call{background:var(--olive);color:#fff}
   .btn-map{background:var(--sea);color:#fff}
   .btn-web{background:var(--sand-warm);color:#6a5326}
   .btn-book{background:var(--coral);color:#fff}
-  .addr{font-size:.82rem;color:#5b6f78;margin:2px 0 12px;display:flex;gap:6px;align-items:flex-start}
-
   details{margin-top:14px;border-top:1px dashed rgba(6,58,77,.18);padding-top:12px}
-  details summary{
-    cursor:pointer;font-weight:700;color:var(--coral);list-style:none;
-    display:flex;align-items:center;justify-content:space-between;font-size:.95rem;
-  }
+  details summary{cursor:pointer;font-weight:700;color:var(--coral);list-style:none;display:flex;align-items:center;
+    justify-content:space-between;font-size:.95rem}
   details summary::-webkit-details-marker{display:none}
   details summary .chev{transition:transform .2s}
   details[open] summary .chev{transform:rotate(180deg)}
   .menu-sec{margin-top:12px}
-  .menu-sec h4{
-    margin:12px 0 6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;
-    color:var(--sea);border-bottom:1px solid var(--sand-warm);padding-bottom:4px;
-  }
+  .menu-sec h4{margin:12px 0 6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;color:var(--sea);
+    border-bottom:1px solid var(--sand-warm);padding-bottom:4px}
   .dish{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:.88rem}
   .dish .d-name{font-weight:600;color:var(--ink)}
   .dish .d-desc{font-size:.78rem;color:#6b7d85;display:block;font-weight:400}
   .dish .d-price{color:var(--olive);font-weight:700;white-space:nowrap}
   .full-menu{display:inline-block;margin-top:12px;font-size:.82rem;color:var(--sea);font-weight:600;text-decoration:none}
   .full-menu:hover{text-decoration:underline}
-
   .empty{text-align:center;padding:50px 20px;color:#5b6f78}
 
-  /* ---------- Footer ---------- */
-  footer{
-    margin-top:30px;background:var(--sea-deep);color:#cfe6ee;text-align:center;
-    padding:30px 20px 36px;font-size:.84rem;line-height:1.6;
-  }
+  /* ad slot */
+  .ad-slot{max-width:1080px;margin:10px auto;padding:0 18px;text-align:center}
+  .ad-slot .ad-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:#9aa7ad;margin-bottom:4px}
+
+  /* featured / newsletter promo */
+  .promo{max-width:1080px;margin:26px auto 0;padding:22px 20px;background:linear-gradient(135deg,var(--sea),var(--sea-deep));
+    color:#fff;border-radius:20px;text-align:center;box-shadow:var(--shadow)}
+  .promo h3{margin:0 0 6px;font-size:1.25rem}
+  .promo p{margin:0 auto 14px;max-width:560px;opacity:.95;font-size:.92rem;line-height:1.5}
+  .promo .cta{display:inline-block;background:var(--sunset);color:#fff;text-decoration:none;font-weight:700;
+    padding:11px 20px;border-radius:999px;transition:transform .12s,filter .15s}
+  .promo .cta:hover{transform:translateY(-2px);filter:brightness(1.05)}
+  .news{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .news input{border:0;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.92);color:#16323d;
+    padding:11px 14px;border-radius:11px;font-size:.95rem;min-width:230px;outline:0}
+  .news button{border:0;cursor:pointer;background:var(--coral);color:#fff;font-weight:700;padding:11px 18px;border-radius:11px}
+  .news-msg{margin-top:10px;font-size:.88rem;min-height:1.2em;font-weight:600}
+
+  footer{margin-top:30px;background:var(--sea-deep);color:#cfe6ee;text-align:center;padding:30px 20px 40px;
+    font-size:.84rem;line-height:1.6}
   footer a{color:var(--sunset);text-decoration:none}
-  footer .disc{font-size:.74rem;opacity:.7;max-width:640px;margin:14px auto 0}
+  footer a:hover{text-decoration:underline}
+  footer nav{margin:8px 0 6px}
+  footer nav a{margin:0 8px}
+  footer .disc{font-size:.74rem;opacity:.72;max-width:680px;margin:14px auto 0}
 
   @media(max-width:480px){
     header h1{font-size:2.1rem}
-    .actions{grid-template-columns:1fr 1fr}
+    .chiprow{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;padding-bottom:4px}
+    .chiprow::-webkit-scrollbar{display:none}
   }
 </style>
 </head>
@@ -225,31 +190,25 @@
 
 <header>
   <button id="theme-toggle" class="theme-toggle" aria-label="Toggle day/night theme" title="Toggle day / night">🌙</button>
-  <span class="badge-pill">🌴 The Island • Alameda, CA</span>
-  <h1>Isola <span class="accent">Italian</span></h1>
-  <p class="tag">Your friendly guide to the best Italian food on the Island — menus, photos, and who's open right now.</p>
+  <span class="badge-pill">🌴 The Island · Alameda, CA</span>
+  <h1>Isola <span class="accent">Alameda Eats</span></h1>
+  <p class="tag">The best restaurants in Alameda, CA — see who's <b>open right now</b>, browse menus &amp; photos, and call, map, or order in one tap.</p>
+  <p class="updated">Updated June 2026 · <span id="spotcount">22</span> island spots · every cuisine</p>
   <div class="clock" id="clock"><span class="dot"></span><span id="clock-text">Loading island time…</span></div>
   <div class="wave">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="#fbf6ec" d="M0,32 C240,64 480,0 720,24 C960,48 1200,8 1440,32 L1440,60 L0,60 Z"></path></svg>
   </div>
 </header>
 
+<main class="wrap-main">
 <div class="controls">
   <div class="search">
     <span>🔍</span>
-    <input id="search" type="text" placeholder="Search dishes, places, vibes…" aria-label="Search" />
-  </div>
-  <div class="filters" id="filters">
-    <button class="chip active" data-filter="all">All</button>
-    <button class="chip" data-filter="open">🟢 Open Now</button>
-    <button class="chip" data-filter="fav">❤️ Favorites</button>
-    <button class="chip" data-filter="pizza">🍕 Pizza</button>
-    <button class="chip" data-filter="pasta">🍝 Pasta</button>
-    <button class="chip" data-filter="waterfront">🌊 Waterfront</button>
+    <input id="search" type="text" placeholder="Search dishes, places, cuisines…" aria-label="Search restaurants and dishes" />
   </div>
   <div class="sort-wrap">
     <span>↕️ Sort</span>
-    <select id="sort">
+    <select id="sort" aria-label="Sort restaurants">
       <option value="smart">Open first</option>
       <option value="rating">Top rated</option>
       <option value="name">Name A–Z</option>
@@ -258,406 +217,398 @@
   <button class="surprise-btn" id="surprise">🎲 Surprise me</button>
 </div>
 
+<div class="chiprow" id="filters">
+  <button class="chip active" data-filter="all">All</button>
+  <button class="chip" data-filter="open">🟢 Open Now</button>
+  <button class="chip" data-filter="fav">❤️ Favorites</button>
+  <button class="chip feat" data-filter="featured">⭐ Featured</button>
+  <button class="chip" data-filter="cat:waterfront">🌊 Waterfront</button>
+  <button class="chip" data-filter="cat:patio">🌿 Patio</button>
+  <button class="chip" data-filter="cat:breakfast">🍳 Breakfast</button>
+  <button class="chip" data-filter="cat:vegan">🥗 Veg-friendly</button>
+</div>
+<div class="chiprow cuisines" id="cuisine-chips"></div>
+
 <div class="wrap">
   <p class="countline" id="count"></p>
   <div class="grid" id="grid"></div>
   <div class="empty" id="empty" style="display:none">🍅 No spots match that — try another search or filter.</div>
+  <div class="ad-slot" id="ad-slot" hidden><div class="ad-label">Advertisement</div><div id="ad-unit"></div></div>
 </div>
 
+<section class="promo wrap">
+  <h3>📈 Own an Alameda restaurant?</h3>
+  <p>Get a <strong>Featured listing</strong> — pinned to the top, highlighted, and seen first by hungry locals searching "open now." Founding-sponsor pricing for the first spots on the Island.</p>
+  <a class="cta" id="feature-cta" href="#">Get Featured →</a>
+  <div class="news" role="group" aria-label="Newsletter signup">
+    <form id="news-form">
+      <input id="news-email" type="email" name="email" placeholder="you@email.com" aria-label="Your email" required />
+      <button type="submit">📬 Get the weekly eats list</button>
+    </form>
+  </div>
+  <div class="news-msg" id="news-msg"></div>
+</section>
+</main>
+
 <footer>
-  <strong>Isola — Alameda Italian</strong> · A friendly neighborhood food guide for the Island 🌴<br>
-  Hours & menus shown for convenience — please call ahead to confirm, especially on holidays.<br>
+  <strong>Isola — Alameda Eats</strong> · The Island's restaurant guide 🌴<br>
+  Hours &amp; menus are shown for convenience — please call ahead to confirm, especially on holidays.
+  <nav>
+    <a href="about.html">About</a> ·
+    <a href="privacy.html">Privacy</a> ·
+    <a href="privacy.html#disclosure">Affiliate Disclosure</a> ·
+    <a id="footer-contact" href="#">Contact / Advertise</a>
+  </nav>
   <div class="disc">
-    Built with 🧡 in Alameda. Menu prices are approximate and subject to change.
-    Info compiled from each restaurant's website &amp; public listings (Yelp, OpenTable).
+    Built with 🧡 in Alameda. Menu prices are approximate and subject to change. Some "Order" / "Reserve" links may be
+    affiliate links — we may earn a commission at no extra cost to you. "Featured" listings are paid placements and are
+    labeled as such. Info compiled from each restaurant's website &amp; public listings.
   </div>
 </footer>
 
 <script>
 /* ===========================================================
+   CONFIG — edit these to turn on revenue features
+   =========================================================== */
+const CONFIG = {
+  CANONICAL: "https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/",
+  CONTACT_EMAIL: "StevensLegacyStudios@gmail.com", // where "Get Featured" + contact go
+  ADSENSE_CLIENT: "",   // e.g. "ca-pub-1234567890123456" — leave "" until AdSense-approved
+  FORMSPREE_ID:   ""    // e.g. "xayzwvut" — newsletter capture endpoint (formspree.io/f/<id>)
+};
+
+/* ===========================================================
    RESTAURANT DATA
-   hours: index 0=Sun ... 6=Sat. Each day = array of [openHr, closeHr]
-   intervals in 24h decimal (e.g. 17.5 = 5:30pm). [] = closed.
+   hours: index 0=Sun..6=Sat. Each day = array of [open,close] in 24h decimal (17.5=5:30pm). [] = closed.
+   cuisine: primary cuisine (drives cuisine filters).  cats: feature flags (waterfront/patio/breakfast/vegan/delivery).
+   featured: true => pinned to top with a "Featured" badge (paid placement).
    =========================================================== */
 const RESTAURANTS = [
-  {
-    name:"Trabocco Kitchen & Cocktails",
-    emoji:"🍤",
+  { name:"Trabocco Kitchen & Cocktails", emoji:"🍤", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=70",
-    rating:"4.5",
-    price:"$$$",
-    tags:["Pasta","Seafood","Cocktails","Patio"],
-    cats:["pasta"],
+    rating:"4.5", price:"$$$", tags:["Pasta","Seafood","Cocktails","Patio"], cats:["patio"],
     desc:"Chef-owner Giuseppe Naccarelli's seasonal Abruzzo-inspired cooking with a sleek bar and year-round outdoor dining at South Shore.",
-    address:"2213 South Shore Center, Alameda, CA 94501",
-    phone:"+15105211152",
-    phoneLabel:"(510) 521-1152",
-    website:"https://trabocco.com",
-    menuUrl:"https://trabocco.com/menu/",
-    reserve:"https://www.opentable.com/r/trabocco-alameda",
+    address:"2213 South Shore Center, Alameda, CA 94501", phone:"+15105211152", phoneLabel:"(510) 521-1152",
+    website:"https://trabocco.com", menuUrl:"https://trabocco.com/menu/", reserve:"https://www.opentable.com/r/trabocco-alameda",
     hours:[[[11.5,21]],[],[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,22]],[[11.5,22]]],
     menu:[
-      {sec:"Antipasti",items:[
-        {n:"Burrata & Prosciutto",d:"Creamy burrata, San Daniele prosciutto, grilled bread",p:"$18"},
-        {n:"Calamari Fritti",d:"Crispy calamari, spicy arrabbiata aioli",p:"$17"}]},
-      {sec:"Pasta",items:[
-        {n:"Pappardelle al Ragù di Agnello",d:"House pappardelle, slow-braised lamb ragù",p:"$28"},
-        {n:"Risotto ai Frutti di Mare",d:"Seafood risotto with clams, mussels & shrimp",p:"$30"}]},
-      {sec:"Secondi",items:[
-        {n:"Pollo alla Contadina",d:"Wood-fired half chicken, rosemary potatoes",p:"$29"},
-        {n:"Seafood Platter",d:"Wood-fired catch of the day, market veg",p:"$42"}]},
-      {sec:"Dolci",items:[
-        {n:"Tiramisù",d:"The house classic — guest favorite",p:"$12"}]}
-    ]
-  },
-  {
-    name:"The Star on Park",
-    emoji:"🍕",
+      {sec:"Antipasti",items:[{n:"Burrata & Prosciutto",d:"Creamy burrata, San Daniele prosciutto, grilled bread",p:"$18"},{n:"Calamari Fritti",d:"Crispy calamari, spicy arrabbiata aioli",p:"$17"}]},
+      {sec:"Pasta",items:[{n:"Pappardelle al Ragù di Agnello",d:"House pappardelle, slow-braised lamb ragù",p:"$28"},{n:"Risotto ai Frutti di Mare",d:"Seafood risotto with clams, mussels & shrimp",p:"$30"}]},
+      {sec:"Secondi",items:[{n:"Pollo alla Contadina",d:"Wood-fired half chicken, rosemary potatoes",p:"$29"},{n:"Seafood Platter",d:"Wood-fired catch of the day, market veg",p:"$42"}]},
+      {sec:"Dolci",items:[{n:"Tiramisù",d:"The house classic — guest favorite",p:"$12"}]}
+    ]},
+  { name:"The Star on Park", emoji:"🍕", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=70",
-    rating:"4.4",
-    price:"$$",
-    tags:["Deep-Dish","Pizza","Craft Cocktails","Bar"],
-    cats:["pizza"],
+    rating:"4.4", price:"$$", tags:["Deep-Dish","Pizza","Craft Cocktails","Bar"], cats:[],
     desc:"Downtown's artisan pizzeria & cocktail bar — Chicago-style deep dish and thin crust with a serious full bar.",
-    address:"1400 Park St, Alameda, CA 94501",
-    phone:"+15108327827",
-    phoneLabel:"(510) 832-7827",
-    website:"https://thestaronpark.com",
-    menuUrl:"https://thestaronpark.com/menu/",
-    reserve:"https://www.opentable.com/r/the-star-on-park-alameda",
+    address:"1400 Park St, Alameda, CA 94501", phone:"+15108327827", phoneLabel:"(510) 832-7827",
+    website:"https://thestaronpark.com", menuUrl:"https://thestaronpark.com/menu/", reserve:"https://www.opentable.com/r/the-star-on-park-alameda",
     hours:[[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,21]],[[11.5,22]],[[11.5,22]]],
     menu:[
-      {sec:"Starters",items:[
-        {n:"Wedge Salad",d:"Iceberg, blue cheese, bacon, buttermilk ranch",p:"$13"},
-        {n:"Garlic Knots",d:"House dough, garlic butter, marinara",p:"$9"}]},
-      {sec:"Deep Dish",items:[
-        {n:"Classic Cheese",d:"Chicago-style, two-cheese blend, chunky tomato",p:"$24"},
-        {n:"The Works",d:"Sausage, pepperoni, peppers, onion, mushroom",p:"$29"}]},
-      {sec:"Thin Crust",items:[
-        {n:"Margherita",d:"Fresh mozzarella, basil, San Marzano",p:"$19"},
-        {n:"Hot Honey Pepperoni",d:"Pepperoni cups, mozzarella, chili honey",p:"$22"}]}
-    ]
-  },
-  {
-    name:"Tomatina",
-    emoji:"🍝",
+      {sec:"Starters",items:[{n:"Wedge Salad",d:"Iceberg, blue cheese, bacon, buttermilk ranch",p:"$13"},{n:"Garlic Knots",d:"House dough, garlic butter, marinara",p:"$9"}]},
+      {sec:"Deep Dish",items:[{n:"Classic Cheese",d:"Chicago-style, two-cheese blend, chunky tomato",p:"$24"},{n:"The Works",d:"Sausage, pepperoni, peppers, onion, mushroom",p:"$29"}]},
+      {sec:"Thin Crust",items:[{n:"Margherita",d:"Fresh mozzarella, basil, San Marzano",p:"$19"},{n:"Hot Honey Pepperoni",d:"Pepperoni cups, mozzarella, chili honey",p:"$22"}]}
+    ]},
+  { name:"Tomatina", emoji:"🍝", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=70",
-    rating:"4.1",
-    price:"$$",
-    tags:["Pasta","Pizza","Piadine","Family"],
-    cats:["pasta","pizza"],
+    rating:"4.1", price:"$$", tags:["Pasta","Pizza","Piadine","Family"], cats:[],
     desc:"Relaxed Park Street neighborhood Italian — hearty unpretentious pasta, pizza and piadine. Great for families and groups.",
-    address:"1338 Park St, Alameda, CA 94501",
-    phone:"+15105211000",
-    phoneLabel:"(510) 521-1000",
-    website:"https://tomatina.com/menu/tomatina-alameda-1338-park-street",
-    menuUrl:"https://tomatina.com/menu/tomatina-alameda-1338-park-street",
-    reserve:"https://www.opentable.com/r/tomatina-alameda",
+    address:"1338 Park St, Alameda, CA 94501", phone:"+15105211000", phoneLabel:"(510) 521-1000",
+    website:"https://tomatina.com/menu/tomatina-alameda-1338-park-street", menuUrl:"https://tomatina.com/menu/tomatina-alameda-1338-park-street", reserve:"https://www.opentable.com/r/tomatina-alameda",
     hours:[[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,22]],[[11,22]]],
     menu:[
-      {sec:"Salads",items:[
-        {n:"Mixta",d:"Greens, gorgonzola, pickled onion, candied walnuts, honey-mustard",p:"$13"},
-        {n:"Caesar",d:"Romaine, parmesan, garlic croutons",p:"$11"}]},
-      {sec:"Pasta",items:[
-        {n:"Spaghetti & Meatballs",d:"House marinara, beef-pork meatballs",p:"$18"},
-        {n:"Penne al Pesto",d:"Basil pesto, pine nuts, parmesan",p:"$16"}]},
-      {sec:"Piadine & Pizza",items:[
-        {n:"Margherita Pizza",d:"Mozzarella, tomato, basil",p:"$16"},
-        {n:"Chicken Piadina",d:"Italian flatbread, grilled chicken, greens",p:"$15"}]}
-    ]
-  },
-  {
-    name:"Pasta Pelican",
-    emoji:"🌊",
+      {sec:"Salads",items:[{n:"Mixta",d:"Greens, gorgonzola, pickled onion, candied walnuts, honey-mustard",p:"$13"},{n:"Caesar",d:"Romaine, parmesan, garlic croutons",p:"$11"}]},
+      {sec:"Pasta",items:[{n:"Spaghetti & Meatballs",d:"House marinara, beef-pork meatballs",p:"$18"},{n:"Penne al Pesto",d:"Basil pesto, pine nuts, parmesan",p:"$16"}]},
+      {sec:"Piadine & Pizza",items:[{n:"Margherita Pizza",d:"Mozzarella, tomato, basil",p:"$16"},{n:"Chicken Piadina",d:"Italian flatbread, grilled chicken, greens",p:"$15"}]}
+    ]},
+  { name:"Pasta Pelican", emoji:"🌊", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=70",
-    rating:"4.3",
-    price:"$$",
-    tags:["Waterfront","Pasta","Seafood","Wine"],
-    cats:["pasta","waterfront"],
+    rating:"4.3", price:"$$", tags:["Waterfront","Pasta","Seafood","Wine"], cats:["waterfront"],
     desc:"Classic waterfront dining on the Oakland Estuary — traditional Italian & Americana with marina views and a big wine list.",
-    address:"2455 Mariner Square Dr, Alameda, CA 94501",
-    phone:"+15108647427",
-    phoneLabel:"(510) 864-7427",
-    website:"https://www.pastapelican.com",
-    menuUrl:"https://www.pastapelican.com/menu/",
-    reserve:"https://www.pastapelican.com/reservations/",
+    address:"2455 Mariner Square Dr, Alameda, CA 94501", phone:"+15108647427", phoneLabel:"(510) 864-7427",
+    website:"https://www.pastapelican.com", menuUrl:"https://www.pastapelican.com/menu/", reserve:"https://www.pastapelican.com/reservations/",
     hours:[[[11.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,14.5],[16.5,21]],[[11.5,21]],[[11.5,21]]],
     menu:[
-      {sec:"Antipasti",items:[
-        {n:"Steamed Clams",d:"White wine, garlic, herbs, grilled bread",p:"$17"},
-        {n:"Caprese",d:"Tomato, fresh mozzarella, basil, balsamic",p:"$14"}]},
-      {sec:"Pasta",items:[
-        {n:"Linguine alle Vongole",d:"Fresh clams, garlic, white wine",p:"$24"},
-        {n:"Fettuccine Alfredo",d:"Parmesan cream, add chicken or prawns",p:"$21"}]},
-      {sec:"From the Sea",items:[
-        {n:"Cioppino",d:"San Francisco seafood stew, tomato broth",p:"$32"},
-        {n:"Grilled Salmon",d:"Seasonal vegetables, lemon butter",p:"$28"}]}
-    ]
-  },
-  {
-    name:"Pizzeria Pappo",
-    emoji:"🍕",
+      {sec:"Antipasti",items:[{n:"Steamed Clams",d:"White wine, garlic, herbs, grilled bread",p:"$17"},{n:"Caprese",d:"Tomato, fresh mozzarella, basil, balsamic",p:"$14"}]},
+      {sec:"Pasta",items:[{n:"Linguine alle Vongole",d:"Fresh clams, garlic, white wine",p:"$24"},{n:"Fettuccine Alfredo",d:"Parmesan cream, add chicken or prawns",p:"$21"}]},
+      {sec:"From the Sea",items:[{n:"Cioppino",d:"San Francisco seafood stew, tomato broth",p:"$32"},{n:"Grilled Salmon",d:"Seasonal vegetables, lemon butter",p:"$28"}]}
+    ]},
+  { name:"Pizzeria Pappo", emoji:"🍕", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=70",
-    rating:"4.4",
-    price:"$$",
-    tags:["Wood-Fired","Pizza","Antipasti","Cozy"],
-    cats:["pizza"],
+    rating:"4.4", price:"$$", tags:["Wood-Fired","Pizza","Antipasti","Cozy"], cats:[],
     desc:"Crispy thin-crust wood-fired pizza on Santa Clara Ave with sharp seasonal salads and a fun soft-serve finish.",
-    address:"709 Santa Clara Ave, Alameda, CA 94501",
-    phone:"+15104730613",
-    phoneLabel:"(510) 473-0613",
-    website:"https://pizzeriapappo.com",
-    menuUrl:"https://pizzeriapappo.com/order",
-    reserve:"https://pizzeriapappo.com/contact-us",
+    address:"709 Santa Clara Ave, Alameda, CA 94501", phone:"+15104730613", phoneLabel:"(510) 473-0613",
+    website:"https://pizzeriapappo.com", menuUrl:"https://pizzeriapappo.com/order", reserve:"https://pizzeriapappo.com/contact-us",
     hours:[[],[],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]],[[11.5,14.5],[17,20.5]]],
     menu:[
-      {sec:"To Start",items:[
-        {n:"Golden Beet Salad",d:"Roasted beets, citrus, goat cheese, pistachio",p:"$14"},
-        {n:"Wings",d:"Crispy wings, dill pickle ranch",p:"$13"}]},
-      {sec:"Wood-Fired Pizza",items:[
-        {n:"Margherita",d:"San Marzano, fresh mozzarella, basil",p:"$18"},
-        {n:"Sausage & Fennel",d:"House sausage, fennel, chili, mozzarella",p:"$21"}]},
-      {sec:"Sweet",items:[
-        {n:"Soft Serve",d:"Vanilla, olive oil & flaky salt",p:"$7"}]}
-    ]
-  },
-  {
-    name:"East End",
-    emoji:"🍕",
+      {sec:"To Start",items:[{n:"Golden Beet Salad",d:"Roasted beets, citrus, goat cheese, pistachio",p:"$14"},{n:"Wings",d:"Crispy wings, dill pickle ranch",p:"$13"}]},
+      {sec:"Wood-Fired Pizza",items:[{n:"Margherita",d:"San Marzano, fresh mozzarella, basil",p:"$18"},{n:"Sausage & Fennel",d:"House sausage, fennel, chili, mozzarella",p:"$21"}]},
+      {sec:"Sweet",items:[{n:"Soft Serve",d:"Vanilla, olive oil & flaky salt",p:"$7"}]}
+    ]},
+  { name:"East End", emoji:"🍕", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=70",
-    rating:"4.4",
-    price:"$$",
-    tags:["Wood-Fired","Oysters","Cocktails","Date Night"],
-    cats:["pizza"],
+    rating:"4.4", price:"$$", tags:["Wood-Fired","Oysters","Cocktails","Date Night"], cats:[],
     desc:"Park Street favorite slinging native-yeast sourdough wood-fired pizzas since 2011, plus shucked-to-order oysters, craft cocktails and seasonal small plates. Lively, dinner-only.",
-    address:"1650 Park St, Unit A, Alameda, CA 94501",
-    phone:"+15102639630",
-    phoneLabel:"(510) 263-9630",
-    website:"https://www.eastendalameda.com",
-    menuUrl:"https://www.eastendalameda.com/food",
-    reserve:"https://www.eastendalameda.com/make-a-reservation-at-east-end",
+    address:"1650 Park St, Unit A, Alameda, CA 94501", phone:"+15102639630", phoneLabel:"(510) 263-9630",
+    website:"https://www.eastendalameda.com", menuUrl:"https://www.eastendalameda.com/food", reserve:"https://www.eastendalameda.com/make-a-reservation-at-east-end",
     hours:[[],[],[[17,21]],[[17,21]],[[17,21]],[[17,21.5]],[[17,21]]],
     menu:[
-      {sec:"Wood-Fired Pizza",items:[
-        {n:"Margherita",d:"Red sauce, hand-pulled mozzarella, fresh basil",p:"$18"},
-        {n:"Diablita",d:"Red sauce, Calabrian chiles, house cheese, goat cheese, shaved garlic",p:"$18"},
-        {n:"Caruso",d:"Béchamel, fire-roasted leeks, sottocenere",p:"$18"}]},
-      {sec:"To Share",items:[
-        {n:"Wings",d:"Mary's wings, Calabrian glaze, roasted garlic buttermilk",p:"$15"},
-        {n:"Garlic Toast",d:"Fried garlic-drenched sourdough, parm, herbs",p:"$9"},
-        {n:"Arugula Salad",d:"Fava beans, shaved fennel, preserved lemon, pecorino",p:"$13"},
-        {n:"Kennebec Fries",d:"Hand-cut, tomato jam & Calabrian aiolis",p:"$10"}]}
-    ]
-  },
-  {
-    name:"C'era Una Volta",
-    emoji:"🍝",
+      {sec:"Wood-Fired Pizza",items:[{n:"Margherita",d:"Red sauce, hand-pulled mozzarella, fresh basil",p:"$18"},{n:"Diablita",d:"Red sauce, Calabrian chiles, house cheese, goat cheese, shaved garlic",p:"$18"},{n:"Caruso",d:"Béchamel, fire-roasted leeks, sottocenere",p:"$18"}]},
+      {sec:"To Share",items:[{n:"Wings",d:"Mary's wings, Calabrian glaze, roasted garlic buttermilk",p:"$15"},{n:"Garlic Toast",d:"Fried garlic-drenched sourdough, parm, herbs",p:"$9"},{n:"Arugula Salad",d:"Fava beans, shaved fennel, preserved lemon, pecorino",p:"$13"},{n:"Kennebec Fries",d:"Hand-cut, tomato jam & Calabrian aiolis",p:"$10"}]}
+    ]},
+  { name:"C'era Una Volta", emoji:"🍝", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=800&q=70",
-    rating:"4.1",
-    price:"$$",
-    tags:["Tuscan","Handmade Pasta","Wine List","Vegan Options"],
-    cats:["pasta"],
+    rating:"4.1", price:"$$", tags:["Tuscan","Handmade Pasta","Wine List","Vegan Options"], cats:["vegan"],
     desc:"Authentic Tuscan kitchen from a Florentine-trained chef — handmade pastas, risottos and a deep Italian wine list. A longtime island favorite for lunch and early dinner.",
-    address:"800 W Tower Ave, Alameda, CA 94501",
-    phone:"+15107694828",
-    phoneLabel:"(510) 769-4828",
-    website:"https://www.ceraunavolta.us",
-    menuUrl:"https://www.ceraunavolta.us/chefs-specials-menu",
-    reserve:"https://www.ceraunavolta.us",
+    address:"800 W Tower Ave, Alameda, CA 94501", phone:"+15107694828", phoneLabel:"(510) 769-4828",
+    website:"https://www.ceraunavolta.us", menuUrl:"https://www.ceraunavolta.us/chefs-specials-menu", reserve:"https://www.ceraunavolta.us",
     hours:[[],[[11,16]],[[11,18]],[[11,18]],[[11,18]],[[11,18]],[[11,14]]],
     menu:[
-      {sec:"Antipasti",items:[
-        {n:"Piatto Freddo Misto",d:"Prosciutto, coppa, salame, olives, cheese, cured veg",p:"$18"},
-        {n:"Insalata Ave Cesare",d:"Romaine, anchovies, Parmigiano, crostini",p:"$11"},
-        {n:"Insalata Barbabietole",d:"Roasted beets, greens, pistachios, balsamic",p:"$11"}]},
-      {sec:"Pasta & Risotto",items:[
-        {n:"Gnocchi ai Tartufo",d:"Truffle gnocchi, porcini cream, Parmigiano",p:"$20"},
-        {n:"Ravioli ai Carciofi",d:"Artichoke ravioli, cream & walnut sauce",p:"$19"},
-        {n:"Tagliolini con Branzino",d:"Egg pasta, lightly spicy tomato, branzino",p:"$21"},
-        {n:"Risotto ai Funghi",d:"Creamy mushroom risotto",p:"$18"}]}
-    ]
-  },
-  {
-    name:"The Park Street Tavern",
-    emoji:"🍷",
+      {sec:"Antipasti",items:[{n:"Piatto Freddo Misto",d:"Prosciutto, coppa, salame, olives, cheese, cured veg",p:"$18"},{n:"Insalata Ave Cesare",d:"Romaine, anchovies, Parmigiano, crostini",p:"$11"},{n:"Insalata Barbabietole",d:"Roasted beets, greens, pistachios, balsamic",p:"$11"}]},
+      {sec:"Pasta & Risotto",items:[{n:"Gnocchi ai Tartufo",d:"Truffle gnocchi, porcini cream, Parmigiano",p:"$20"},{n:"Ravioli ai Carciofi",d:"Artichoke ravioli, cream & walnut sauce",p:"$19"},{n:"Tagliolini con Branzino",d:"Egg pasta, lightly spicy tomato, branzino",p:"$21"},{n:"Risotto ai Funghi",d:"Creamy mushroom risotto",p:"$18"}]}
+    ]},
+  { name:"The Park Street Tavern", emoji:"🍷", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=800&q=70",
-    rating:"4.7",
-    price:"$$$",
-    tags:["Italian-Mediterranean","Pasta","Cocktails","Date Night"],
-    cats:["pasta"],
+    rating:"4.7", price:"$$$", tags:["Italian-Mediterranean","Pasta","Cocktails","Date Night"], cats:[],
     desc:"A warm, quaint Park Street dining room serving Greek- and Italian-influenced Mediterranean plates with house pasta, scaloppini and steaks. Known for its cocktail program.",
-    address:"1901 Park St, Alameda, CA 94501",
-    phone:"+15106712867",
-    phoneLabel:"(510) 671-2867",
-    website:"https://theparkstreettavern.com",
-    menuUrl:"https://theparkstreettavern.com/alameda-the-park-street-tavern-food-menu",
-    reserve:"https://www.opentable.com/r/the-park-street-tavern-reservations-alameda",
+    address:"1901 Park St, Alameda, CA 94501", phone:"+15106712867", phoneLabel:"(510) 671-2867",
+    website:"https://theparkstreettavern.com", menuUrl:"https://theparkstreettavern.com/alameda-the-park-street-tavern-food-menu", reserve:"https://www.opentable.com/r/the-park-street-tavern-reservations-alameda",
     hours:[[[16,21]],[[17,21]],[[17,21]],[[17,21]],[[17,21]],[[17,21]],[[17,21]]],
     menu:[
-      {sec:"Starters",items:[
-        {n:"Spanakopita",d:"Flaky phyllo, spinach & feta",p:"$14"},
-        {n:"Halloumi",d:"Grilled Mediterranean cheese",p:"$15"},
-        {n:"Sautéed Prawns",d:"Shareable, Mediterranean-style",p:"$18"}]},
-      {sec:"Pasta & Mains",items:[
-        {n:"Capellini Scampi",d:"Angel hair, shrimp, garlic white-wine scampi",p:"$35"},
-        {n:"Chicken Scaloppini Piccata",d:"Lemon-caper butter, house noodles",p:"$33"},
-        {n:"Veal Scaloppini",d:"Thin veal cutlets, classic preparation",p:"$38"},
-        {n:"14oz Ribeye",d:"Grilled ribeye with sides",p:"$59"}]}
-    ]
-  },
-  {
-    name:"Santoro's Italian Market & Deli",
-    emoji:"🥪",
+      {sec:"Starters",items:[{n:"Spanakopita",d:"Flaky phyllo, spinach & feta",p:"$14"},{n:"Halloumi",d:"Grilled Mediterranean cheese",p:"$15"},{n:"Sautéed Prawns",d:"Shareable, Mediterranean-style",p:"$18"}]},
+      {sec:"Pasta & Mains",items:[{n:"Capellini Scampi",d:"Angel hair, shrimp, garlic white-wine scampi",p:"$35"},{n:"Chicken Scaloppini Piccata",d:"Lemon-caper butter, house noodles",p:"$33"},{n:"Veal Scaloppini",d:"Thin veal cutlets, classic preparation",p:"$38"},{n:"14oz Ribeye",d:"Grilled ribeye with sides",p:"$59"}]}
+    ]},
+  { name:"Santoro's Italian Market & Deli", emoji:"🥪", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=70",
-    rating:"4.6",
-    price:"$$",
-    tags:["Italian Deli","Sandwiches","Boar's Head","Casual"],
-    cats:["pasta"],
+    rating:"4.6", price:"$$", tags:["Italian Deli","Sandwiches","Boar's Head","Casual"], cats:[],
     desc:"West End Italian market and deli famous for huge handmade sandwiches on fresh Semifreddi's bread, plus daily specials like lasagna and chicken parm and imported groceries.",
-    address:"475 Santa Clara Ave, Alameda, CA 94501",
-    phone:"+15102178710",
-    phoneLabel:"(510) 217-8710",
-    website:"https://www.santorosalameda.com",
-    menuUrl:"https://www.santorosalameda.com",
-    reserve:"https://www.santorosalameda.com",
+    address:"475 Santa Clara Ave, Alameda, CA 94501", phone:"+15102178710", phoneLabel:"(510) 217-8710",
+    website:"https://www.santorosalameda.com", menuUrl:"https://www.santorosalameda.com", reserve:"https://www.santorosalameda.com",
     hours:[[],[[10.5,15]],[[10.5,15]],[[10.5,15]],[[10.5,15]],[[10.5,15]],[[11,15]]],
     menu:[
-      {sec:"Sandwiches",items:[
-        {n:"Italian Combo",d:"Capicola, salami, mortadella, provolone & veg",p:"$17.50"},
-        {n:"Meatball",d:"House meatballs in red sauce (Friday special)",p:"$15"},
-        {n:"Chicken Parm",d:"Breaded chicken, marinara, melted cheese",p:"$15"}]},
-      {sec:"From the Deli Case",items:[
-        {n:"Lasagna",d:"Layered pasta with meat & cheese (daily special)",p:"$14"},
-        {n:"Pasta Salad",d:"House-made deli-case pasta salad",p:"$6"},
-        {n:"Marinated Mushrooms & Artichokes",d:"Imported Italian antipasti",p:"$8"},
-        {n:"Pizza Slice",d:"House Italian-style pizza by the slice",p:"$5"}]}
-    ]
-  },
-  {
-    name:"Alameda Pizza",
-    emoji:"🍕",
+      {sec:"Sandwiches",items:[{n:"Italian Combo",d:"Capicola, salami, mortadella, provolone & veg",p:"$17.50"},{n:"Meatball",d:"House meatballs in red sauce (Friday special)",p:"$15"},{n:"Chicken Parm",d:"Breaded chicken, marinara, melted cheese",p:"$15"}]},
+      {sec:"From the Deli Case",items:[{n:"Lasagna",d:"Layered pasta with meat & cheese (daily special)",p:"$14"},{n:"Pasta Salad",d:"House-made deli-case pasta salad",p:"$6"},{n:"Marinated Mushrooms & Artichokes",d:"Imported Italian antipasti",p:"$8"},{n:"Pizza Slice",d:"House Italian-style pizza by the slice",p:"$5"}]}
+    ]},
+  { name:"Alameda Pizza", emoji:"🍕", cuisine:"Italian", featured:false,
     img:"https://images.unsplash.com/photo-1571066811602-716837d681de?auto=format&fit=crop&w=800&q=70",
-    rating:"4.0",
-    price:"$$",
-    tags:["Casual","Deep Dish","Calzones","Family"],
-    cats:["pizza","pasta"],
+    rating:"4.0", price:"$$", tags:["Casual","Deep Dish","Calzones","Family"], cats:["delivery"],
     desc:"A casual, seat-yourself Webster Street pizzeria serving hand-made thin and deep-dish pies, calzones, lasagna and made-to-order pasta. A longtime West End spot for dine-in or takeout.",
-    address:"1538 Webster St, Alameda, CA 94501",
-    phone:"+15105237149",
-    phoneLabel:"(510) 523-7149",
-    website:"https://alamedapizza.gotoeat.net",
-    menuUrl:"https://alamedapizza.gotoeat.net/menu",
-    reserve:"https://order.online/store/alameda-pizza-alameda-526075/",
+    address:"1538 Webster St, Alameda, CA 94501", phone:"+15105237149", phoneLabel:"(510) 523-7149",
+    website:"https://alamedapizza.gotoeat.net", menuUrl:"https://alamedapizza.gotoeat.net/menu", reserve:"https://order.online/store/alameda-pizza-alameda-526075/",
     hours:[[[12,20]],[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,21]]],
     menu:[
-      {sec:"Pizza & Calzones",items:[
-        {n:"Vegetarian Pizza",d:"Mushrooms, peppers, tomatoes, onions, olives",p:"$24"},
-        {n:"BBQ Chicken Pizza",d:"BBQ sauce, chicken, red & green onions",p:"$23.50"},
-        {n:"Calzone",d:"Ricotta, mozzarella, tomato sauce, custom fillings",p:"$15"}]},
-      {sec:"Pasta",items:[
-        {n:"Ravioli",d:"Cheese ravioli, marinara or meat sauce",p:"$17.50"},
-        {n:"Baked Ziti",d:"Baked pasta, tomato sauce, melted cheese",p:"$16"},
-        {n:"Shrimp Scampi",d:"Pasta, shrimp, garlic butter scampi",p:"$18"},
-        {n:"Lasagna",d:"Layered baked pasta, meat sauce & cheese",p:"$17"}]}
-    ]
-  }
+      {sec:"Pizza & Calzones",items:[{n:"Vegetarian Pizza",d:"Mushrooms, peppers, tomatoes, onions, olives",p:"$24"},{n:"BBQ Chicken Pizza",d:"BBQ sauce, chicken, red & green onions",p:"$23.50"},{n:"Calzone",d:"Ricotta, mozzarella, tomato sauce, custom fillings",p:"$15"}]},
+      {sec:"Pasta",items:[{n:"Ravioli",d:"Cheese ravioli, marinara or meat sauce",p:"$17.50"},{n:"Baked Ziti",d:"Baked pasta, tomato sauce, melted cheese",p:"$16"},{n:"Shrimp Scampi",d:"Pasta, shrimp, garlic butter scampi",p:"$18"},{n:"Lasagna",d:"Layered baked pasta, meat sauce & cheese",p:"$17"}]}
+    ]},
+  { name:"La Penca Azul", emoji:"🌮", cuisine:"Mexican", featured:false,
+    img:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=70",
+    rating:"4.3", price:"$$", tags:["Tacos","Burritos","Tequila Bar","Family-Owned"], cats:["delivery"],
+    desc:"Long-running Park Street favorite serving authentic, made-to-order Mexican classics, fresh seafood, and 100% blue agave tequilas. Known for huge super burritos, street tacos, and house mole.",
+    address:"1440 Park St, Alameda, CA 94501", phone:"+15107699110", phoneLabel:"(510) 769-9110",
+    website:"https://lapencaazul.com/lapencaazulparkst", menuUrl:"https://lapencaazul.com/lapencaazulparkst", reserve:"https://www.grubhub.com/restaurant/la-penca-azul-1440-park-st-alameda/719198",
+    hours:[[[9,24]],[[9,22]],[[9,22]],[[9,22]],[[9,22]],[[9,24]],[[9,24]]],
+    menu:[
+      {sec:"Antojitos & Tacos",items:[{n:"Street Tacos",d:"Soft corn tortillas, choice of meat, onion, cilantro & salsa",p:"$13"},{n:"Fish Tacos",d:"Grilled or battered fish, cabbage, chipotle crema",p:"$15"},{n:"Super Famoso Burrito",d:"Oversized burrito with rice, beans, cheese & protein",p:"$16"}]},
+      {sec:"Especialidades",items:[{n:"Chicken Mole Enchiladas",d:"Enchiladas in rich house-made mole poblano",p:"$18"},{n:"Shrimp Fajitas",d:"Sizzling prawns, peppers, onions, rice & beans",p:"$22"},{n:"Camarones al Mojo",d:"Prawns sautéed in garlic butter sauce",p:"$20"},{n:"Caldo de Camarón",d:"Shrimp soup with vegetables in savory broth",p:"$18"}]}
+    ]},
+  { name:"Toomie's by Thai Golden Rice", emoji:"🍜", cuisine:"Thai", featured:false,
+    img:"https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=70",
+    rating:"4.2", price:"$$", tags:["Thai","Curry","Noodles","Family-Owned"], cats:["delivery"],
+    desc:"A longtime family-owned Alameda favorite on Park Street serving authentic Thai curries, noodles, and classics. Previously voted #1 Restaurant in Alameda by Alameda Magazine.",
+    address:"1433 Park St, Alameda, CA 94501", phone:"+15108658008", phoneLabel:"(510) 865-8008",
+    website:"https://www.toomiesthai.com/", menuUrl:"https://www.toomiesthai.com/", reserve:"https://www.opentable.com/r/toomies-thai-cuisine-alameda",
+    hours:[[[11,21.5]],[[11,21.5]],[[11,21.5]],[[11,21.5]],[[11,21.5]],[[11,21.5]],[[11,21.5]]],
+    menu:[
+      {sec:"Appetizers & Soups",items:[{n:"Spring Rolls",d:"Deep-fried rolls, chicken & shrimp, plum sauce",p:"$10"},{n:"Chicken Satay",d:"Grilled skewers, yellow curry & coconut, peanut sauce",p:"$12"},{n:"Tom Yum",d:"Hot & sour soup, lemongrass, galangal, Thai herbs",p:"$10"}]},
+      {sec:"Curries & Noodles",items:[{n:"Green Curry",d:"Coconut milk, eggplant, bell pepper, Thai basil",p:"$15"},{n:"Panang Curry",d:"Coconut milk, bell pepper, kaffir lime leaves",p:"$15"},{n:"Pad Thai",d:"Rice noodles, egg, bean sprouts, tofu, peanuts",p:"$14"},{n:"Pad See Ew",d:"Wide rice noodles, egg, Chinese broccoli, sweet soy",p:"$14"}]}
+    ]},
+  { name:"East Ocean Seafood Restaurant", emoji:"🥟", cuisine:"Chinese", featured:false,
+    img:"https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=70",
+    rating:"4.1", price:"$$", tags:["Dim Sum","Cantonese","Seafood","Hong Kong Style"], cats:["delivery"],
+    desc:"Long-running Alameda dim sum house on Webster Street serving fresh, cart-pushed dim sum by day and live-seafood, Hong Kong-style banquet dishes by night.",
+    address:"1713 Webster St, Alameda, CA 94501", phone:"+15108653381", phoneLabel:"(510) 865-3381",
+    website:"https://east-ocean-seafood.res-menu.net/", menuUrl:"https://east-ocean-seafood.res-menu.net/", reserve:"https://www.opentable.com/r/east-ocean-seafood-restaurant-alameda",
+    hours:[[[10,14.5],[17,21]],[[11,14.5],[17,20]],[[11,14.5],[17,20]],[[11,14.5],[17,20]],[[11,14.5],[17,20]],[[11,14.5],[17,20]],[[10,14.5],[17,21.5]]],
+    menu:[
+      {sec:"Dim Sum",items:[{n:"Shrimp Har Gow",d:"Steamed crystal-skin dumplings with whole shrimp",p:"$9.95"},{n:"Pork & Shrimp Siu Mai",d:"Open-topped steamed pork & shrimp dumplings",p:"$9.95"},{n:"BBQ Pork Buns",d:"Fluffy buns with sweet roast pork",p:"$9.95"},{n:"Egg Custard Tarts",d:"Flaky tartlets with silky egg custard",p:"$9.95"}]},
+      {sec:"Seafood & House Specialties",items:[{n:"Salt & Pepper Calamari",d:"Crispy fried squid, salt, pepper, chili",p:"$16.95"},{n:"Seared Scallops with Mushrooms",d:"Fresh scallops, mixed mushrooms, light sauce",p:"$22.95"},{n:"Beef Dry Chow Fun",d:"Wok-fried wide rice noodles, beef, bean sprouts",p:"$22.95"}]}
+    ]},
+  { name:"Pho Anh Dao Alameda", emoji:"🍲", cuisine:"Vietnamese", featured:false,
+    img:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=800&q=70",
+    rating:"4.4", price:"$$", tags:["Pho","Banh Mi","Noodle Soup","Casual"], cats:["delivery"],
+    desc:"Friendly, affordable Webster Street Vietnamese spot known for richly flavored pho, banh mi, and generous portions at great value. A reliable neighborhood favorite for consistent comfort food.",
+    address:"1919 Webster St, Alameda, CA 94501", phone:"+15102638577", phoneLabel:"(510) 263-8577",
+    website:"https://phoanhdao.com/", menuUrl:"https://phoanhdao.com/", reserve:"https://www.ubereats.com/store/pho-anh-dao-alameda/36soSRIdTdm1EE19kDXxMQ",
+    hours:[[[11,21]],[],[[11,21]],[[11,21]],[[11,21]],[[11,21]],[[11,21]]],
+    menu:[
+      {sec:"Pho & Soups",items:[{n:"Pho Dac Biet",d:"House special pho: steak, flank, brisket, tendon & tripe",p:"$15.50"},{n:"Pho Ga",d:"Chicken pho in clear aromatic broth",p:"$15.50"},{n:"Pho Tai",d:"Pho with thinly sliced rare steak",p:"$15"}]},
+      {sec:"Appetizers & Rice Plates",items:[{n:"Shrimp & Pork Spring Rolls",d:"Fresh rolls, herbs, peanut sauce (2)",p:"$4.50"},{n:"Basil Wings",d:"Crispy fried wings tossed in Thai basil (4)",p:"$6.50"},{n:"Banh Mi",d:"Pickled veg, cilantro, choice of protein",p:"$8"},{n:"Vermicelli Bowl",d:"Rice noodles, grilled meat, herbs, nuoc cham",p:"$14"}]}
+    ]},
+  { name:"Angel Fish Japanese Restaurant", emoji:"🍣", cuisine:"Japanese", featured:false,
+    img:"https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=70",
+    rating:"4.2", price:"$$", tags:["Sushi","Sashimi","Tempura","Bay Views"], cats:["delivery","waterfront"],
+    desc:"A well-loved neighborhood Japanese sushi spot on Alameda's Bay Farm Island, serving fresh sashimi, signature rolls, tempura, and warm kitchen dishes like teriyaki and udon.",
+    address:"883 Island Dr, Ste C-2, Alameda, CA 94502", phone:"+15107490460", phoneLabel:"(510) 749-0460",
+    website:"https://www.angelfishalameda.com/", menuUrl:"https://www.angelfishalameda.com/menu/", reserve:"https://order.online/store/angel-fish-japanese-restaurant-alameda-46266",
+    hours:[[[16,20]],[],[[11.5,14],[16,21]],[[11.5,14],[16,21]],[[11.5,14],[16,21]],[[11.5,14],[16,21]],[[15,21]]],
+    menu:[
+      {sec:"Sushi & Sashimi",items:[{n:"Chirashi",d:"Assorted sashimi over seasoned sushi rice",p:"$24"},{n:"Sashimi Combination",d:"Chef's-choice sashimi, fresh and properly cut",p:"$26"},{n:"California Roll",d:"Real crab, avocado, cucumber",p:"$9"},{n:"Spicy Tuna Roll",d:"Fresh tuna with spicy sauce",p:"$9"}]},
+      {sec:"Kitchen",items:[{n:"Tempura Udon",d:"Thick noodles in hot broth, shrimp & veg tempura",p:"$16"},{n:"Beef Teriyaki",d:"Grilled rib eye, house teriyaki",p:"$22"},{n:"Tempura Combination",d:"Crispy shrimp & assorted vegetable tempura",p:"$17"}]}
+    ]},
+  { name:"India Palace", emoji:"🍛", cuisine:"Indian", featured:false,
+    img:"https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=70",
+    rating:"4.3", price:"$$", tags:["Indian","Lunch Buffet","Curry","Tandoori"], cats:["delivery","vegan"],
+    desc:"Longtime Alameda favorite serving authentic North Indian cuisine, best known for its lunch buffet and rich curries, tandoori dishes, and many vegetarian, vegan, and gluten-free options.",
+    address:"737 Buena Vista Ave, Alameda, CA 94501", phone:"+15108148778", phoneLabel:"(510) 814-8778",
+    website:"https://www.alamedaindiapalace.com/", menuUrl:"https://www.alamedaindiapalace.com/menu", reserve:"https://www.alamedaindiapalace.com/",
+    hours:[[[17,21.5]],[[11,14],[17,21.5]],[[11,14],[17,21.5]],[[11,14],[17,21.5]],[[11,14],[17,21.5]],[[11,14],[17,21.5]],[[11,14],[17,21.5]]],
+    menu:[
+      {sec:"Tandoori & Appetizers",items:[{n:"Tandoori Chicken",d:"Yogurt-and-spice marinated chicken from the clay tandoor",p:"$20"},{n:"Paneer Tikka",d:"Homemade cheese, ginger, garlic, Indian spices",p:"$18"},{n:"Vegetable Samosa",d:"Crispy pastry, spiced potatoes & peas",p:"$6"}]},
+      {sec:"Curries & Entrees",items:[{n:"Chicken Tikka Masala",d:"Tandoor chicken in rich cream & cashew sauce",p:"$17"},{n:"Chicken Saag",d:"Chicken cooked with spiced cream and spinach",p:"$17"},{n:"Lamb Curry",d:"Classic lamb simmered in spiced curry",p:"$17"},{n:"Garlic Naan",d:"Leavened tandoor bread with fresh garlic",p:"$4"}]}
+    ]},
+  { name:"Spinning Bones", emoji:"🍗", cuisine:"American", featured:false,
+    img:"https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=800&q=70",
+    rating:"4.4", price:"$$", tags:["Rotisserie","Roasted Meats","Casual","Michelin Bib Gourmand"], cats:["patio"],
+    desc:"A MICHELIN Bib Gourmand California rotisserie on Park Street specializing in slow-roasted koji chicken, peppered beef and barbecue pork ribs with bold global flavors. Easygoing and shareable.",
+    address:"1205 Park St, Alameda, CA 94501", phone:"+15102639290", phoneLabel:"(510) 263-9290",
+    website:"https://www.spinningbones.com/", menuUrl:"https://www.spinningbones.com/menus", reserve:"https://www.opentable.com/r/spinning-bones-alameda",
+    hours:[[[11.5,20]],[],[],[[11.5,20]],[[11.5,20]],[[11.5,21]],[[11.5,21]]],
+    menu:[
+      {sec:"Starters",items:[{n:"Goodie Sampler",d:"Vegan cashew cheese, baba ganoush, falafel, veggies, roti",p:"$16"},{n:"Chicken Lickin'",d:"Mochiko fried chicken nuggets, ginger, soy, tofu aioli",p:"$12"},{n:"Korroke",d:"Panko sweet potato croquettes, cheddar, tonkatsu",p:"$9"},{n:"Paté",d:"Chicken liver mousse, fig jam, pickles, crostini",p:"$14"}]},
+      {sec:"From the Spit",items:[{n:"Koji Chicken",d:"Half koji-brined rotisserie chicken, sides & roti",p:"$35"},{n:"St. Louis Ribs",d:"SB BBQ, yellow curry salt, napa slaw, pickled jalapeños",p:"$24"},{n:"Black Pepper Beef",d:"Peppered slow-roasted beef, sides, chimichurri",p:"$35"},{n:"Trip's Triple",d:"Trio of rotisserie meats for sharing with sides",p:"$46"}]}
+    ]},
+  { name:"Pier 29 Waterfront Restaurant & Bar", emoji:"🦞", cuisine:"Seafood", featured:false,
+    img:"https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=70",
+    rating:"4.3", price:"$$", tags:["Waterfront","Seafood","Steakhouse","Bay Views"], cats:["waterfront","patio"],
+    desc:"A longtime waterfront seafood-and-steakhouse on Ballena Bay where every table has a San Francisco Bay view and parking is free. Known for famous clam chowder, fresh oysters, fish & chips and prime rib.",
+    address:"1148 Ballena Blvd, Alameda, CA 94501", phone:"+15108655088", phoneLabel:"(510) 865-5088",
+    website:"https://pier29alameda.com/", menuUrl:"https://pier29alameda.com/menu/", reserve:"https://www.opentable.com/r/pier-29-waterfront-restaurant",
+    hours:[[[10.5,21]],[],[[10.5,21]],[[10.5,21]],[[10.5,21]],[[10.5,21]],[[10.5,21]]],
+    menu:[
+      {sec:"Starters",items:[{n:"Famous Clam Chowder",d:"House signature New England clam chowder",p:"$9"},{n:"Calamari",d:"Lightly fried calamari with dipping sauce",p:"$15"},{n:"Crab Cakes",d:"Pan-seared crab cakes with remoulade",p:"$17"},{n:"Fresh Oysters",d:"Half-dozen oysters on the half shell",p:"$18"}]},
+      {sec:"Mains",items:[{n:"Fish & Chips",d:"Beer-battered cod, fries, tartar",p:"$20"},{n:"Lamb Shank",d:"Slow-braised lamb shank with vegetables",p:"$28"},{n:"Angus Prime Rib",d:"Slow-roasted Angus prime rib with au jus",p:"$34"}]}
+    ]},
+  { name:"Ole's Waffle Shop", emoji:"🧇", cuisine:"American", featured:false,
+    img:"https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=800&q=70",
+    rating:"4.5", price:"$$", tags:["Diner","Breakfast","Waffles","Historic"], cats:["breakfast"],
+    desc:"A beloved Park Street diner serving the East Bay since 1927, famous for crispy golden waffles, generous pancake platters and fresh-squeezed orange juice. Classic comfort breakfast and lunch, 7 days a week.",
+    address:"1507 Park St, Alameda, CA 94501", phone:"+15105228108", phoneLabel:"(510) 522-8108",
+    website:"https://www.oleswaffleshop.com/", menuUrl:"https://www.oleswaffleshop.com/", reserve:"https://www.oleswaffleshop.com/",
+    hours:[[[6,20.5]],[[6,20.5]],[[6,20.5]],[[6,20.5]],[[6,20.5]],[[6,20.5]],[[6,20.5]]],
+    menu:[
+      {sec:"Breakfast",items:[{n:"Belgian Waffle",d:"Signature crispy golden waffle",p:"$8"},{n:"Pancakes or Waffle + Two Eggs",d:"Griddle classic with two large eggs",p:"$8.95"},{n:"Waffle with Bacon",d:"Waffle plus four slices of crispy bacon",p:"$9.75"},{n:"Corned Beef Hash & Eggs",d:"House corned beef hash, eggs any style",p:"$13"},{n:"Omelet, Hash Browns & Toast",d:"Made-to-order omelet, crispy hash browns",p:"$13"}]},
+      {sec:"Drinks",items:[{n:"Fresh-Squeezed Orange Juice",d:"Squeezed to order in front of you",p:"$5"}]}
+    ]},
+  { name:"Crispian Bakery", emoji:"🥐", cuisine:"Cafe", featured:false,
+    img:"https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=70",
+    rating:"4.7", price:"$$", tags:["Bakery","Pastries","Coffee","French-American"], cats:["breakfast"],
+    desc:"An artisan French-American bakery on Park Street turning out flaky all-butter croissants, kouign amann, naturally fermented breads, macarons and quiches, plus coffee. A neighborhood favorite for morning pastries.",
+    address:"1700 Park St, Ste 120, Alameda, CA 94501", phone:"+15102394751", phoneLabel:"(510) 239-4751",
+    website:"https://www.crispianbakery.com/", menuUrl:"https://www.crispianbakery.com/menu", reserve:"https://www.crispianbakery.com/shop",
+    hours:[[[7.5,15]],[],[[7.5,15]],[[7.5,15]],[[7.5,15]],[[7.5,15]],[[7.5,15]]],
+    menu:[
+      {sec:"Croissants & Pastries",items:[{n:"All-Butter Croissant",d:"Classic flaky laminated croissant",p:"$4.50"},{n:"Almond Croissant",d:"Buttery croissant, almond pastry cream",p:"$5.50"},{n:"Pain au Chocolat",d:"Croissant dough around dark chocolate",p:"$5"},{n:"Kouign Amann",d:"Caramelized, flaky Breton butter pastry",p:"$5"}]},
+      {sec:"Sweets & Savory",items:[{n:"French Macarons",d:"Assorted fine French macarons",p:"$3"},{n:"Quiche",d:"Seasonal savory quiche slice",p:"$7"},{n:"Fresh Fruit Pie",d:"Seasonal fruit pie slice",p:"$7"}]}
+    ]},
+  { name:"Troy Greek Cuisine", emoji:"🥙", cuisine:"Mediterranean", featured:false,
+    img:"https://images.unsplash.com/photo-1530469912745-a215c6b256ea?auto=format&fit=crop&w=800&q=70",
+    rating:"4.1", price:"$$", tags:["Greek","Gyro","Family-Owned","Mediterranean"], cats:["delivery"],
+    desc:"A family-owned Greek restaurant in Alameda's East End serving gyros, souvlaki, moussaka and spanakopita with house tzatziki. Reasonably priced, casual Mediterranean comfort food for lunch and dinner.",
+    address:"2320 Central Ave, Alameda, CA 94501", phone:"+15105222800", phoneLabel:"(510) 522-2800",
+    website:"https://troygreek.com/", menuUrl:"https://troygreek.com/menu-1-col/", reserve:"https://www.opentable.com/r/troy-greek-alameda",
+    hours:[[],[[11,20.5]],[[11,20.5]],[[11,20.5]],[[11,20.5]],[[11,20.5]],[[11,20.5]]],
+    menu:[
+      {sec:"Starters",items:[{n:"Spanakopita",d:"Spinach and feta in flaky filo dough",p:"$9"},{n:"Hummus & Pita",d:"House hummus with warm pita",p:"$8"}]},
+      {sec:"Wraps & Platters",items:[{n:"Gyro Wrap",d:"Gyro meat, tzatziki, lettuce, tomato, grilled onions",p:"$13.20"},{n:"Gyros Platter",d:"Gyro meat with rice, salad and tzatziki",p:"$20.90"},{n:"Lamb Souvlaki",d:"Charbroiled lamb, rice, grilled veg, tzatziki",p:"$21"},{n:"Moussaka",d:"Layered eggplant, ground beef, béchamel",p:"$18"}]}
+    ]},
+  { name:"Greens & Grains", emoji:"🥗", cuisine:"Vegetarian", featured:false,
+    img:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=70",
+    rating:"4.3", price:"$", tags:["Salads","Organic","Vegan-Friendly","Healthy"], cats:["vegan"],
+    desc:"A counter-service spot in the Alameda Marketplace building custom organic salads, daily soups and grain bowls, with plentiful vegan and vegetarian options plus optional Mary's rotisserie chicken.",
+    address:"1650 Park St, Alameda, CA 94501", phone:"+15102394059", phoneLabel:"(510) 239-4059",
+    website:"https://greensandgrains.net/", menuUrl:"https://greensandgrains.net/menu/", reserve:"https://greensandgrains.net/",
+    hours:[[[11,18]],[[11,18.5]],[[11,18.5]],[[11,18.5]],[[11,18.5]],[[11,18.5]],[[11,18]]],
+    menu:[
+      {sec:"Signature Salads",items:[{n:"Kale Caesar Salad",d:"Chopped kale with Caesar dressing",p:"$10.95"},{n:"The Greek",d:"Greens, feta, olives, Greek dressing",p:"$10.95"}]},
+      {sec:"Build Your Own",items:[{n:"Custom Salad Base",d:"Choose one or a mix of organic greens",p:"$7.95"},{n:"Add Protein",d:"Chicken, tofu or steak",p:"$2.55"},{n:"Daily Soup",d:"Two rotating soups, lighter & hearty options",p:"$6"},{n:"Quarter Rotisserie Chicken Meal",d:"Mary's roasted chicken with two salads",p:"$13"}]}
+    ]}
 ];
 
 /* ===========================================================
    HELPERS — open-now in America/Los_Angeles
    =========================================================== */
 function nowLA(){
-  const parts=new Intl.DateTimeFormat('en-US',{
-    timeZone:'America/Los_Angeles',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false
-  }).formatToParts(new Date());
+  const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
   const map={};parts.forEach(p=>map[p.type]=p.value);
   const days={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
   let h=parseInt(map.hour,10); if(h===24)h=0;
-  return {day:days[map.weekday], dec:h+parseInt(map.minute,10)/60, hh:map.hour, mm:map.minute};
+  return {day:days[map.weekday], dec:h+parseInt(map.minute,10)/60};
 }
-function fmt(t){
-  let h=Math.floor(t), m=Math.round((t-h)*60);
-  const ap=h>=12?'pm':'am'; let hh=h%12; if(hh===0)hh=12;
-  return m===0?`${hh}${ap}`:`${hh}:${String(m).padStart(2,'0')}${ap}`;
-}
-function dayHoursText(intervals){
-  if(!intervals||!intervals.length) return "Closed";
-  return intervals.map(iv=>`${fmt(iv[0])}–${fmt(iv[1])}`).join(", ");
-}
+function fmt(t){let h=Math.floor(t),m=Math.round((t-h)*60);const ap=h>=12?'pm':'am';let hh=h%12;if(hh===0)hh=12;return m===0?`${hh}${ap}`:`${hh}:${String(m).padStart(2,'0')}${ap}`;}
+function dayHoursText(iv){if(!iv||!iv.length)return "Closed";return iv.map(x=>`${fmt(x[0])}–${fmt(x[1])}`).join(", ");}
 function status(r){
-  const n=nowLA();
-  const today=r.hours[n.day]||[];
-  for(const iv of today){
-    if(n.dec>=iv[0] && n.dec<iv[1]){
-      const closeSoon=(iv[1]-n.dec)<=1;
-      return {open:true, label:closeSoon?`Closes ${fmt(iv[1])}`:"Open now", until:iv[1]};
-    }
-  }
-  // find next opening today
-  for(const iv of today){
-    if(n.dec<iv[0]) return {open:false, label:`Opens ${fmt(iv[0])}`};
-  }
-  return {open:false, label:"Closed now"};
+  const n=nowLA();const today=r.hours[n.day]||[];
+  for(const iv of today){if(n.dec>=iv[0]&&n.dec<iv[1]){return {open:true,label:(iv[1]-n.dec)<=1?`Closes ${fmt(iv[1])}`:"Open now"};}}
+  for(const iv of today){if(n.dec<iv[0])return {open:false,label:`Opens ${fmt(iv[0])}`};}
+  return {open:false,label:"Closed now"};
 }
 
 /* ===========================================================
-   RENDER
+   STATE + RENDER
    =========================================================== */
 const grid=document.getElementById('grid');
 const emptyEl=document.getElementById('empty');
 const countEl=document.getElementById('count');
-let activeFilter='all';
-let query='';
-let sortBy='smart';
+let activeFilter='all', query='', sortBy='smart';
 
-/* favorites in localStorage */
 function loadFavs(){try{return new Set(JSON.parse(localStorage.getItem('isola-favs')||'[]'))}catch(e){return new Set()}}
 let favs=loadFavs();
 function saveFavs(){try{localStorage.setItem('isola-favs',JSON.stringify([...favs]))}catch(e){}}
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-
 function maps(addr){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`}
 
-function card(r){
-  const st=status(r);
-  const n=nowLA();
-  const todayTxt=dayHoursText(r.hours[n.day]);
-  const menuHtml=r.menu.map(s=>`
-    <div class="menu-sec">
-      <h4>${s.sec}</h4>
-      ${s.items.map(i=>`
-        <div class="dish">
-          <span class="d-name">${i.n}<span class="d-desc">${i.d}</span></span>
-          <span class="d-price">${i.p}</span>
-        </div>`).join('')}
-    </div>`).join('');
+const CUISINE_EMOJI={Italian:'🍝',Mexican:'🌮',Thai:'🍜',Chinese:'🥟',Vietnamese:'🍲',Japanese:'🍣',Indian:'🍛',American:'🍔',Seafood:'🦞',Cafe:'🥐',Mediterranean:'🥙',Vegetarian:'🥗'};
 
-  const id=slug(r.name);
-  const isFav=favs.has(id);
+/* smart Order vs Reserve button based on the link */
+function actionBtn(r){
+  const u=r.reserve||r.website||'';
+  let label='📅 Reserve';
+  if(/ubereats|grubhub|doordash|order\.online|toasttab|gotoeat|\/order/i.test(u)) label='🛵 Order';
+  else if(/opentable|resy|reservation|reserve/i.test(u)) label='📅 Reserve';
+  else label='🔗 Visit';
+  return `<a class="btn-book" href="${u}" target="_blank" rel="noopener sponsored nofollow">${label}</a>`;
+}
+
+function card(r){
+  const st=status(r), n=nowLA();
+  const todayTxt=dayHoursText(r.hours[n.day]);
+  const menuHtml=r.menu.map(s=>`<div class="menu-sec"><h4>${s.sec}</h4>${s.items.map(i=>`<div class="dish"><span class="d-name">${i.n}<span class="d-desc">${i.d}</span></span><span class="d-price">${i.p}</span></div>`).join('')}</div>`).join('');
+  const id=slug(r.name), isFav=favs.has(id), cu=r.cuisine||'Italian';
   return `
-  <article class="card" id="card-${id}" data-id="${id}" data-cats="${r.cats.join(' ')}" data-open="${st.open}"
-           data-rating="${r.rating}"
-           data-text="${(r.name+' '+r.tags.join(' ')+' '+r.desc+' '+r.menu.map(s=>s.items.map(i=>i.n).join(' ')).join(' ')).toLowerCase()}">
+  <article class="card${r.featured?' is-featured':''}" id="card-${id}" data-id="${id}" data-cuisine="${cu}"
+           data-cats="${(r.cats||[]).join(' ')}" data-open="${st.open}" data-featured="${!!r.featured}" data-rating="${r.rating}"
+           data-text="${(r.name+' '+cu+' '+r.tags.join(' ')+' '+r.desc+' '+r.menu.map(s=>s.items.map(i=>i.n).join(' ')).join(' ')).toLowerCase()}">
     <div class="photo">
       <div class="fallback">${r.emoji}</div>
-      <img src="${r.img}" alt="${r.name} food" loading="lazy"
-           onload="this.style.opacity=1" style="opacity:0;transition:opacity .4s"
-           onerror="this.remove()">
+      <img src="${r.img}" alt="${r.name} — ${cu} restaurant in Alameda" loading="lazy" width="800" height="376"
+           onload="this.style.opacity=1" style="opacity:0;transition:opacity .4s" onerror="this.remove()">
       <span class="status ${st.open?'open':'closed'}"><span class="pulse"></span>${st.label}</span>
+      ${r.featured?'<span class="featured-badge">★ Featured</span>':''}
       <span class="rating">★ ${r.rating}</span>
-      <button class="fav ${isFav?'on':''}" data-fav="${id}" title="Save to favorites" aria-label="Save to favorites">${isFav?'❤️':'🤍'}</button>
+      <button class="fav ${isFav?'on':''}" data-fav="${id}" title="Save to favorites" aria-label="Save ${r.name} to favorites">${isFav?'❤️':'🤍'}</button>
     </div>
     <div class="body">
       <h2 class="name">${r.name} <span class="price">${r.price}</span></h2>
-      <div class="tags">${r.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <p class="cuisine-line">${CUISINE_EMOJI[cu]||'🍽️'} ${cu}</p>
+      <div class="tags">${r.tags.map(t=>`<span class="tag-chip">${t}</span>`).join('')}</div>
       <p class="desc">${r.desc}</p>
-      <div class="addr">📍 <span>${r.address}</span></div>
+      <address class="addr">📍 <span>${r.address}</span></address>
       <p class="hours-now">🕒 <b>Today:</b> ${todayTxt}</p>
       <div class="actions">
-        <a class="btn-call" href="tel:${r.phone}">📞 ${r.phoneLabel}</a>
+        <a class="btn-call" href="tel:${r.phone}">📞 Call</a>
         <a class="btn-map" href="${maps(r.address)}" target="_blank" rel="noopener">🗺️ Directions</a>
         <a class="btn-web" href="${r.website}" target="_blank" rel="noopener">🌐 Website</a>
-        <a class="btn-book" href="${r.reserve}" target="_blank" rel="noopener">📅 Reserve</a>
+        ${actionBtn(r)}
       </div>
       <details>
         <summary>📖 View Menu <span class="chev">▾</span></summary>
@@ -670,117 +621,159 @@ function card(r){
 
 function sorted(){
   const list=[...RESTAURANTS];
-  if(sortBy==='rating') list.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating));
-  else if(sortBy==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
-  else { // smart: open now first, then by rating
-    list.sort((a,b)=>{
-      const oa=status(a).open?1:0, ob=status(b).open?1:0;
-      if(oa!==ob) return ob-oa;
-      return parseFloat(b.rating)-parseFloat(a.rating);
-    });
-  }
+  const bySel=(a,b)=>{
+    if(sortBy==='rating') return parseFloat(b.rating)-parseFloat(a.rating);
+    if(sortBy==='name') return a.name.localeCompare(b.name);
+    const oa=status(a).open?1:0, ob=status(b).open?1:0;
+    if(oa!==ob) return ob-oa;
+    return parseFloat(b.rating)-parseFloat(a.rating);
+  };
+  list.sort((a,b)=>{const fa=a.featured?1:0,fb=b.featured?1:0; if(fa!==fb)return fb-fa; return bySel(a,b);});
   return list;
 }
 
-function render(){
-  grid.innerHTML=sorted().map(card).join('');
-  applyFilter();
-}
+function render(){ grid.innerHTML=sorted().map(card).join(''); applyFilter(); }
 
 function applyFilter(){
-  const cards=[...grid.children];
   let shown=0;
-  cards.forEach(c=>{
-    const cats=c.dataset.cats;
-    const isOpen=c.dataset.open==='true';
-    const text=c.dataset.text;
+  [...grid.children].forEach(c=>{
     let ok=true;
-    if(activeFilter==='open') ok=isOpen;
+    if(activeFilter==='open') ok=c.dataset.open==='true';
     else if(activeFilter==='fav') ok=favs.has(c.dataset.id);
-    else if(activeFilter!=='all') ok=cats.includes(activeFilter);
-    if(ok && query) ok=text.includes(query);
-    c.style.display=ok?'':'none';
-    if(ok)shown++;
+    else if(activeFilter==='featured') ok=c.dataset.featured==='true';
+    else if(activeFilter.startsWith('cuisine:')) ok=c.dataset.cuisine===activeFilter.slice(8);
+    else if(activeFilter.startsWith('cat:')) ok=(c.dataset.cats||'').split(' ').includes(activeFilter.slice(4));
+    if(ok && query) ok=c.dataset.text.includes(query);
+    c.style.display=ok?'':'none'; if(ok)shown++;
   });
   emptyEl.style.display=shown?'none':'block';
-  if(activeFilter==='fav' && !shown){
-    emptyEl.textContent='🤍 No favorites yet — tap the heart on a spot to save it.';
-  } else {
-    emptyEl.textContent='🍅 No spots match that — try another search or filter.';
-  }
+  if(activeFilter==='fav' && !shown) emptyEl.textContent='🤍 No favorites yet — tap the heart on a spot to save it.';
+  else if(activeFilter==='featured' && !shown) emptyEl.textContent='⭐ No featured spots yet — restaurants, get featured below!';
+  else emptyEl.textContent='🍅 No spots match that — try another search or filter.';
   const openCount=RESTAURANTS.filter(r=>status(r).open).length;
-  countEl.textContent=`${shown} spot${shown!==1?'s':''} shown · ${openCount} open right now on the Island`;
+  countEl.textContent=`${shown} of ${RESTAURANTS.length} spots · ${openCount} open right now on the Island`;
 }
 
-/* ---- clock ---- */
+/* dynamic cuisine chips */
+function buildCuisineChips(){
+  const counts={};
+  RESTAURANTS.forEach(r=>{const c=r.cuisine||'Italian';counts[c]=(counts[c]||0)+1;});
+  const order=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
+  document.getElementById('cuisine-chips').innerHTML=order.map(c=>
+    `<button class="chip" data-filter="cuisine:${c}">${CUISINE_EMOJI[c]||'🍽️'} ${c}</button>`).join('');
+}
+
+/* clock */
 function tick(){
-  const n=nowLA();
-  const txt=new Intl.DateTimeFormat('en-US',{
-    timeZone:'America/Los_Angeles',weekday:'long',hour:'numeric',minute:'2-digit',hour12:true
-  }).format(new Date());
+  const txt=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'long',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date());
   document.getElementById('clock-text').textContent=`Alameda · ${txt}`;
 }
 
-/* ---- events ---- */
-document.getElementById('filters').addEventListener('click',e=>{
+/* chip clicks (delegated across both rows) */
+function onChipClick(e){
   const b=e.target.closest('.chip'); if(!b)return;
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  b.classList.add('active');
-  activeFilter=b.dataset.filter;
-  applyFilter();
-});
-document.getElementById('search').addEventListener('input',e=>{
-  query=e.target.value.trim().toLowerCase();
-  applyFilter();
-});
+  b.classList.add('active'); activeFilter=b.dataset.filter; applyFilter();
+}
+document.getElementById('filters').addEventListener('click',onChipClick);
+document.getElementById('cuisine-chips').addEventListener('click',onChipClick);
 
-/* favorite toggle (event delegation) */
+document.getElementById('search').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();applyFilter();});
+
 grid.addEventListener('click',e=>{
   const b=e.target.closest('.fav'); if(!b)return;
   const id=b.dataset.fav;
   if(favs.has(id)){favs.delete(id);b.classList.remove('on');b.textContent='🤍';}
   else{favs.add(id);b.classList.add('on');b.textContent='❤️';}
-  saveFavs();
-  if(activeFilter==='fav') applyFilter();
+  saveFavs(); if(activeFilter==='fav') applyFilter();
 });
 
-/* sort */
-document.getElementById('sort').addEventListener('change',e=>{
-  sortBy=e.target.value; render();
-});
+document.getElementById('sort').addEventListener('change',e=>{sortBy=e.target.value;render();});
 
-/* surprise me — pick a random OPEN spot (fallback: any), reveal it */
 document.getElementById('surprise').addEventListener('click',()=>{
   const open=RESTAURANTS.filter(r=>status(r).open);
   const pool=open.length?open:RESTAURANTS;
   const pick=pool[Math.floor(Math.random()*pool.length)];
-  // reset filters so the pick is visible
   activeFilter='all';query='';
   document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.filter==='all'));
   document.getElementById('search').value='';
   applyFilter();
   const el=document.getElementById('card-'+slug(pick.name));
-  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});
-    el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
+  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
 });
 
-/* theme toggle with persistence */
+/* theme */
 const themeBtn=document.getElementById('theme-toggle');
-function applyTheme(t){
-  if(t==='night'){document.body.dataset.theme='night';themeBtn.textContent='☀️';}
-  else{delete document.body.dataset.theme;themeBtn.textContent='🌙';}
-}
+function applyTheme(t){if(t==='night'){document.body.dataset.theme='night';themeBtn.textContent='☀️';}else{delete document.body.dataset.theme;themeBtn.textContent='🌙';}}
 applyTheme(localStorage.getItem('isola-theme')||'day');
-themeBtn.addEventListener('click',()=>{
-  const next=document.body.dataset.theme==='night'?'day':'night';
-  applyTheme(next);
-  try{localStorage.setItem('isola-theme',next);}catch(e){}
-});
+themeBtn.addEventListener('click',()=>{const next=document.body.dataset.theme==='night'?'day':'night';applyTheme(next);try{localStorage.setItem('isola-theme',next);}catch(e){}});
+
+/* ---- monetization: contact / featured / newsletter ---- */
+(function(){
+  const email=CONFIG.CONTACT_EMAIL;
+  const featSubj="I'd like to feature my Alameda restaurant on Isola";
+  const fc=document.getElementById('feature-cta'), foot=document.getElementById('footer-contact');
+  if(email){
+    fc.href=`mailto:${email}?subject=${encodeURIComponent(featSubj)}`;
+    foot.href=`mailto:${email}?subject=${encodeURIComponent('Isola — Alameda Eats inquiry')}`;
+  } else { fc.href=foot.href='about.html'; }
+})();
+(function(){
+  const form=document.getElementById('news-form'), msg=document.getElementById('news-msg'), inp=document.getElementById('news-email');
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=(inp.value||'').trim(); if(!v)return;
+    try{const s=JSON.parse(localStorage.getItem('isola-subs')||'[]');s.push(v);localStorage.setItem('isola-subs',JSON.stringify(s));}catch(_){}
+    if(CONFIG.FORMSPREE_ID){
+      fetch('https://formspree.io/f/'+CONFIG.FORMSPREE_ID,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)}).catch(()=>{});
+    }
+    msg.textContent="🎉 You're on the list — we'll send Alameda's new & noteworthy spots.";
+    form.reset();
+  });
+})();
+
+/* ---- optional AdSense (off until CONFIG.ADSENSE_CLIENT is set) ---- */
+(function(){
+  if(!CONFIG.ADSENSE_CLIENT) return;
+  const s=document.createElement('script');
+  s.async=true; s.crossOrigin="anonymous";
+  s.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+CONFIG.ADSENSE_CLIENT;
+  document.head.appendChild(s);
+  const slot=document.getElementById('ad-slot'); slot.hidden=false;
+  document.getElementById('ad-unit').innerHTML=
+    `<ins class="adsbygoogle" style="display:block" data-ad-client="${CONFIG.ADSENSE_CLIENT}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
+  try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
+})();
+
+/* ---- SEO: inject JSON-LD structured data (Restaurant + ItemList + WebSite + Breadcrumb) ---- */
+(function(){
+  const DAY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const hm=t=>{let h=Math.floor(t),m=Math.round((t-h)*60);if(h>=24){h=23;m=59;}return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');};
+  function ohs(r){const out=[];r.hours.forEach((day,i)=>{(day||[]).forEach(iv=>{out.push({"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/"+DAY[i],"opens":hm(iv[0]),"closes":hm(iv[1])});});});return out;}
+  function addr(a){const m=a.match(/^(.*),\s*Alameda,\s*CA\s*(\d{5})/);return {"@type":"PostalAddress","streetAddress":m?m[1]:a,"addressLocality":"Alameda","addressRegion":"CA","postalCode":m?m[2]:"","addressCountry":"US"};}
+  const items=RESTAURANTS.map((r,i)=>({"@type":"ListItem","position":i+1,"item":{
+    "@type":"Restaurant","name":r.name,"image":r.img,"servesCuisine":r.cuisine||"Italian","priceRange":r.price,
+    "telephone":r.phone,"url":CONFIG.CANONICAL+"#card-"+slug(r.name),"address":addr(r.address),
+    "hasMenu":r.menuUrl,"acceptsReservations":/opentable|resy|reservation/i.test(r.reserve||'')?"True":"False",
+    "openingHoursSpecification":ohs(r)}}));
+  const graph={"@context":"https://schema.org","@graph":[
+    {"@type":"WebSite","name":"Isola — Alameda Eats","url":CONFIG.CANONICAL,
+     "description":"Guide to the best restaurants in Alameda, CA — open now, menus, photos and hours."},
+    {"@type":"ItemList","name":"Best Restaurants in Alameda, CA","numberOfItems":items.length,"itemListElement":items},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":CONFIG.CANONICAL},
+      {"@type":"ListItem","position":2,"name":"Alameda Restaurants","item":CONFIG.CANONICAL}]}
+  ]};
+  const tag=document.createElement('script');tag.type='application/ld+json';tag.textContent=JSON.stringify(graph);
+  document.head.appendChild(tag);
+})();
 
 /* ---- init ---- */
+buildCuisineChips();
+document.getElementById('spotcount').textContent=RESTAURANTS.length;
 render();
 tick();
-setInterval(()=>{tick();render();},60000); // refresh status every minute
+setInterval(()=>{tick();render();},60000);
 </script>
 </body>
 </html>

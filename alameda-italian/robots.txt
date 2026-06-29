@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/sitemap.xml
