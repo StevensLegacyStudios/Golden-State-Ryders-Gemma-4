@@ -45,20 +45,37 @@ const cuisinePages = cuisines.map(c=>({
   emoji: ({Italian:'🍝',Mexican:'🌮',Thai:'🍜',Chinese:'🥟',Vietnamese:'🍲',Japanese:'🍣',Indian:'🍛',American:'🍔',Seafood:'🦞',Cafe:'🥐',Mediterranean:'🥙',Vegetarian:'🥗'})[c]||'🍽️'
 }));
 const featurePages = [
-  {key:'waterfront', label:'Waterfront', emoji:'🌊', h1:'Waterfront Restaurants in Alameda, CA',
+  {file:'waterfront.html', label:'Waterfront', emoji:'🌊', h1:'Waterfront Restaurants in Alameda, CA',
    title:'Waterfront Restaurants in Alameda, CA — Bay Views, Menus & Hours | Isola Eats',
    desc:"Alameda restaurants with waterfront and bay views. Menus, hours, open-now status and one-tap directions for dining on the water. Updated June 2026.",
-   intro:"Alameda is an island — so eat on the water. These spots serve up bay and estuary views along with the meal. See menus, hours and who's open now."},
-  {key:'patio', label:'Patio & Outdoor', emoji:'🌿', h1:'Restaurants with Patios & Outdoor Dining in Alameda, CA',
+   intro:"Alameda is an island — so eat on the water. These spots serve up bay and estuary views along with the meal. See menus, hours and who's open now.",
+   match:r=>(r.cats||[]).includes('waterfront')},
+  {file:'patio.html', label:'Patio & Outdoor', emoji:'🌿', h1:'Restaurants with Patios & Outdoor Dining in Alameda, CA',
    title:'Patio & Outdoor Dining in Alameda, CA — Menus & Hours | Isola Eats',
    desc:"Alameda restaurants with patios and outdoor seating. Menus, hours, open-now status and tap-to-call directions. Updated June 2026.",
-   intro:"Eat outside on the Island. These Alameda restaurants offer patios or outdoor seating — here are menus, hours and live open-now status."},
-  {key:'breakfast', label:'Breakfast & Brunch', emoji:'🍳', h1:'Breakfast & Brunch in Alameda, CA',
+   intro:"Eat outside on the Island. These Alameda restaurants offer patios or outdoor seating — here are menus, hours and live open-now status.",
+   match:r=>(r.cats||[]).includes('patio')},
+  {file:'breakfast.html', label:'Breakfast & Brunch', emoji:'🍳', h1:'Breakfast & Brunch in Alameda, CA',
    title:'Best Breakfast & Brunch in Alameda, CA — Menus & Hours | Isola Eats',
    desc:"The best breakfast and brunch spots in Alameda, California — diners, bakeries and cafes. Menus, hours, open-now and directions. Updated June 2026.",
-   intro:"Start the day right on the Island. Alameda's breakfast and brunch spots — classic diners, bakeries and cafes — with menus, hours and open-now status."}
-].map(f=>({...f, file:f.key+'.html', match:r=>(r.cats||[]).includes(f.key)}))
- .filter(f=>RESTAURANTS.some(f.match));
+   intro:"Start the day right on the Island. Alameda's breakfast and brunch spots — classic diners, bakeries and cafes — with menus, hours and open-now status.",
+   match:r=>(r.cats||[]).includes('breakfast')},
+  {file:'open-late.html', label:'Open Late', emoji:'🌙', h1:'Restaurants Open Late in Alameda, CA',
+   title:'Restaurants Open Late in Alameda, CA — Late-Night Food, Menus & Hours | Isola Eats',
+   desc:"Hungry late in Alameda? These restaurants stay open until 9:30pm or later. Menus, hours, open-now status and one-tap directions. Updated June 2026.",
+   intro:"Late-night cravings on the Island? These Alameda spots serve until 9:30pm or later on at least some nights. Always check the live hours before you head out.",
+   match:r=>r.hours.some(d=>(d||[]).some(iv=>iv[1]>=21.5))},
+  {file:'family-friendly.html', label:'Family-Friendly', emoji:'👨‍👩‍👧', h1:'Family-Friendly Restaurants in Alameda, CA',
+   title:'Family-Friendly Restaurants in Alameda, CA — Kid-Friendly Menus & Hours | Isola Eats',
+   desc:"Family-friendly restaurants in Alameda, California — relaxed, kid-welcoming spots with hearty menus. Hours, open-now status and directions. Updated June 2026.",
+   intro:"Feeding the whole crew on the Island? These Alameda restaurants are easygoing, family-owned or family-favorite spots. See menus, hours and who's open now.",
+   match:r=>r.tags.some(t=>/family/i.test(t))},
+  {file:'bars.html', label:'Bars & Cocktails', emoji:'🍸', h1:'Bars, Cocktails & Drinks in Alameda, CA',
+   title:'Best Bars & Cocktail Restaurants in Alameda, CA — Menus & Hours | Isola Eats',
+   desc:"Where to drink in Alameda, California — restaurants and bars with craft cocktails, tequila and wine lists. Hours, open-now status and directions. Updated June 2026.",
+   intro:"Grab a drink on the Island. These Alameda restaurants and bars are known for craft cocktails, tequila or strong wine lists — with menus, hours and open-now status.",
+   match:r=>r.tags.some(t=>/cocktail|tequila|wine|bar/i.test(t))}
+].filter(f=>RESTAURANTS.some(f.match));
 
 const allPages = [...cuisinePages, ...featurePages];
 
