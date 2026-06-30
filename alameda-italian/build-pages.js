@@ -129,6 +129,16 @@ function navLinks(currentFile){
 function buildPage(p){
   const list = RESTAURANTS.filter(p.match);
   const url = CANON + p.file;
+  // unique, data-driven summary line (real content beats thin pages)
+  const names = list.map(r=>r.name);
+  const featuring = names.length
+    ? `On this page: ${names.slice(0,-1).join(', ')}${names.length>1?' and '+names[names.length-1]:names[0]}.`
+    : '';
+  const priceLo = list.map(r=>r.price.length).sort((a,b)=>a-b)[0]||0;
+  const ratingsAvg = list.length ? (list.reduce((s,r)=>s+parseFloat(r.rating),0)/list.length).toFixed(1) : '';
+  const summary = list.length
+    ? `We track ${list.length} ${list.length===1?'spot':'spots'} here, averaging ${ratingsAvg}★. Every listing shows the day's hours, a sample menu with prices, and one-tap call, directions and ordering — plus live "open now" status on the main guide.`
+    : '';
   const itemList = {"@type":"ItemList","name":p.h1,"numberOfItems":list.length,
     "itemListElement":list.map((r,i)=>({"@type":"ListItem","position":i+1,"item":restaurantLd(r)}))};
   const breadcrumb = {"@type":"BreadcrumbList","itemListElement":[
@@ -148,6 +158,8 @@ function buildPage(p){
 <meta property="og:description" content="${esc(p.desc)}" />
 <meta property="og:url" content="${url}" />
 <meta property="og:type" content="website" />
+<meta property="og:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>" />
 <style>${CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
@@ -160,7 +172,8 @@ function buildPage(p){
 <main>
   <nav class="nav">${navLinks(p.file)}</nav>
   <p class="intro">${esc(p.intro)}</p>
-  <p style="color:#5b6f78;font-size:.85rem">${list.length} ${list.length===1?'spot':'spots'} in Alameda${p.label?' · '+esc(p.label):''}.</p>
+  <p class="intro" style="font-size:.92rem">${esc(summary)}</p>
+  <p style="color:#5b6f78;font-size:.85rem">${esc(featuring)}</p>
   ${list.map(renderRestaurant).join('')}
   <p style="margin-top:24px"><a href="index.html" style="background:#ff6f59;color:#fff;text-decoration:none;font-weight:700;padding:11px 18px;border-radius:11px;display:inline-block">← See all Alameda restaurants (live open-now)</a></p>
 </main>
