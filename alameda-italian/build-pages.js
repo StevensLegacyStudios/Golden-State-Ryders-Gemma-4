@@ -140,6 +140,7 @@ function buildPage(p){
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="google-site-verification" content="IbxTYmalcBs3AUrqCtbfS_G3g_MGMsX9px7jC5zhjKY" />
 <title>${esc(p.title)}</title>
 <meta name="description" content="${esc(p.desc)}" />
 <link rel="canonical" href="${url}" />
