@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="google-site-verification" content="IbxTYmalcBs3AUrqCtbfS_G3g_MGMsX9px7jC5zhjKY" />
 <title>Best Restaurants in Alameda, CA — Open Now, Menus &amp; Hours | Isola Eats</title>
 <meta name="description" content="Find the best restaurants in Alameda, CA by cuisine or what's open right now. Menus, photos, hours, and tap-to-call directions for 45 island spots — Italian, Mexican, Thai, Chinese, Japanese, Korean, Indian, seafood, brunch &amp; more. Updated June 2026." />
 <meta name="keywords" content="Alameda restaurants, restaurants in Alameda CA, Alameda restaurants open now, best restaurants Alameda, Alameda food, Italian Mexican Thai sushi Alameda, Alameda waterfront restaurants, Alameda brunch" />
 <link rel="canonical" href="https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/" />
 <meta name="robots" content="index,follow" />
-<meta name="theme-color" content="#0b6e8f" />
+<meta name="theme-color" content="#F6F1E7" />
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website" />
@@ -21,246 +21,418 @@
 <meta name="twitter:title" content="Isola — Alameda Eats" />
 <meta name="twitter:description" content="Best restaurants in Alameda, CA — open now, menus, photos, one-tap call/directions/order." />
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>" />
+
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23F6F1E7'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Georgia,serif' font-weight='900' font-size='42' fill='%23191713'%3EI%3C/text%3E%3Ccircle cx='47' cy='44' r='4' fill='%23B4432F'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;900&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@500&display=swap" rel="stylesheet" />
+
 <style>
-  :root{
-    --sea:#0b6e8f; --sea-deep:#063a4d; --sky:#7ecbe0;
-    --sand:#f4e9d6; --sand-warm:#efe0c4;
-    --coral:#ff6f59; --sunset:#f5a623; --olive:#5a7d3c;
-    --ink:#16323d; --card:#fffdf8; --open:#2e9e5b; --closed:#c0533f;
-    --shadow:0 8px 28px rgba(6,58,77,.14);
-    --page1:#fbf6ec; --page2:#f4e9d6; --glow:rgba(126,203,224,.45);
-  }
-  body[data-theme="night"]{
-    --sand:#16323d; --sand-warm:#1d4250; --card:#13303b; --ink:#eaf4f7;
-    --sea:#0e7fa3; --sea-deep:#04222d;
-    --page1:#0a1a22; --page2:#04222d; --glow:rgba(14,127,163,.35);
-    --shadow:0 10px 30px rgba(0,0,0,.45);
-  }
-  body[data-theme="night"] .tag,body[data-theme="night"] .updated{color:#dcebf0}
-  body[data-theme="night"] .tag{background:transparent}
-  body[data-theme="night"] .tag-chip{background:#234a59;color:#cfe6ee}
-  body[data-theme="night"] .desc{color:#acc6d0}
-  body[data-theme="night"] .addr,body[data-theme="night"] .hours-now,
-  body[data-theme="night"] .countline,body[data-theme="night"] .dish .d-desc{color:#9fbcc6}
-  body[data-theme="night"] .btn-web{background:#234a59;color:#cfe6ee}
-  body[data-theme="night"] .rating{background:#0a1a22;color:#f5c451}
-  body[data-theme="night"] .news input{background:#0a1a22;color:#eaf4f7;border-color:#234a59}
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-    color:var(--ink);
-    background:radial-gradient(1200px 480px at 80% -120px, var(--glow), transparent 60%),
-      linear-gradient(180deg, var(--page1) 0%, var(--page2) 100%);
-    min-height:100vh;transition:background .4s ease, color .4s ease;
-  }
+/* ============ TOKENS ============ */
+:root{
+  --paper:#F6F1E7; --paper-raised:#FDFBF5;
+  --ink:#191713; --ink-2:#5C564A;
+  --hairline:#DCD2BF;
+  --accent:#B4432F; --sea:#175E63;
+  --open:#1F6B41; --lastcall:#9A6A14; --closed:#8A8272; --gold:#A87F2E;
+  --glass:rgba(253,251,245,.78);
+  --scrim:linear-gradient(180deg,rgba(22,17,10,0) 45%,rgba(22,17,10,.62) 100%);
+  --shadow-pop:0 1px 2px rgba(25,23,19,.05),0 16px 40px -20px rgba(25,23,19,.18);
+  --shadow-sheet:0 -12px 48px rgba(25,23,19,.24);
+  --f-display:'Fraunces',Georgia,serif;
+  --f-ui:'Inter',system-ui,-apple-system,sans-serif;
+  --f-mono:'Spline Sans Mono',ui-monospace,SFMono-Regular,monospace;
+  --r-sm:8px; --r-md:12px; --r-lg:20px; --r-pill:999px;
+  --ease-out:cubic-bezier(.22,1,.36,1); --ease-in:cubic-bezier(.4,0,1,1); --ease-sheet:cubic-bezier(.32,.72,0,1);
+  --t-micro:120ms; --t-std:250ms; --t-struct:400ms;
+}
+html[data-theme="night"]{
+  --paper:#12151B; --paper-raised:#1A1F27;
+  --ink:#EDE6D8; --ink-2:#A49C8C;
+  --hairline:#2B313C;
+  --accent:#E06A4F; --sea:#6FB5B9;
+  --open:#58B57F; --lastcall:#D9A23F; --closed:#7D786C; --gold:#C89B4B;
+  --glass:rgba(18,21,27,.72);
+  --scrim:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.68) 100%);
+  --shadow-pop:0 20px 48px -20px rgba(0,0,0,.65);
+  --shadow-sheet:0 -12px 48px rgba(0,0,0,.6);
+}
 
-  header{position:relative;color:#fff;padding:30px 20px 64px;text-align:center;
-    background:linear-gradient(160deg,var(--sea) 0%, var(--sea-deep) 100%);overflow:hidden}
-  header .wave{position:absolute;left:0;right:0;bottom:-1px;line-height:0}
-  header .wave svg{width:100%;height:60px;display:block}
-  .badge-pill{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
-    padding:5px 14px;border-radius:999px;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;
-    margin-bottom:12px;backdrop-filter:blur(4px)}
-  header h1{margin:0;font-size:2.6rem;font-weight:800;letter-spacing:-.5px;text-shadow:0 2px 10px rgba(0,0,0,.18)}
-  header h1 .accent{color:var(--sunset)}
-  header p.tag{margin:10px auto 0;max-width:600px;font-size:1.05rem;opacity:.96;line-height:1.5}
-  .updated{margin:10px 0 0;font-size:.8rem;opacity:.8;letter-spacing:.02em}
-  .clock{margin-top:14px;font-size:.9rem;background:rgba(0,0,0,.18);display:inline-flex;gap:8px;
-    align-items:center;padding:7px 16px;border-radius:999px}
-  .clock .dot{width:9px;height:9px;border-radius:50%;background:var(--sunset);box-shadow:0 0 0 4px rgba(245,166,35,.3)}
-  .theme-toggle{position:absolute;top:16px;right:16px;z-index:4;cursor:pointer;width:42px;height:42px;
-    border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.15);color:#fff;
-    font-size:1.2rem;line-height:1;backdrop-filter:blur(4px);transition:transform .2s, background .2s}
-  .theme-toggle:hover{transform:scale(1.1) rotate(-12deg);background:rgba(255,255,255,.28)}
+/* ============ BASE ============ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-ui);font-size:15px;line-height:1.6;font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  transition:background var(--t-std) var(--ease-out),color var(--t-std) var(--ease-out);
+}
+a{color:var(--accent)}
+button{font-family:inherit;color:inherit}
+.mono{font-family:var(--f-mono);font-weight:500;font-variant-numeric:tabular-nums}
+.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;padding:10px 16px;z-index:100}
+.skip:focus{left:8px;top:8px}
+svg.gl{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.18em}
+.pressable{transition:transform var(--t-micro) var(--ease-out)}
+.pressable:active{transform:scale(.97)}
 
-  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-  .controls{margin:-32px auto 6px;position:relative;z-index:3;max-width:1080px;display:flex;flex-wrap:wrap;
-    gap:10px;justify-content:center;align-items:center;padding:0 18px}
-  .search{flex:1 1 280px;max-width:440px;display:flex;align-items:center;gap:8px;background:var(--card);
-    border-radius:14px;padding:11px 15px;box-shadow:var(--shadow)}
-  .search input{border:0;outline:0;font-size:1rem;width:100%;background:transparent;color:var(--ink)}
-  .sort-wrap{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:14px;padding:9px 14px;
-    box-shadow:var(--shadow);font-size:.86rem;color:var(--sea-deep);font-weight:600}
-  .sort-wrap select{border:0;background:transparent;font:inherit;color:inherit;cursor:pointer;outline:0;font-weight:700}
-  body[data-theme="night"] .sort-wrap,body[data-theme="night"] .search,body[data-theme="night"] .chip{color:#eaf4f7}
-  body[data-theme="night"] .search input{color:#eaf4f7}
-  body[data-theme="night"] .sort-wrap select option{color:#000}
-  .surprise-btn{border:0;cursor:pointer;font-size:.86rem;font-weight:700;color:#fff;background:var(--sunset);
-    padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);transition:transform .12s, filter .15s}
-  .surprise-btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+/* ============ MASTHEAD ============ */
+.masthead{max-width:1080px;margin:0 auto;padding:12px 24px 0}
+.kicker-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:8px 0;
+  font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.kicker-bar #kicker{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#theme-toggle{display:inline-flex;align-items:center;gap:6px;background:none;border:0;cursor:pointer;
+  font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--ink-2);padding:10px 0 10px 12px;margin:-10px 0}
+#theme-toggle:hover{color:var(--ink)}
+.wordmark{margin:18px 0 0;font-family:var(--f-display);font-weight:900;
+  font-size:clamp(44px,10vw,88px);letter-spacing:-.02em;line-height:1.02;color:var(--ink)}
+.deck{margin:8px 0 0;font-weight:500;font-size:13px;color:var(--ink-2);max-width:520px}
+.edition{margin:6px 0 0;font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-2)}
+.dateline{display:flex;align-items:center;gap:8px;margin:16px 0 0;
+  font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.dateline .dot{width:6px;height:6px;border-radius:50%;background:var(--open);flex:none;animation:pulse 2s var(--ease-out) infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+.double-rule{margin:14px 0 0;border-top:1px solid var(--hairline);height:3px;border-bottom:1px solid var(--hairline)}
 
-  .chiprow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:1080px;margin:12px auto 0;padding:0 18px}
-  .chiprow.cuisines{margin-top:8px}
-  .chip{border:0;cursor:pointer;font-size:.84rem;font-weight:600;padding:9px 14px;border-radius:999px;
-    background:var(--card);color:var(--sea-deep);box-shadow:var(--shadow);transition:transform .12s ease, background .2s;white-space:nowrap}
-  .chip:hover{transform:translateY(-2px)}
-  .chip.active{background:var(--coral);color:#fff}
-  .chip.feat.active{background:var(--sunset);color:#fff}
-  .countline{text-align:center;color:#5b6f78;font-size:.85rem;margin:16px 0 2px}
+/* ============ STICKY STACK: TOOLBAR + RAIL ============ */
+.stack{position:sticky;top:0;z-index:40}
+.toolbar{padding:10px 24px calc(10px);max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:14px;
+  padding-top:calc(10px + env(safe-area-inset-top))}
+.toolbar .brand{font-family:var(--f-display);font-weight:600;font-size:22px;color:var(--ink);
+  opacity:0;max-width:0;overflow:hidden;transition:opacity var(--t-std) var(--ease-out),max-width var(--t-std) var(--ease-out);white-space:nowrap}
+.toolbar .hearts{display:none;align-items:center;gap:6px;font-family:var(--f-mono);font-weight:500;font-size:12px;
+  background:none;border:0;cursor:pointer;color:var(--ink);padding:8px}
+.toolbar .hearts svg{stroke:var(--accent)}
+.stack-bg{position:absolute;inset:0;background:transparent;border-bottom:1px solid transparent;z-index:-1;
+  transition:background var(--t-std) var(--ease-out),border-color var(--t-std) var(--ease-out)}
+.stack.condensed .stack-bg{background:var(--paper-raised);border-bottom-color:var(--hairline)}
+@supports (backdrop-filter: blur(12px)){
+  .stack.condensed .stack-bg{background:var(--glass);backdrop-filter:blur(12px) saturate(1.4)}
+}
+.stack.condensed .brand{opacity:1;max-width:90px}
+.stack.condensed .hearts{display:inline-flex}
+.searchwrap{flex:1;display:flex;align-items:center;gap:8px;height:48px;background:var(--paper-raised);
+  border:1px solid var(--hairline);border-radius:var(--r-sm);padding:0 12px;transition:height var(--t-std) var(--ease-out)}
+.stack.condensed .searchwrap{height:38px}
+.searchwrap svg{color:var(--ink-2);flex:none}
+#search{flex:1;border:0;outline:0;background:transparent;color:var(--ink);
+  font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;min-width:0}
+#search::placeholder{color:var(--ink-2);opacity:.7}
+#search-clear{background:none;border:0;cursor:pointer;color:var(--ink-2);padding:6px;display:none;line-height:0}
 
-  .grid{display:grid;gap:22px;padding:14px 0 10px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
-  .card{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);display:flex;
-    flex-direction:column;transition:transform .15s ease, box-shadow .15s ease;border:1px solid rgba(6,58,77,.06)}
-  .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(6,58,77,.20)}
-  .card.is-featured{border:2px solid var(--sunset)}
-  .photo{position:relative;height:188px;background:linear-gradient(135deg,var(--sky),var(--sea));overflow:hidden}
-  .photo img{width:100%;height:100%;object-fit:cover;display:block}
-  .photo .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    font-size:4rem;background:linear-gradient(135deg,#ffd9a0,#ff9a76)}
-  .status{position:absolute;top:12px;left:12px;font-size:.74rem;font-weight:700;padding:6px 11px;border-radius:999px;
-    color:#fff;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-  .status .pulse{width:8px;height:8px;border-radius:50%;background:#fff}
-  .status.open{background:var(--open)} .status.closed{background:var(--closed)}
-  .featured-badge{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:var(--sunset);color:#fff;
-    font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
-    box-shadow:0 2px 8px rgba(0,0,0,.3)}
-  .rating{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.94);color:#b8860b;font-weight:700;
-    font-size:.82rem;padding:5px 10px;border-radius:999px}
-  .body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
-  .name{margin:0;font-size:1.3rem;font-weight:800;color:var(--sea-deep)}
-  .cuisine-line{font-size:.8rem;color:var(--olive);font-weight:700;margin:3px 0 0}
-  .price{color:var(--olive);font-weight:700}
-  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 6px}
-  .tag-chip{font-size:.72rem;background:var(--sand-warm);color:#6a5326;padding:4px 9px;border-radius:999px;font-weight:600}
-  .desc{font-size:.9rem;color:#48606b;line-height:1.45;margin:6px 0 12px}
-  .addr{font-size:.82rem;color:#5b6f78;margin:2px 0 8px;display:flex;gap:6px;align-items:flex-start;font-style:normal}
-  .hours-now{font-size:.84rem;margin:0 0 12px;color:#3a525c}
-  .hours-now b{color:var(--ink)}
-  .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
-  .actions a{text-decoration:none;text-align:center;font-size:.85rem;font-weight:600;padding:10px 8px;border-radius:11px;
-    display:flex;align-items:center;justify-content:center;gap:6px;transition:filter .15s, transform .12s}
-  .actions a:hover{filter:brightness(1.05);transform:translateY(-1px)}
-  .btn-call{background:var(--olive);color:#fff}
-  .btn-map{background:var(--sea);color:#fff}
-  .btn-web{background:var(--sand-warm);color:#6a5326}
-  .btn-book{background:var(--coral);color:#fff}
-  details{margin-top:14px;border-top:1px dashed rgba(6,58,77,.18);padding-top:12px}
-  details summary{cursor:pointer;font-weight:700;color:var(--coral);list-style:none;display:flex;align-items:center;
-    justify-content:space-between;font-size:.95rem}
-  details summary::-webkit-details-marker{display:none}
-  details summary .chev{transition:transform .2s}
-  details[open] summary .chev{transform:rotate(180deg)}
-  .menu-sec{margin-top:12px}
-  .menu-sec h4{margin:12px 0 6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;color:var(--sea);
-    border-bottom:1px solid var(--sand-warm);padding-bottom:4px}
-  .dish{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:.88rem}
-  .dish .d-name{font-weight:600;color:var(--ink)}
-  .dish .d-desc{font-size:.78rem;color:#6b7d85;display:block;font-weight:400}
-  .dish .d-price{color:var(--olive);font-weight:700;white-space:nowrap}
-  .full-menu{display:inline-block;margin-top:12px;font-size:.82rem;color:var(--sea);font-weight:600;text-decoration:none}
-  .full-menu:hover{text-decoration:underline}
-  .empty{text-align:center;padding:50px 20px;color:#5b6f78}
+.rail{max-width:1080px;margin:0 auto;display:flex;align-items:stretch;gap:2px;overflow-x:auto;
+  scroll-snap-type:x proximity;scrollbar-width:none;padding:0 24px;
+  mask-image:linear-gradient(90deg,transparent 0,#000 20px,#000 calc(100% - 20px),transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 20px,#000 calc(100% - 20px),transparent 100%)}
+.rail::-webkit-scrollbar{display:none}
+.tab{flex:none;scroll-snap-align:start;background:none;border:0;cursor:pointer;height:44px;padding:0 12px;
+  font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);
+  border-bottom:2px solid transparent;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+  transition:color var(--t-micro),border-color var(--t-micro)}
+.tab .ct{color:var(--ink-2);opacity:.75}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--ink);border-bottom-color:var(--accent)}
+.tab.open-toggle.on{color:var(--open);border-bottom-color:var(--open)}
+.sort-pop{position:absolute;right:24px;top:100%;margin-top:6px;background:var(--paper-raised);border:1px solid var(--hairline);
+  border-radius:var(--r-sm);box-shadow:var(--shadow-pop);padding:6px;z-index:50;display:none;min-width:180px}
+.sort-pop.show{display:block}
+.sort-pop button{display:flex;width:100%;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
+  padding:10px 12px;border-radius:6px;font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-2)}
+.sort-pop button:hover{background:var(--paper)}
+.sort-pop button.on{color:var(--accent)}
 
-  /* ad slot */
-  .ad-slot{max-width:1080px;margin:10px auto;padding:0 18px;text-align:center}
-  .ad-slot .ad-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:#9aa7ad;margin-bottom:4px}
+.countline{max-width:1080px;margin:0 auto;padding:14px 24px 0;font-family:var(--f-mono);font-weight:500;
+  font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
 
-  /* featured / newsletter promo */
-  .promo{max-width:1080px;margin:26px auto 0;padding:22px 20px;background:linear-gradient(135deg,var(--sea),var(--sea-deep));
-    color:#fff;border-radius:20px;text-align:center;box-shadow:var(--shadow)}
-  .promo h3{margin:0 0 6px;font-size:1.25rem}
-  .promo p{margin:0 auto 14px;max-width:560px;opacity:.95;font-size:.92rem;line-height:1.5}
-  .promo .cta{display:inline-block;background:var(--sunset);color:#fff;text-decoration:none;font-weight:700;
-    padding:11px 20px;border-radius:999px;transition:transform .12s,filter .15s}
-  .promo .cta:hover{transform:translateY(-2px);filter:brightness(1.05)}
-  .news{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
-  .news input{border:0;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.92);color:#16323d;
-    padding:11px 14px;border-radius:11px;font-size:.95rem;min-width:230px;outline:0}
-  .news button{border:0;cursor:pointer;background:var(--coral);color:#fff;font-weight:700;padding:11px 18px;border-radius:11px}
-  .news-msg{margin-top:10px;font-size:.88rem;min-height:1.2em;font-weight:600}
+/* ============ TONIGHT RAIL ============ */
+.tonight{max-width:1080px;margin:0 auto;padding:18px 0 0}
+.tonight h2{margin:0 24px 10px;font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.tonight h2::after{content:"";flex:1;border-top:1px solid var(--hairline)}
+.tonight .strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:0 24px 4px}
+.tonight .strip::-webkit-scrollbar{display:none}
+.cover{flex:none;width:200px;scroll-snap-align:start;border:1px solid var(--hairline);border-radius:var(--r-md);
+  overflow:hidden;background:var(--paper-raised);cursor:pointer;text-align:left;padding:0}
+.cover .ph{height:120px;background-size:cover;background-position:center;filter:saturate(.92) contrast(1.05)}
+.cover .cb{padding:10px 12px 12px}
+.cover .cn{font-family:var(--f-display);font-weight:600;font-size:16px;line-height:1.2;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.cover .cm{margin-top:4px;font-family:var(--f-mono);font-weight:500;font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2)}
 
-  footer{margin-top:30px;background:var(--sea-deep);color:#cfe6ee;text-align:center;padding:30px 20px 40px;
-    font-size:.84rem;line-height:1.6}
-  footer a{color:var(--sunset);text-decoration:none}
-  footer a:hover{text-decoration:underline}
-  footer nav{margin:8px 0 6px}
-  footer nav a{margin:0 8px}
-  footer .disc{font-size:.74rem;opacity:.72;max-width:680px;margin:14px auto 0}
+/* ============ GRID + CARDS ============ */
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.grid{display:grid;grid-template-columns:1fr;gap:24px;padding:16px 0 8px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:32px}}
+.card{position:relative;background:var(--paper-raised);border:1px solid var(--hairline);border-radius:var(--r-md);
+  overflow:hidden;cursor:pointer;content-visibility:auto;contain-intrinsic-size:1px 480px}
+.card.enter{animation:rise 300ms var(--ease-out) both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card.is-featured{border:1.5px solid var(--gold)}
+.feat-mark{position:absolute;top:-8px;left:14px;z-index:3;background:var(--paper-raised);color:var(--gold);
+  padding:0 8px;font-family:var(--f-mono);font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:5px}
+.photo{position:relative;margin:6px;border-radius:10px;overflow:hidden;aspect-ratio:3/2;
+  background-size:cover;background-position:center}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92) contrast(1.05);
+  opacity:0;transition:opacity var(--t-struct) var(--ease-out)}
+.photo img.ok{opacity:1}
+.photo::after{content:"";position:absolute;inset:0;background:var(--scrim);pointer-events:none}
+.photo .mono-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-display);font-weight:900;font-size:96px;color:var(--ink-2);background:var(--paper-raised)}
+.status{position:absolute;left:10px;bottom:10px;z-index:2;display:inline-flex;align-items:center;gap:6px;
+  background:rgba(253,251,245,.92);border-radius:var(--r-pill);padding:5px 10px;
+  font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+html[data-theme="night"] .status{background:rgba(18,21,27,.85)}
+.status .sd{width:6px;height:6px;border-radius:50%;background:currentColor}
+.status.st-open{color:var(--open)} .status.st-soon{color:var(--lastcall)} .status.st-closed{color:var(--closed)}
+.fav{position:absolute;right:6px;top:6px;z-index:3;width:44px;height:44px;background:none;border:0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:#fff;filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
+.fav svg{width:22px;height:22px;transition:color var(--t-micro)}
+.fav.on{color:var(--accent)} .fav.on svg{fill:var(--accent)}
+.fav.pop svg{animation:pop 300ms var(--ease-out)}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+.cbody{padding:12px 16px 0}
+.meta-line{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.name{margin:4px 0 0;font-family:var(--f-display);font-weight:600;font-size:22px;letter-spacing:-.01em;color:var(--ink);line-height:1.25}
+.name mark{background:transparent;color:inherit;border-bottom:2px solid var(--accent)}
+.desc{margin:6px 0 14px;font-size:15px;color:var(--ink-2);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.actions{display:flex;border-top:1px solid var(--hairline)}
+.actions a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:56px;
+  text-decoration:none;font-size:13px;font-weight:600;color:var(--sea);border-left:1px solid var(--hairline)}
+.actions a:first-child{border-left:0}
+.actions a.act-go{color:var(--accent)}
+.actions a:active{transform:scale(.97)}
 
-  @media(max-width:480px){
-    header h1{font-size:2.1rem}
-    .chiprow{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch;
-      scrollbar-width:none;padding-bottom:4px}
-    .chiprow::-webkit-scrollbar{display:none}
-  }
+.ad-insert{border:1px solid var(--hairline);border-radius:var(--r-md);padding:14px;text-align:center;background:var(--paper-raised)}
+.ad-insert .ad-label{font-family:var(--f-mono);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
+.empty{text-align:center;padding:56px 24px;font-family:var(--f-display);font-weight:600;font-style:italic;font-size:22px;color:var(--ink-2)}
+
+/* ============ FAB ============ */
+#surprise{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:45;width:56px;height:56px;
+  border-radius:50%;border:0;cursor:pointer;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-pop);transition:transform 200ms var(--ease-sheet)}
+#surprise.hide{transform:translateY(96px)}
+#surprise svg{width:24px;height:24px}
+
+/* ============ THE SPREAD (dialog) ============ */
+dialog#spread{border:0;padding:0;margin:0;background:var(--paper-raised);color:var(--ink);
+  width:100%;max-width:100%;position:fixed;bottom:0;top:auto;left:0;right:0;
+  max-height:92dvh;max-height:92vh;border-radius:var(--r-lg) var(--r-lg) 0 0;box-shadow:var(--shadow-sheet);
+  transform:translateY(100%);transition:transform 420ms var(--ease-sheet)}
+dialog#spread.in{transform:translateY(0)}
+dialog#spread.out{transform:translateY(100%);transition-duration:300ms;transition-timing-function:var(--ease-in)}
+dialog#spread::backdrop{background:rgba(22,17,10,.45);opacity:0;transition:opacity var(--t-std) var(--ease-out)}
+dialog#spread.in::backdrop{opacity:1}
+@media(min-width:900px){
+  dialog#spread{left:50%;right:auto;top:50%;bottom:auto;width:680px;max-height:86vh;border-radius:var(--r-lg);
+    transform:translate(-50%,-50%) scale(.97);opacity:0;transition:transform var(--t-std) var(--ease-out),opacity var(--t-std) var(--ease-out)}
+  dialog#spread.in{transform:translate(-50%,-50%) scale(1);opacity:1}
+  dialog#spread.out{transform:translate(-50%,-50%) scale(.97);opacity:0}
+}
+.sheet-scroll{overflow-y:auto;overscroll-behavior:contain;max-height:inherit;display:flex;flex-direction:column}
+.grabber{padding:10px 0 6px;display:flex;justify-content:center;flex:none;touch-action:none;cursor:grab}
+.grabber::before{content:"";width:36px;height:5px;border-radius:var(--r-pill);background:var(--hairline)}
+.sp-hero{position:relative;height:200px;flex:none;background-size:cover;background-position:center;background-color:#2A2721}
+.sp-hero img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.05);display:block}
+.sp-hero::after{content:"";position:absolute;inset:0;background:var(--scrim)}
+.sp-hero .sp-title{position:absolute;left:16px;bottom:12px;right:16px;z-index:2;color:#fff}
+.sp-hero .sp-title h2{margin:0;font-family:var(--f-display);font-weight:600;font-size:28px;line-height:1.15;letter-spacing:-.01em}
+.sp-hero .sp-title .m{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;opacity:.9}
+.sp-status{position:static;display:inline-flex;margin:0 0 12px;border:1px solid var(--hairline)}
+.sp-tools{position:absolute;top:10px;right:10px;z-index:3;display:flex;gap:8px}
+.sp-tools button{width:36px;height:36px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(253,251,245,.88);color:var(--ink);display:flex;align-items:center;justify-content:center}
+html[data-theme="night"] .sp-tools button{background:rgba(18,21,27,.8);color:var(--ink)}
+.sp-tools button.on{color:var(--accent)} .sp-tools button.on svg{fill:var(--accent)}
+.sp-body{padding:16px 20px 8px}
+.sp-lede{font-size:17px;color:var(--ink);margin:0 0 18px}
+.sp-h{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);border-top:1px solid var(--hairline);padding-top:12px;margin:0 0 10px}
+.week{margin:0 0 18px}
+.wrow{display:flex;align-items:center;gap:10px;padding:3px 0}
+.wrow .wd{width:34px;flex:none;font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-2)}
+.wrow.today .wd{color:var(--ink)}
+.wrow .track{position:relative;flex:1;height:12px;border-bottom:1px solid var(--hairline)}
+.wrow .bar{position:absolute;top:3px;height:6px;border-radius:3px;background:var(--open);opacity:.75}
+.wrow.today .bar{opacity:1}
+.wrow .needle{position:absolute;top:-1px;width:2px;height:14px;background:var(--accent)}
+.wrow .wt{width:118px;flex:none;text-align:right;font-family:var(--f-mono);font-weight:500;font-size:10px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.menu-sec-h{font-family:var(--f-display);font-weight:600;font-size:17px;color:var(--ink);
+  border-top:1px solid var(--hairline);padding-top:10px;margin:14px 0 6px}
+.dish{display:flex;align-items:baseline;gap:8px;padding:5px 0}
+.dish .dn{font-weight:600;font-size:15px;color:var(--ink)}
+.dish .dd{display:block;font-size:13px;font-weight:400;color:var(--ink-2)}
+.dish .lead{flex:1;border-bottom:1px dotted var(--hairline);min-width:16px}
+.dish .dp{font-family:var(--f-mono);font-weight:500;font-size:14px;color:var(--ink);white-space:nowrap}
+.full-menu{display:inline-block;margin:10px 0 16px;font-weight:600;font-size:14px;color:var(--sea);text-decoration:none}
+.full-menu:hover{text-decoration:underline}
+.sp-addr{display:block;border:1px solid var(--hairline);border-radius:var(--r-sm);padding:12px 14px;margin:0 0 16px;
+  text-decoration:none;color:var(--ink);font-style:normal;font-size:14px}
+.sp-addr .mono{color:var(--ink-2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:2px}
+.sp-actions{position:sticky;bottom:0;flex:none;display:flex;gap:10px;background:var(--paper-raised);
+  border-top:1px solid var(--hairline);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.sp-actions a{display:flex;align-items:center;justify-content:center;gap:6px;height:48px;border-radius:var(--r-sm);
+  text-decoration:none;font-weight:600;font-size:14px;border:1px solid var(--hairline);color:var(--sea);padding:0 14px}
+.sp-actions a.go{flex:1;background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ============ TOAST ============ */
+#toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(8px);
+  background:var(--ink);color:var(--paper);padding:9px 16px;border-radius:var(--r-pill);z-index:60;
+  font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  opacity:0;pointer-events:none;transition:opacity var(--t-std) var(--ease-out),transform var(--t-std) var(--ease-out)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ INSTALL BANNER ============ */
+#install-banner{max-width:1080px;margin:20px auto 0;padding:0 24px;display:none}
+#install-banner.show{display:block}
+#install-banner .ib{display:flex;align-items:center;gap:12px;border:1px solid var(--hairline);border-radius:var(--r-sm);
+  padding:12px 14px;font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+#install-banner button{background:none;border:0;cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit;padding:8px}
+#install-banner .go-install{color:var(--accent);font-weight:500}
+
+/* ============ COLOPHON + FOOTER ============ */
+.colophon{max-width:1080px;margin:36px auto 0;padding:0 24px}
+.colophon .inner{background:var(--paper-raised);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+  padding:28px 20px;text-align:center;position:relative}
+.colophon .inner::before{content:"";position:absolute;left:0;right:0;top:3px;border-top:1px solid var(--hairline)}
+.colophon h3{margin:0 0 4px;font-family:var(--f-display);font-weight:600;font-size:28px;color:var(--ink)}
+.colophon p{margin:0 auto 16px;max-width:480px;font-size:14px;color:var(--ink-2)}
+.news{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.news input{border:1px solid var(--hairline);background:var(--paper);color:var(--ink);
+  padding:12px 14px;border-radius:var(--r-sm);font-size:15px;min-width:240px;outline:0}
+.news input:focus{border-color:var(--accent)}
+.news button{border:0;cursor:pointer;background:var(--accent);color:#fff;font-weight:600;font-size:14px;
+  padding:12px 18px;border-radius:var(--r-sm)}
+.news-msg{margin-top:10px;font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--open);min-height:1.2em}
+#feature-cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;text-decoration:none;
+  border:1px solid var(--gold);color:var(--gold);font-weight:600;font-size:14px;padding:11px 18px;border-radius:var(--r-sm)}
+#feature-cta:hover{background:var(--gold);color:var(--paper-raised)}
+
+footer{max-width:1080px;margin:0 auto;padding:28px 24px calc(96px + env(safe-area-inset-bottom));text-align:center;
+  font-size:13px;color:var(--ink-2);line-height:1.8}
+footer .fbrand{font-family:var(--f-display);font-weight:600;font-size:17px;color:var(--ink)}
+footer a{color:var(--sea);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .cuisine-links{margin:12px auto 4px;max-width:760px}
+footer .cuisine-links strong{display:block;margin-bottom:4px;font-family:var(--f-mono);font-weight:500;font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+footer nav{margin:8px 0 6px}
+footer nav a{margin:0 8px}
+footer .disc{font-size:11px;opacity:.75;max-width:680px;margin:14px auto 0}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+  .dateline .dot{animation:none}
+  dialog#spread,dialog#spread.in,dialog#spread.out{transform:none;opacity:1}
+  @media(min-width:900px){dialog#spread{transform:translate(-50%,-50%)}}
+}
 </style>
 </head>
 <body>
+<a class="skip" href="#grid">Skip to restaurants</a>
 
-<header>
-  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle day/night theme" title="Toggle day / night">🌙</button>
-  <span class="badge-pill">🌴 The Island · Alameda, CA</span>
-  <h1>Isola <span class="accent">Alameda Eats</span></h1>
-  <p class="tag">The best restaurants in Alameda, CA — see who's <b>open right now</b>, browse menus &amp; photos, and call, map, or order in one tap.</p>
-  <p class="updated">Updated June 2026 · <span id="spotcount">45</span> island spots · every cuisine</p>
-  <div class="clock" id="clock"><span class="dot"></span><span id="clock-text">Loading island time…</span></div>
-  <div class="wave">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="#fbf6ec" d="M0,32 C240,64 480,0 720,24 C960,48 1200,8 1440,32 L1440,60 L0,60 Z"></path></svg>
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead">
+  <div class="kicker-bar">
+    <span id="kicker">GOLDEN HOUR EDITION · ALAMEDA, CALIFORNIA</span>
+    <button id="theme-toggle" class="pressable" aria-label="Toggle day and night theme">
+      <svg class="gl" id="theme-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <span id="theme-label">NIGHT</span>
+    </button>
   </div>
+  <h1 class="wordmark">Isola<span class="visually-hidden"> — Best Restaurants in Alameda, CA: open now, menus &amp; hours</span></h1>
+  <p class="deck">Every restaurant on the Island — who's open, what to order, one tap to table.</p>
+  <p class="edition">Updated June 2026 · <span id="spotcount">45</span> island spots · every cuisine</p>
+  <p class="dateline"><span class="dot" aria-hidden="true"></span><span id="dateline">LOADING ISLAND TIME…</span></p>
+  <div class="double-rule" aria-hidden="true"></div>
 </header>
 
-<main class="wrap-main">
-<div class="controls">
-  <div class="search">
-    <span>🔍</span>
-    <input id="search" type="text" placeholder="Search dishes, places, cuisines…" aria-label="Search restaurants and dishes" />
+<!-- ============ STICKY TOOLBAR + FILTER RAIL ============ -->
+<div id="sentinel" aria-hidden="true"></div>
+<div class="stack" id="stack">
+  <div class="stack-bg" aria-hidden="true"></div>
+  <div class="toolbar">
+    <span class="brand" aria-hidden="true">Isola</span>
+    <div class="searchwrap">
+      <svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Search dishes, places, cuisines" aria-label="Search restaurants and dishes" autocomplete="off" />
+      <button id="search-clear" aria-label="Clear search"><svg class="gl" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <button class="hearts" id="hearts-btn" aria-label="Show favorites">
+      <svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2.6 4.5 6.2 4.5c2.2 0 3.9 1.2 4.8 3 .9-1.8 2.6-3 4.8-3 3.6 0 5.7 3.5 4.2 7.2C19.5 16.3 12 21 12 21z"/></svg>
+      <span id="hearts-count">0</span>
+    </button>
   </div>
-  <div class="sort-wrap">
-    <span>↕️ Sort</span>
-    <select id="sort" aria-label="Sort restaurants">
-      <option value="smart">Open first</option>
-      <option value="rating">Top rated</option>
-      <option value="name">Name A–Z</option>
-    </select>
+  <div style="position:relative">
+    <nav class="rail" id="rail" aria-label="Filter restaurants"></nav>
+    <div class="sort-pop" id="sort-pop" role="menu"></div>
   </div>
-  <button class="surprise-btn" id="surprise">🎲 Surprise me</button>
 </div>
 
-<div class="chiprow" id="filters">
-  <button class="chip active" data-filter="all">All</button>
-  <button class="chip" data-filter="open">🟢 Open Now</button>
-  <button class="chip" data-filter="fav">❤️ Favorites</button>
-  <button class="chip feat" data-filter="featured">⭐ Featured</button>
-  <button class="chip" data-filter="cat:waterfront">🌊 Waterfront</button>
-  <button class="chip" data-filter="cat:patio">🌿 Patio</button>
-  <button class="chip" data-filter="cat:breakfast">🍳 Breakfast</button>
-  <button class="chip" data-filter="cat:vegan">🥗 Veg-friendly</button>
-</div>
-<div class="chiprow cuisines" id="cuisine-chips"></div>
+<main>
+  <p class="countline" id="count" aria-live="polite"></p>
 
-<div class="wrap">
-  <p class="countline" id="count"></p>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty" style="display:none">🍅 No spots match that — try another search or filter.</div>
-  <div class="ad-slot" id="ad-slot" hidden><div class="ad-label">Advertisement</div><div id="ad-unit"></div></div>
-</div>
+  <section class="tonight" id="tonight" hidden>
+    <h2 id="tonight-title">ON THE ISLAND TONIGHT</h2>
+    <div class="strip" id="tonight-strip"></div>
+  </section>
 
-<section class="promo wrap">
-  <h3>📈 Own an Alameda restaurant?</h3>
-  <p>Get a <strong>Featured listing</strong> — pinned to the top, highlighted, and seen first by hungry locals searching "open now." Founding-sponsor pricing for the first spots on the Island.</p>
-  <a class="cta" id="feature-cta" href="#">Get Featured →</a>
-  <div class="news" role="group" aria-label="Newsletter signup">
-    <form id="news-form">
-      <input id="news-email" type="email" name="email" placeholder="you@email.com" aria-label="Your email" required />
-      <button type="submit">📬 Get the weekly eats list</button>
-    </form>
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none">Nothing on the Island matches that — try another filter.</div>
+    <div class="ad-insert" id="ad-slot" hidden><div class="ad-label">Advertisement</div><div id="ad-unit"></div></div>
   </div>
-  <div class="news-msg" id="news-msg"></div>
-</section>
+
+  <div id="install-banner">
+    <div class="ib">
+      <span style="flex:1">ADD ISOLA TO YOUR HOME SCREEN · THE ISLAND GUIDE, OFFLINE</span>
+      <button class="go-install" id="install-go">INSTALL</button>
+      <button id="install-x" aria-label="Dismiss install banner"><svg class="gl" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+  </div>
+
+  <section class="colophon">
+    <div class="inner">
+      <h3>The Sunday Table</h3>
+      <p>One short email a week — what's newly open, who has the patio weather covered, and where to eat on the Island.</p>
+      <form id="news-form" class="news">
+        <input id="news-email" type="email" name="email" placeholder="you@email.com" aria-label="Your email" required />
+        <button type="submit">Get the weekly eats list</button>
+      </form>
+      <div class="news-msg" id="news-msg" aria-live="polite"></div>
+      <a id="feature-cta" href="#">
+        <svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.4 5 5.6.7-4.1 3.8 1.1 5.5-5-2.8-5 2.8 1.1-5.5L4 8.7 9.6 8z"/></svg>
+        Own a restaurant? Get Featured
+      </a>
+    </div>
+  </section>
 </main>
 
 <footer>
-  <strong>Isola — Alameda Eats</strong> · The Island's restaurant guide 🌴<br>
-  <div style="margin:12px auto 4px;max-width:760px;font-size:.82rem;line-height:2">
-    <strong style="display:block;margin-bottom:4px">Browse Alameda restaurants by cuisine:</strong>
+  <span class="fbrand">Isola — Alameda Eats</span> · The Island's restaurant guide<br>
+  <div class="cuisine-links">
+    <strong>Browse Alameda restaurants by cuisine</strong>
     <a href="italian.html">Italian</a> · <a href="mexican.html">Mexican</a> · <a href="thai.html">Thai</a> ·
     <a href="chinese.html">Chinese</a> · <a href="vietnamese.html">Vietnamese</a> · <a href="japanese.html">Japanese</a> ·
     <a href="indian.html">Indian</a> · <a href="korean.html">Korean</a> · <a href="american.html">American</a> · <a href="seafood.html">Seafood</a> ·
     <a href="cafe.html">Cafe</a> · <a href="mediterranean.html">Mediterranean</a> · <a href="vegetarian.html">Vegetarian</a><br>
-    <a href="waterfront.html">🌊 Waterfront</a> · <a href="patio.html">🌿 Patio</a> · <a href="breakfast.html">🍳 Breakfast &amp; Brunch</a> ·
-    <a href="open-late.html">🌙 Open Late</a> · <a href="family-friendly.html">👨‍👩‍👧 Family-Friendly</a> · <a href="bars.html">🍸 Bars &amp; Cocktails</a>
+    <a href="waterfront.html">Waterfront</a> · <a href="patio.html">Patio</a> · <a href="breakfast.html">Breakfast &amp; Brunch</a> ·
+    <a href="open-late.html">Open Late</a> · <a href="family-friendly.html">Family-Friendly</a> · <a href="bars.html">Bars &amp; Cocktails</a>
   </div>
   Hours &amp; menus are shown for convenience — please call ahead to confirm, especially on holidays.
   <nav>
@@ -270,17 +442,58 @@
     <a id="footer-contact" href="#">Contact / Advertise</a>
   </nav>
   <div class="disc">
-    Built with 🧡 in Alameda. Menu prices are approximate and subject to change. Some "Order" / "Reserve" links may be
+    Built in Alameda. Menu prices are approximate and subject to change. Some "Order" / "Reserve" links may be
     affiliate links — we may earn a commission at no extra cost to you. "Featured" listings are paid placements and are
     labeled as such. Info compiled from each restaurant's website &amp; public listings.
   </div>
 </footer>
 
+<button id="surprise" class="pressable" aria-label="Surprise me — pick an open spot">
+  <svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>
+</button>
+
+<!-- ============ THE SPREAD ============ -->
+<dialog id="spread" aria-labelledby="sp-name">
+  <div class="sheet-scroll" id="sheet-scroll">
+    <div class="grabber" id="grabber" aria-hidden="true"></div>
+    <div class="sp-hero" id="sp-hero">
+      <img id="sp-img" alt="" />
+      <div class="sp-tools">
+        <button id="sp-fav" aria-label="Save to favorites"><svg class="gl" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2.6 4.5 6.2 4.5c2.2 0 3.9 1.2 4.8 3 .9-1.8 2.6-3 4.8-3 3.6 0 5.7 3.5 4.2 7.2C19.5 16.3 12 21 12 21z"/></svg></button>
+        <button id="sp-share" aria-label="Share this restaurant"><svg class="gl" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="5.5" r="2.5"/><circle cx="17" cy="18.5" r="2.5"/><path d="M8.2 10.8l6.6-4M8.2 13.2l6.6 4"/></svg></button>
+        <button id="sp-close" aria-label="Close"><svg class="gl" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="sp-title">
+        <div class="m" id="sp-meta"></div>
+        <h2 id="sp-name"></h2>
+      </div>
+    </div>
+    <div class="sp-body">
+      <span class="status sp-status" id="sp-status"></span>
+      <p class="sp-lede" id="sp-desc"></p>
+      <h3 class="sp-h">The Week</h3>
+      <div class="week" id="sp-week"></div>
+      <h3 class="sp-h">The Menu</h3>
+      <div id="sp-menu"></div>
+      <a class="full-menu" id="sp-fullmenu" target="_blank" rel="noopener">Full menu →</a>
+      <a class="sp-addr" id="sp-addr" target="_blank" rel="noopener">
+        <span class="mono">Find it</span><span id="sp-addr-text"></span>
+      </a>
+    </div>
+    <div class="sp-actions" id="sp-actions"></div>
+  </div>
+</dialog>
+
+<div id="toast" role="status"></div>
+
 <script src="data.js"></script>
 <script>
 /* ===========================================================
-   HELPERS — open-now in America/Los_Angeles
+   ISOLA — Island Edition. Vanilla JS app shell.
+   Data lives in data.js (CONFIG + RESTAURANTS).
    =========================================================== */
+
+/* ---------- time helpers (America/Los_Angeles) ---------- */
 function nowLA(){
   const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
   const map={};parts.forEach(p=>map[p.type]=p.value);
@@ -288,171 +501,507 @@ function nowLA(){
   let h=parseInt(map.hour,10); if(h===24)h=0;
   return {day:days[map.weekday], dec:h+parseInt(map.minute,10)/60};
 }
-function fmt(t){let h=Math.floor(t),m=Math.round((t-h)*60);const ap=h>=12?'pm':'am';let hh=h%12;if(hh===0)hh=12;return m===0?`${hh}${ap}`:`${hh}:${String(m).padStart(2,'0')}${ap}`;}
+function fmt(t){let h=Math.floor(t),m=Math.round((t-h)*60);if(m===60){h+=1;m=0}const ap=h>=12&&h<24?'pm':'am';let hh=h%12;if(hh===0)hh=12;return m===0?`${hh}${ap}`:`${hh}:${String(m).padStart(2,'0')}${ap}`;}
 function dayHoursText(iv){if(!iv||!iv.length)return "Closed";return iv.map(x=>`${fmt(x[0])}–${fmt(x[1])}`).join(", ");}
+const DAY_SHORT=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+/* extended status: {open, closingSoon, label} */
 function status(r){
-  const n=nowLA();const today=r.hours[n.day]||[];
-  for(const iv of today){if(n.dec>=iv[0]&&n.dec<iv[1]){return {open:true,label:(iv[1]-n.dec)<=1?`Closes ${fmt(iv[1])}`:"Open now"};}}
-  for(const iv of today){if(n.dec<iv[0])return {open:false,label:`Opens ${fmt(iv[0])}`};}
-  return {open:false,label:"Closed now"};
+  const n=nowLA(); const today=r.hours[n.day]||[];
+  for(const iv of today){
+    if(n.dec>=iv[0]&&n.dec<iv[1]){
+      const soon=(iv[1]-n.dec)<=1;
+      return {open:true, closingSoon:soon, label:(soon?'Last call · closes ':'Open · closes ')+fmt(iv[1])};
+    }
+  }
+  for(const iv of today){ if(n.dec<iv[0]) return {open:false, closingSoon:false, label:'Opens '+fmt(iv[0])}; }
+  // find next open day
+  for(let d=1;d<=7;d++){
+    const idx=(n.day+d)%7; const day=r.hours[idx]||[];
+    if(day.length) return {open:false, closingSoon:false, label:'Opens '+DAY_SHORT[idx].charAt(0)+DAY_SHORT[idx].slice(1).toLowerCase()+' '+fmt(day[0][0])};
+  }
+  return {open:false, closingSoon:false, label:'Closed'};
+}
+function daypart(dec){
+  if(dec>=5&&dec<8)   return {k:'DAWN ON THE ISLAND', rail:'FIRST UP THIS MORNING', mode:'breakfast'};
+  if(dec>=8&&dec<11)  return {k:'MORNING EDITION', rail:'ON THE ISLAND THIS MORNING', mode:'breakfast'};
+  if(dec>=11&&dec<15) return {k:'LUNCH ON THE ISLAND', rail:'OPEN FOR LUNCH RIGHT NOW', mode:'open'};
+  if(dec>=15&&dec<17) return {k:'THE AFTERNOON LULL', rail:'GOOD RIGHT NOW', mode:'open'};
+  if(dec>=17&&dec<20) return {k:'GOLDEN HOUR EDITION', rail:'GOLDEN HOUR ON THE ISLAND', mode:'golden'};
+  if(dec>=20&&dec<23) return {k:"DINNER'S STILL ON", rail:'LAST CALL TONIGHT', mode:'lastcall'};
+  return {k:'THE LATE EDITION', rail:'FIRST UP TOMORROW', mode:'tomorrow'};
 }
 
-/* ===========================================================
-   STATE + RENDER
-   =========================================================== */
+/* ---------- state ---------- */
 const grid=document.getElementById('grid');
 const emptyEl=document.getElementById('empty');
 const countEl=document.getElementById('count');
-let activeFilter='all', query='', sortBy='smart';
-
+let activeFilter='all', openOnly=false, query='', sortBy='smart', firstRender=true;
 function loadFavs(){try{return new Set(JSON.parse(localStorage.getItem('isola-favs')||'[]'))}catch(e){return new Set()}}
 let favs=loadFavs();
 function saveFavs(){try{localStorage.setItem('isola-favs',JSON.stringify([...favs]))}catch(e){}}
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 function maps(addr){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+const bySlug={}; RESTAURANTS.forEach(r=>bySlug[slug(r.name)]=r);
 
-const CUISINE_EMOJI={Italian:'🍝',Mexican:'🌮',Thai:'🍜',Chinese:'🥟',Vietnamese:'🍲',Japanese:'🍣',Indian:'🍛',American:'🍔',Seafood:'🦞',Cafe:'🥐',Mediterranean:'🥙',Vegetarian:'🥗'};
+/* ---------- icon strings ---------- */
+const IC={
+  heart:'<svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2.6 4.5 6.2 4.5c2.2 0 3.9 1.2 4.8 3 .9-1.8 2.6-3 4.8-3 3.6 0 5.7 3.5 4.2 7.2C19.5 16.3 12 21 12 21z"/></svg>',
+  phone:'<svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>',
+  pin:'<svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  globe:'<svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 5.6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-5.6-4-9s1.5-6.4 4-9z"/></svg>',
+  go:'<svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  laurel:'<svg class="gl" viewBox="0 0 24 24" aria-hidden="true" style="width:.9em;height:.9em"><path d="M12 3l2.4 5 5.6.7-4.1 3.8 1.1 5.5-5-2.8-5 2.8 1.1-5.5L4 8.7 9.6 8z"/></svg>'
+};
 
-/* smart Order vs Reserve button based on the link */
-function actionBtn(r){
-  const u=r.reserve||r.website||'';
-  let label='📅 Reserve';
-  if(/ubereats|grubhub|doordash|order\.online|toasttab|gotoeat|\/order/i.test(u)) label='🛵 Order';
-  else if(/opentable|resy|reservation|reserve/i.test(u)) label='📅 Reserve';
-  else label='🔗 Visit';
-  return `<a class="btn-book" href="${u}" target="_blank" rel="noopener sponsored nofollow">${label}</a>`;
+/* ---------- card ---------- */
+function imgUrls(u){
+  const base=u.split('?')[0];
+  return {
+    lqip: base+'?auto=format&fit=crop&w=24&q=30&blur=10',
+    s480: base+'?auto=format&fit=crop&w=480&q=70',
+    s800: base+'?auto=format&fit=crop&w=800&q=70'
+  };
 }
-
-function card(r){
-  const st=status(r), n=nowLA();
-  const todayTxt=dayHoursText(r.hours[n.day]);
-  const menuHtml=r.menu.map(s=>`<div class="menu-sec"><h4>${s.sec}</h4>${s.items.map(i=>`<div class="dish"><span class="d-name">${i.n}<span class="d-desc">${i.d}</span></span><span class="d-price">${i.p}</span></div>`).join('')}</div>`).join('');
+function statusChip(st){
+  const cls=st.open?(st.closingSoon?'st-soon':'st-open'):'st-closed';
+  const dot=st.open?'<span class="sd" aria-hidden="true"></span>':'';
+  return `<span class="status ${cls}">${dot}${esc(st.label)}</span>`;
+}
+function card(r,i){
+  const st=status(r);
   const id=slug(r.name), isFav=favs.has(id), cu=r.cuisine||'Italian';
+  const u=imgUrls(r.img);
+  const eager=i<2?'loading="eager" fetchpriority="high"':'loading="lazy"';
+  const menuTerms=r.menu.map(s=>s.items.map(x=>x.n).join(' ')).join(' ');
+  const topTags=(r.tags||[]).slice(0,2).join(' · ');
   return `
-  <article class="card${r.featured?' is-featured':''}" id="card-${id}" data-id="${id}" data-cuisine="${cu}"
-           data-cats="${(r.cats||[]).join(' ')}" data-open="${st.open}" data-featured="${!!r.featured}" data-rating="${r.rating}"
-           data-text="${(r.name+' '+cu+' '+r.tags.join(' ')+' '+r.desc+' '+r.menu.map(s=>s.items.map(i=>i.n).join(' ')).join(' ')).toLowerCase()}">
-    <div class="photo">
-      <div class="fallback">${r.emoji}</div>
-      <img src="${r.img}" alt="${r.name} — ${cu} restaurant in Alameda" loading="lazy" width="800" height="376"
-           onload="this.style.opacity=1" style="opacity:0;transition:opacity .4s" onerror="this.remove()">
-      <span class="status ${st.open?'open':'closed'}"><span class="pulse"></span>${st.label}</span>
-      ${r.featured?'<span class="featured-badge">★ Featured</span>':''}
-      <span class="rating">★ ${r.rating}</span>
-      <button class="fav ${isFav?'on':''}" data-fav="${id}" title="Save to favorites" aria-label="Save ${r.name} to favorites">${isFav?'❤️':'🤍'}</button>
+  <article class="card${r.featured?' is-featured':''}${firstRender?' enter':''}" id="card-${id}" data-id="${id}"
+    data-cuisine="${esc(cu)}" data-cats="${(r.cats||[]).join(' ')}" data-open="${st.open}" data-featured="${!!r.featured}"
+    data-rating="${r.rating}" data-name="${esc(r.name)}"
+    data-text="${esc((r.name+' '+cu+' '+(r.tags||[]).join(' ')+' '+r.desc+' '+menuTerms).toLowerCase())}"
+    role="button" tabindex="0" aria-label="${esc(r.name)} — open details"
+    ${firstRender?`style="animation-delay:${Math.min(i,8)*30}ms"`:''}>
+    ${r.featured?`<span class="feat-mark">${IC.laurel}Featured</span>`:''}
+    <div class="photo" style="background-image:url('${u.lqip}')">
+      <img src="${u.s800}" srcset="${u.s480} 480w, ${u.s800} 800w" sizes="(max-width:720px) 100vw, 380px"
+        alt="${esc(r.name)} — ${esc(cu)} restaurant in Alameda" ${eager} decoding="async" width="800" height="533"
+        onload="this.classList.add('ok')" onerror="this.parentElement.insertAdjacentHTML('afterbegin','&lt;div class=&quot;mono-fallback&quot;&gt;${esc(r.name.charAt(0))}&lt;/div&gt;');this.remove()">
+      ${statusChip(st)}
+      <button class="fav pressable ${isFav?'on':''}" data-fav="${id}" aria-pressed="${isFav}" aria-label="Save ${esc(r.name)} to favorites">${IC.heart}</button>
     </div>
-    <div class="body">
-      <h2 class="name">${r.name} <span class="price">${r.price}</span></h2>
-      <p class="cuisine-line">${CUISINE_EMOJI[cu]||'🍽️'} ${cu}</p>
-      <div class="tags">${r.tags.map(t=>`<span class="tag-chip">${t}</span>`).join('')}</div>
-      <p class="desc">${r.desc}</p>
-      <address class="addr">📍 <span>${r.address}</span></address>
-      <p class="hours-now">🕒 <b>Today:</b> ${todayTxt}</p>
-      <div class="actions">
-        <a class="btn-call" href="tel:${r.phone}">📞 Call</a>
-        <a class="btn-map" href="${maps(r.address)}" target="_blank" rel="noopener">🗺️ Directions</a>
-        <a class="btn-web" href="${r.website}" target="_blank" rel="noopener">🌐 Website</a>
-        ${actionBtn(r)}
-      </div>
-      <details>
-        <summary>📖 View Menu <span class="chev">▾</span></summary>
-        ${menuHtml}
-        <a class="full-menu" href="${r.menuUrl}" target="_blank" rel="noopener">See the full menu →</a>
-      </details>
+    <div class="cbody">
+      <div class="meta-line">${esc(cu)} · ${r.price} · ★ ${r.rating}${topTags?' · '+esc(topTags):''}</div>
+      <h2 class="name">${esc(r.name)}</h2>
+      <p class="desc">${esc(r.desc)}</p>
+    </div>
+    <div class="actions">
+      <a href="tel:${r.phone}" data-noopen>${IC.phone}Call</a>
+      <a href="${maps(r.address)}" target="_blank" rel="noopener" data-noopen>${IC.pin}Map</a>
+      <a href="${esc(r.website)}" target="_blank" rel="noopener" data-noopen>${IC.globe}Site</a>
+      ${actionBtn(r)}
     </div>
   </article>`;
 }
+function actionLabel(r){
+  const u=r.reserve||r.website||'';
+  if(/ubereats|grubhub|doordash|order\.online|toasttab|gotoeat|\/order/i.test(u)) return 'Order';
+  if(/opentable|resy|reservation|reserve/i.test(u)) return 'Reserve';
+  return 'Visit';
+}
+function actionBtn(r){
+  const u=r.reserve||r.website||'';
+  return `<a class="act-go" href="${esc(u)}" target="_blank" rel="noopener sponsored nofollow" data-noopen>${IC.go}${actionLabel(r)}</a>`;
+}
 
+/* ---------- sort + render ---------- */
+function tier(r){const st=status(r);return st.open?(st.closingSoon?2:3):0;}
 function sorted(){
   const list=[...RESTAURANTS];
-  const bySel=(a,b)=>{
+  const cmp=(a,b)=>{
     if(sortBy==='rating') return parseFloat(b.rating)-parseFloat(a.rating);
     if(sortBy==='name') return a.name.localeCompare(b.name);
-    const oa=status(a).open?1:0, ob=status(b).open?1:0;
-    if(oa!==ob) return ob-oa;
+    const ta=tier(a), tb=tier(b);
+    if(ta!==tb) return tb-ta;
     return parseFloat(b.rating)-parseFloat(a.rating);
   };
-  list.sort((a,b)=>{const fa=a.featured?1:0,fb=b.featured?1:0; if(fa!==fb)return fb-fa; return bySel(a,b);});
+  list.sort((a,b)=>{const fa=a.featured?1:0,fb=b.featured?1:0;if(fa!==fb)return fb-fa;return cmp(a,b);});
   return list;
 }
+const adSlotEl=document.getElementById('ad-slot');
+function render(){
+  grid.innerHTML=sorted().map(card).join('');
+  if(!adSlotEl.hidden && grid.children.length>6) grid.insertBefore(adSlotEl, grid.children[6]);
+  firstRender=false;
+  applyFilter();
+}
 
-function render(){ grid.innerHTML=sorted().map(card).join(''); applyFilter(); }
-
+/* ---------- composable filtering ---------- */
+function cardMatches(c){
+  let ok=true;
+  if(activeFilter==='fav') ok=favs.has(c.dataset.id);
+  else if(activeFilter==='featured') ok=c.dataset.featured==='true';
+  else if(activeFilter.startsWith('cuisine:')) ok=c.dataset.cuisine===activeFilter.slice(8);
+  else if(activeFilter.startsWith('cat:')) ok=(c.dataset.cats||'').split(' ').includes(activeFilter.slice(4));
+  if(ok && openOnly) ok=c.dataset.open==='true';
+  if(ok && query) ok=c.dataset.text.includes(query);
+  return ok;
+}
 function applyFilter(){
   let shown=0;
-  [...grid.children].forEach(c=>{
-    let ok=true;
-    if(activeFilter==='open') ok=c.dataset.open==='true';
-    else if(activeFilter==='fav') ok=favs.has(c.dataset.id);
-    else if(activeFilter==='featured') ok=c.dataset.featured==='true';
-    else if(activeFilter.startsWith('cuisine:')) ok=c.dataset.cuisine===activeFilter.slice(8);
-    else if(activeFilter.startsWith('cat:')) ok=(c.dataset.cats||'').split(' ').includes(activeFilter.slice(4));
-    if(ok && query) ok=c.dataset.text.includes(query);
-    c.style.display=ok?'':'none'; if(ok)shown++;
+  [...grid.querySelectorAll('.card')].forEach(c=>{
+    const ok=cardMatches(c);
+    c.style.display=ok?'':'none';
+    // search highlight
+    const nameEl=c.querySelector('.name'); const raw=c.dataset.name;
+    if(ok&&query){
+      const idx=raw.toLowerCase().indexOf(query);
+      nameEl.innerHTML = idx>=0
+        ? esc(raw.slice(0,idx))+'<mark>'+esc(raw.slice(idx,idx+query.length))+'</mark>'+esc(raw.slice(idx+query.length))
+        : esc(raw);
+    } else nameEl.textContent=raw;
+    if(ok)shown++;
   });
   emptyEl.style.display=shown?'none':'block';
-  if(activeFilter==='fav' && !shown) emptyEl.textContent='🤍 No favorites yet — tap the heart on a spot to save it.';
-  else if(activeFilter==='featured' && !shown) emptyEl.textContent='⭐ No featured spots yet — restaurants, get featured below!';
-  else emptyEl.textContent='🍅 No spots match that — try another search or filter.';
+  emptyEl.textContent = activeFilter==='fav'&&!shown
+    ? 'No favorites yet — tap a heart to start your list.'
+    : activeFilter==='featured'&&!shown
+      ? 'No featured spots yet — restaurants, the top of the Island is open.'
+      : 'Nothing on the Island matches that — try another filter.';
+  updateCounts(shown);
+  updateTonight();
+}
+function updateCounts(shown){
   const openCount=RESTAURANTS.filter(r=>status(r).open).length;
-  countEl.textContent=`${shown} of ${RESTAURANTS.length} spots · ${openCount} open right now on the Island`;
+  const n=nowLA();
+  const timeTxt=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date());
+  countEl.textContent=`${shown} OF ${RESTAURANTS.length} SPOTS · ISLAND TIME ${timeTxt.toUpperCase()}`;
+  const oc=document.querySelector('[data-tab="open"] .ct'); if(oc) oc.textContent=openCount;
+  const fc=document.querySelector('[data-tab="fav"] .ct'); if(fc) fc.textContent=favs.size;
+  document.getElementById('hearts-count').textContent=favs.size;
 }
 
-/* dynamic cuisine chips */
-function buildCuisineChips(){
-  const counts={};
-  RESTAURANTS.forEach(r=>{const c=r.cuisine||'Italian';counts[c]=(counts[c]||0)+1;});
-  const order=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
-  document.getElementById('cuisine-chips').innerHTML=order.map(c=>
-    `<button class="chip" data-filter="cuisine:${c}">${CUISINE_EMOJI[c]||'🍽️'} ${c}</button>`).join('');
+/* ---------- filter rail ---------- */
+function buildRail(){
+  const counts={}; RESTAURANTS.forEach(r=>{const c=r.cuisine||'Italian';counts[c]=(counts[c]||0)+1;});
+  const cuisines=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
+  const catCount=k=>RESTAURANTS.filter(r=>(r.cats||[]).includes(k)).length;
+  const featCount=RESTAURANTS.filter(r=>r.featured).length;
+  let html='';
+  html+=`<button class="tab" data-tab="all" data-filter="all">All <span class="ct">${RESTAURANTS.length}</span></button>`;
+  html+=`<button class="tab open-toggle" data-tab="open" aria-pressed="false">Open now <span class="ct">0</span></button>`;
+  html+=`<button class="tab" data-tab="fav" data-filter="fav">Favorites <span class="ct">${favs.size}</span></button>`;
+  if(featCount) html+=`<button class="tab" data-filter="featured">Featured <span class="ct">${featCount}</span></button>`;
+  [['waterfront','Waterfront'],['patio','Patio'],['breakfast','Breakfast'],['vegan','Veg-friendly']].forEach(([k,l])=>{
+    const c=catCount(k); if(c) html+=`<button class="tab" data-filter="cat:${k}">${l} <span class="ct">${c}</span></button>`;
+  });
+  cuisines.forEach(c=>{ html+=`<button class="tab" data-filter="cuisine:${esc(c)}">${esc(c)} <span class="ct">${counts[c]}</span></button>`; });
+  html+=`<button class="tab" id="sort-btn" aria-haspopup="menu" aria-expanded="false">Sort: <span id="sort-label">Open first</span> ▾</button>`;
+  document.getElementById('rail').innerHTML=html;
 }
-
-/* clock */
-function tick(){
-  const txt=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'long',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date());
-  document.getElementById('clock-text').textContent=`Alameda · ${txt}`;
+document.getElementById('rail').addEventListener('click',e=>{
+  const b=e.target.closest('.tab'); if(!b) return;
+  if(b.id==='sort-btn'){ toggleSortPop(); return; }
+  if(b.dataset.tab==='open'){
+    openOnly=!openOnly; b.classList.toggle('on',openOnly); b.setAttribute('aria-pressed',String(openOnly));
+    applyFilter(); return;
+  }
+  const f=b.dataset.filter;
+  if(activeFilter===f && f!=='all'){ activeFilter='all'; b.classList.remove('on'); railMark(); }
+  else { activeFilter=f; railMark(b); }
+  b.scrollIntoView({inline:'nearest',block:'nearest',behavior:'smooth'});
+  applyFilter();
+});
+function railMark(active){
+  document.querySelectorAll('#rail .tab').forEach(t=>{ if(t.dataset.tab!=='open') t.classList.remove('on'); });
+  if(active) active.classList.add('on');
+  else { const all=document.querySelector('[data-tab="all"]'); if(activeFilter==='all'&&all) all.classList.add('on'); }
 }
-
-/* chip clicks (delegated across both rows) */
-function onChipClick(e){
-  const b=e.target.closest('.chip'); if(!b)return;
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  b.classList.add('active'); activeFilter=b.dataset.filter; applyFilter();
+/* sort popover */
+const SORTS=[['smart','Open first'],['rating','Top rated'],['name','A–Z']];
+const sortPop=document.getElementById('sort-pop');
+sortPop.innerHTML=SORTS.map(([v,l])=>`<button data-sort="${v}" class="${v==='smart'?'on':''}" role="menuitemradio" aria-checked="${v==='smart'}">${l}</button>`).join('');
+function toggleSortPop(force){
+  const show=force!==undefined?force:!sortPop.classList.contains('show');
+  sortPop.classList.toggle('show',show);
+  const btn=document.getElementById('sort-btn'); if(btn) btn.setAttribute('aria-expanded',String(show));
 }
-document.getElementById('filters').addEventListener('click',onChipClick);
-document.getElementById('cuisine-chips').addEventListener('click',onChipClick);
+sortPop.addEventListener('click',e=>{
+  const b=e.target.closest('[data-sort]'); if(!b)return;
+  sortBy=b.dataset.sort;
+  sortPop.querySelectorAll('button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-checked',String(x===b));});
+  document.getElementById('sort-label').textContent=b.textContent;
+  toggleSortPop(false); render();
+});
+document.addEventListener('click',e=>{ if(!e.target.closest('#sort-pop')&&!e.target.closest('#sort-btn')) toggleSortPop(false); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') toggleSortPop(false); });
 
-document.getElementById('search').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();applyFilter();});
+/* ---------- search ---------- */
+const searchEl=document.getElementById('search'), clearEl=document.getElementById('search-clear');
+searchEl.addEventListener('input',()=>{
+  query=searchEl.value.trim().toLowerCase();
+  clearEl.style.display=query?'block':'none';
+  applyFilter();
+});
+clearEl.addEventListener('click',()=>{searchEl.value='';query='';clearEl.style.display='none';applyFilter();searchEl.focus();});
 
+/* ---------- favorites ---------- */
+function toggleFav(id,btns){
+  const on=!favs.has(id);
+  if(on)favs.add(id); else favs.delete(id);
+  saveFavs();
+  btns.forEach(b=>{ if(!b)return; b.classList.toggle('on',on); b.setAttribute('aria-pressed',String(on)); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); });
+  updateCounts([...grid.querySelectorAll('.card')].filter(c=>c.style.display!=='none').length);
+  if(activeFilter==='fav') applyFilter();
+}
 grid.addEventListener('click',e=>{
-  const b=e.target.closest('.fav'); if(!b)return;
-  const id=b.dataset.fav;
-  if(favs.has(id)){favs.delete(id);b.classList.remove('on');b.textContent='🤍';}
-  else{favs.add(id);b.classList.add('on');b.textContent='❤️';}
-  saveFavs(); if(activeFilter==='fav') applyFilter();
+  const fb=e.target.closest('.fav');
+  if(fb){ e.stopPropagation(); toggleFav(fb.dataset.fav,[fb]); return; }
+  if(e.target.closest('[data-noopen]')) return;
+  const c=e.target.closest('.card'); if(c) openSpread(c.dataset.id,{opener:c});
+});
+grid.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const c=e.target.closest('.card'); if(!c||e.target.closest('a,button'))return;
+  e.preventDefault(); openSpread(c.dataset.id,{opener:c});
+});
+document.getElementById('hearts-btn').addEventListener('click',()=>{
+  activeFilter='fav'; railMark(document.querySelector('[data-tab="fav"]')); applyFilter();
+  document.getElementById('grid').scrollIntoView({behavior:'smooth'});
 });
 
-document.getElementById('sort').addEventListener('change',e=>{sortBy=e.target.value;render();});
+/* ---------- THE SPREAD ---------- */
+const dlg=document.getElementById('spread');
+let spreadSlug=null, spreadOpener=null, pushedState=false;
+function weekHtml(r){
+  const n=nowLA();
+  const order=[1,2,3,4,5,6,0];
+  return order.map(d=>{
+    const iv=r.hours[d]||[];
+    const bars=iv.map(x=>{
+      const s=Math.max(6,x[0]), e=Math.min(24,x[1]);
+      if(e<=s) return '';
+      return `<span class="bar" style="left:${((s-6)/18*100).toFixed(2)}%;width:${((e-s)/18*100).toFixed(2)}%"></span>`;
+    }).join('');
+    const needle=(d===n.day&&n.dec>=6&&n.dec<=24)?`<span class="needle" style="left:${((n.dec-6)/18*100).toFixed(2)}%"></span>`:'';
+    return `<div class="wrow${d===n.day?' today':''}"><span class="wd">${DAY_SHORT[d]}</span><span class="track">${bars}${needle}</span><span class="wt">${esc(dayHoursText(iv))}</span></div>`;
+  }).join('');
+}
+function menuHtml(r){
+  return r.menu.map(s=>`
+    <h4 class="menu-sec-h">${esc(s.sec)}</h4>
+    ${s.items.map(i=>`<div class="dish"><span class="dn">${esc(i.n)}<span class="dd">${esc(i.d)}</span></span><span class="lead" aria-hidden="true"></span><span class="dp">${esc(i.p)}</span></div>`).join('')}
+  `).join('');
+}
+function openSpread(id,{opener=null,fromHash=false}={}){
+  const r=bySlug[id]; if(!r) return;
+  spreadSlug=id; spreadOpener=opener;
+  const st=status(r);
+  const u=imgUrls(r.img);
+  const hero=document.getElementById('sp-hero');
+  hero.style.backgroundImage=`url('${u.lqip}')`;
+  const img=document.getElementById('sp-img');
+  img.style.display=''; img.onerror=()=>{img.style.display='none';};
+  img.src=u.s800; img.alt=`${r.name} — ${r.cuisine} restaurant in Alameda`;
+  document.getElementById('sp-meta').textContent=`${r.cuisine} · ${r.price} · ★ ${r.rating}`;
+  document.getElementById('sp-name').textContent=r.name;
+  const stEl=document.getElementById('sp-status');
+  stEl.className='status sp-status '+(st.open?(st.closingSoon?'st-soon':'st-open'):'st-closed');
+  stEl.innerHTML=(st.open?'<span class="sd"></span>':'')+esc(st.label);
+  document.getElementById('sp-desc').textContent=r.desc;
+  document.getElementById('sp-week').innerHTML=weekHtml(r);
+  document.getElementById('sp-menu').innerHTML=menuHtml(r);
+  document.getElementById('sp-fullmenu').href=r.menuUrl;
+  const addr=document.getElementById('sp-addr');
+  addr.href=maps(r.address);
+  document.getElementById('sp-addr-text').textContent=r.address;
+  const favBtn=document.getElementById('sp-fav');
+  favBtn.classList.toggle('on',favs.has(id));
+  favBtn.setAttribute('aria-pressed',String(favs.has(id)));
+  document.getElementById('sp-actions').innerHTML=`
+    <a href="tel:${r.phone}">${IC.phone}Call</a>
+    <a href="${maps(r.address)}" target="_blank" rel="noopener">${IC.pin}Directions</a>
+    <a class="go" href="${esc(r.reserve||r.website)}" target="_blank" rel="noopener sponsored nofollow">${IC.go}${actionLabel(r)}</a>`;
+  if(!dlg.open) dlg.showModal();
+  document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>dlg.classList.add('in')));
+  dlg.classList.remove('out');
+  document.getElementById('sheet-scroll').scrollTop=0;
+  if(!fromHash){ history.pushState({spread:id},'','#card-'+id); pushedState=true; }
+}
+function animateClose(){
+  if(!dlg.open) return;
+  dlg.classList.remove('in'); dlg.classList.add('out');
+  const done=()=>{ if(dlg.open) dlg.close(); dlg.classList.remove('out');
+    document.body.style.overflow='';
+    document.getElementById('sheet-scroll').style.transform='';
+    if(spreadOpener&&document.contains(spreadOpener)) spreadOpener.focus();
+    spreadSlug=null;
+  };
+  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(rm){ done(); return; }
+  setTimeout(done,310);
+}
+function requestClose(){
+  if(pushedState && history.state && history.state.spread){ history.back(); }
+  else animateClose();
+}
+window.addEventListener('popstate',()=>{ if(dlg.open){ pushedState=false; animateClose(); } });
+document.getElementById('sp-close').addEventListener('click',requestClose);
+dlg.addEventListener('cancel',e=>{e.preventDefault();requestClose();});
+dlg.addEventListener('click',e=>{ if(e.target===dlg) requestClose(); });
+document.getElementById('sp-fav').addEventListener('click',()=>{
+  if(!spreadSlug)return;
+  toggleFav(spreadSlug,[document.getElementById('sp-fav'),document.querySelector(`.fav[data-fav="${spreadSlug}"]`)]);
+});
+document.getElementById('sp-share').addEventListener('click',async()=>{
+  if(!spreadSlug)return;
+  const r=bySlug[spreadSlug];
+  const url=CONFIG.CANONICAL+'#card-'+spreadSlug;
+  if(navigator.share){ try{await navigator.share({title:r.name+' — Isola, Alameda Eats',url});}catch(e){} }
+  else { try{await navigator.clipboard.writeText(url); toast('LINK COPIED');}catch(e){} }
+});
+/* drag-to-dismiss */
+(function(){
+  const sheet=document.getElementById('sheet-scroll');
+  const grab=document.getElementById('grabber');
+  let startY=0,dy=0,t0=0,dragging=false;
+  const rm=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  grab.addEventListener('touchstart',e=>{dragging=true;startY=e.touches[0].clientY;t0=Date.now();dlg.style.transition='none';},{passive:true});
+  window.addEventListener('touchmove',e=>{
+    if(!dragging)return;
+    dy=Math.max(0,e.touches[0].clientY-startY);
+    if(!rm()) dlg.style.transform=`translateY(${dy}px)`;
+  },{passive:true});
+  window.addEventListener('touchend',()=>{
+    if(!dragging)return; dragging=false;
+    dlg.style.transition='';
+    const v=dy/Math.max(1,Date.now()-t0);
+    if(dy>120||v>0.6){ dlg.style.transform=''; requestClose(); }
+    else dlg.style.transform='';
+  });
+})();
+/* hash auto-open on load */
+window.addEventListener('load',()=>{
+  const m=location.hash.match(/^#card-(.+)$/);
+  if(m&&bySlug[m[1]]){ history.replaceState({spread:m[1]},'',location.hash); pushedState=true; openSpread(m[1],{fromHash:true}); }
+});
 
-document.getElementById('surprise').addEventListener('click',()=>{
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ---------- tonight rail ---------- */
+function updateTonight(){
+  const sec=document.getElementById('tonight');
+  if(activeFilter!=='all'||openOnly||query){ sec.hidden=true; return; }
+  const n=nowLA(); const dp=daypart(n.dec);
+  let picks=[];
+  if(dp.mode==='breakfast') picks=RESTAURANTS.filter(r=>(r.cats||[]).includes('breakfast')&&status(r).open);
+  else if(dp.mode==='golden') picks=RESTAURANTS.filter(r=>{const c=r.cats||[];return (c.includes('patio')||c.includes('waterfront'))&&status(r).open;});
+  else if(dp.mode==='lastcall') picks=RESTAURANTS.filter(r=>{const s=status(r);return s.open;}).sort((a,b)=>{const sa=status(a).closingSoon?0:1,sb=status(b).closingSoon?0:1;return sa-sb;});
+  else if(dp.mode==='tomorrow'){
+    picks=RESTAURANTS.filter(r=>!status(r).open).slice(0);
+  } else picks=RESTAURANTS.filter(r=>status(r).open);
+  if(dp.mode!=='tomorrow'&&picks.length<3) picks=RESTAURANTS.filter(r=>status(r).open);
+  picks=picks.sort((a,b)=>parseFloat(b.rating)-parseFloat(a.rating)).slice(0,8);
+  if(!picks.length){ sec.hidden=true; return; }
+  document.getElementById('tonight-title').textContent=dp.rail;
+  document.getElementById('tonight-strip').innerHTML=picks.map(r=>{
+    const st=status(r); const u=imgUrls(r.img);
+    return `<button class="cover pressable" data-open-slug="${slug(r.name)}">
+      <div class="ph" style="background-image:url('${u.s480}')"></div>
+      <div class="cb"><div class="cn">${esc(r.name)}</div><div class="cm">${esc(st.label)}</div></div>
+    </button>`;
+  }).join('');
+  sec.hidden=false;
+}
+document.getElementById('tonight-strip').addEventListener('click',e=>{
+  const b=e.target.closest('[data-open-slug]'); if(b) openSpread(b.dataset.openSlug,{opener:b});
+});
+
+/* ---------- surgical minute tick ---------- */
+let lastOpenSig='';
+function tick(){
+  const n=nowLA();
+  const dateTxt=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'long',month:'long',day:'numeric'}).format(new Date());
+  const timeTxt=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date());
+  const openCount=RESTAURANTS.filter(r=>status(r).open).length;
+  document.getElementById('dateline').textContent=
+    `${dateTxt} · ${timeTxt} on the island · ${openCount} of ${RESTAURANTS.length} spots open now`.toUpperCase();
+  document.getElementById('kicker').textContent=daypart(n.dec).k+' · ALAMEDA, CALIFORNIA';
+  // per-card surgical status update
+  const sig=RESTAURANTS.map(r=>{const s=status(r);return s.open?(s.closingSoon?'s':'o'):'c';}).join('');
+  RESTAURANTS.forEach(r=>{
+    const id=slug(r.name); const c=grid.querySelector(`#card-${CSS.escape(id)}`); if(!c)return;
+    const st=status(r);
+    c.dataset.open=String(st.open);
+    const chip=c.querySelector('.status');
+    if(chip){
+      chip.className='status '+(st.open?(st.closingSoon?'st-soon':'st-open'):'st-closed');
+      chip.innerHTML=(st.open?'<span class="sd" aria-hidden="true"></span>':'')+esc(st.label);
+    }
+  });
+  const shown=[...grid.querySelectorAll('.card')].filter(c=>c.style.display!=='none').length;
+  updateCounts(shown);
+  updateTonight();
+  if(sig!==lastOpenSig){
+    if(lastOpenSig && !dlg.open && sortBy==='smart'){ render(); }
+    lastOpenSig=sig;
+  }
+}
+
+/* ---------- condensing toolbar ---------- */
+new IntersectionObserver(([e])=>{
+  document.getElementById('stack').classList.toggle('condensed',!e.isIntersecting);
+},{rootMargin:'0px'}).observe(document.getElementById('sentinel'));
+
+/* ---------- FAB ---------- */
+const fab=document.getElementById('surprise');
+fab.addEventListener('click',()=>{
   const open=RESTAURANTS.filter(r=>status(r).open);
   const pool=open.length?open:RESTAURANTS;
   const pick=pool[Math.floor(Math.random()*pool.length)];
-  activeFilter='all';query='';
-  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.filter==='all'));
-  document.getElementById('search').value='';
-  applyFilter();
-  const el=document.getElementById('card-'+slug(pick.name));
-  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
+  openSpread(slug(pick.name),{opener:fab});
+});
+(function(){
+  let lastY=window.scrollY, ticking=false;
+  window.addEventListener('scroll',()=>{
+    if(ticking)return; ticking=true;
+    requestAnimationFrame(()=>{
+      const y=window.scrollY;
+      fab.classList.toggle('hide', y>lastY && y>300);
+      lastY=y; ticking=false;
+    });
+  },{passive:true});
+})();
+
+/* ---------- theme ---------- */
+const themeBtn=document.getElementById('theme-toggle');
+const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+const MOON='<path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 108.6 12z"/>';
+function applyTheme(t){
+  const night=t==='night';
+  if(night) document.documentElement.dataset.theme='night';
+  else delete document.documentElement.dataset.theme;
+  document.getElementById('theme-label').textContent=night?'DAY':'NIGHT';
+  document.getElementById('theme-icon').innerHTML=night?SUN:MOON;
+  const mt=document.querySelector('meta[name="theme-color"]');
+  if(mt) mt.setAttribute('content', night?'#12151B':'#F6F1E7');
+}
+applyTheme(localStorage.getItem('isola-theme')||'day');
+themeBtn.addEventListener('click',()=>{
+  const next=document.documentElement.dataset.theme==='night'?'day':'night';
+  applyTheme(next);
+  try{localStorage.setItem('isola-theme',next);}catch(e){}
 });
 
-/* theme */
-const themeBtn=document.getElementById('theme-toggle');
-function applyTheme(t){if(t==='night'){document.body.dataset.theme='night';themeBtn.textContent='☀️';}else{delete document.body.dataset.theme;themeBtn.textContent='🌙';}}
-applyTheme(localStorage.getItem('isola-theme')||'day');
-themeBtn.addEventListener('click',()=>{const next=document.body.dataset.theme==='night'?'day':'night';applyTheme(next);try{localStorage.setItem('isola-theme',next);}catch(e){}});
-
-/* ---- monetization: contact / featured / newsletter ---- */
+/* ---------- monetization: contact / featured / newsletter / adsense ---------- */
 (function(){
   const email=CONFIG.CONTACT_EMAIL;
   const featSubj="I'd like to feature my Alameda restaurant on Isola";
@@ -471,25 +1020,23 @@ themeBtn.addEventListener('click',()=>{const next=document.body.dataset.theme===
     if(CONFIG.FORMSPREE_ID){
       fetch('https://formspree.io/f/'+CONFIG.FORMSPREE_ID,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)}).catch(()=>{});
     }
-    msg.textContent="🎉 You're on the list — we'll send Alameda's new & noteworthy spots.";
+    msg.textContent="YOU'RE ON THE LIST — SEE YOU SUNDAY.";
     form.reset();
   });
 })();
-
-/* ---- optional AdSense (off until CONFIG.ADSENSE_CLIENT is set) ---- */
 (function(){
   if(!CONFIG.ADSENSE_CLIENT) return;
   const s=document.createElement('script');
   s.async=true; s.crossOrigin="anonymous";
   s.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+CONFIG.ADSENSE_CLIENT;
   document.head.appendChild(s);
-  const slot=document.getElementById('ad-slot'); slot.hidden=false;
+  adSlotEl.hidden=false;
   document.getElementById('ad-unit').innerHTML=
     `<ins class="adsbygoogle" style="display:block" data-ad-client="${CONFIG.ADSENSE_CLIENT}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
   try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
 })();
 
-/* ---- SEO: inject JSON-LD structured data (Restaurant + ItemList + WebSite + Breadcrumb) ---- */
+/* ---------- SEO: JSON-LD (Restaurant + ItemList + WebSite + Breadcrumb) ---------- */
 (function(){
   const DAY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const hm=t=>{let h=Math.floor(t),m=Math.round((t-h)*60);if(h>=24){h=23;m=59;}return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');};
@@ -512,12 +1059,38 @@ themeBtn.addEventListener('click',()=>{const next=document.body.dataset.theme===
   document.head.appendChild(tag);
 })();
 
-/* ---- init ---- */
-buildCuisineChips();
+/* ---------- PWA: service worker + install banner ---------- */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{ try{navigator.serviceWorker.register('sw.js');}catch(e){} });
+}
+(function(){
+  let visits=0;
+  try{ visits=(parseInt(localStorage.getItem('isola-visits')||'0',10)||0)+1; localStorage.setItem('isola-visits',String(visits)); }catch(e){}
+  let deferred=null;
+  const banner=document.getElementById('install-banner');
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault(); deferred=e;
+    let dismissed=false; try{ dismissed=localStorage.getItem('isola-pwa-dismissed')==='1'; }catch(_){}
+    if(visits>=2 && !dismissed) banner.classList.add('show');
+  });
+  document.getElementById('install-go').addEventListener('click',async()=>{
+    banner.classList.remove('show');
+    if(deferred){ deferred.prompt(); deferred=null; }
+  });
+  document.getElementById('install-x').addEventListener('click',()=>{
+    banner.classList.remove('show');
+    try{localStorage.setItem('isola-pwa-dismissed','1');}catch(e){}
+  });
+})();
+
+/* ---------- init ---------- */
 document.getElementById('spotcount').textContent=RESTAURANTS.length;
+buildRail();
+railMark(document.querySelector('[data-tab="all"]'));
 render();
 tick();
-setInterval(()=>{tick();render();},60000);
+lastOpenSig=RESTAURANTS.map(r=>{const s=status(r);return s.open?(s.closingSoon?'s':'o'):'c';}).join('');
+setInterval(tick,60000);
 </script>
 </body>
 </html>
