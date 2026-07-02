@@ -8,8 +8,8 @@ const fs = require('fs');
 const path = __dirname;
 const CANON = "https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/";
 
-/* --- pull RESTAURANTS array out of index.html --- */
-const html = fs.readFileSync(path + '/index.html', 'utf8');
+/* --- pull RESTAURANTS array out of data.js --- */
+const html = fs.readFileSync(path + '/data.js', 'utf8');
 const RESTAURANTS = eval(html.match(/const RESTAURANTS\s*=\s*(\[[\s\S]*?\n\];)/)[1].replace(/;$/, ''));
 
 /* --- helpers --- */
