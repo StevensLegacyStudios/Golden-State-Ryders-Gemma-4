@@ -26,7 +26,7 @@ function addrObj(a){const m=a.match(/^(.*),\s*Alameda,\s*CA\s*(\d{5})/);return {
 function ohs(r){const out=[];r.hours.forEach((d,i)=>{(d||[]).forEach(iv=>out.push({"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/"+DAYFULL[i],"opens":hm(iv[0]),"closes":hm(iv[1])}));});return out;}
 function restaurantLd(r){
   const a=addrObj(r.address);
-  return {"@type":"Restaurant","name":r.name,"image":r.img,"servesCuisine":r.cuisine,"priceRange":r.price,
+  return {"@type":"Restaurant","name":r.name,...(r.img?{image:r.img}:{}),"servesCuisine":r.cuisine,"priceRange":r.price,
     "telephone":r.phone,"url":CANON+"#card-"+slug(r.name),
     "address":{"@type":"PostalAddress","streetAddress":a.street,"addressLocality":"Alameda","addressRegion":"CA","postalCode":a.zip,"addressCountry":"US"},
     "hasMenu":r.menuUrl,"acceptsReservations":/opentable|resy|reservation/i.test(r.reserve||'')?"True":"False",

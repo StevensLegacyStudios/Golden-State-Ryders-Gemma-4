@@ -163,6 +163,10 @@ svg.gl{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:1.5
 .cover{flex:none;width:200px;scroll-snap-align:start;border:1px solid var(--hairline);border-radius:var(--r-md);
   overflow:hidden;background:var(--paper-raised);cursor:pointer;text-align:left;padding:0}
 .cover .ph{height:120px;background-size:cover;background-position:center;filter:saturate(.92) contrast(1.05)}
+.cover .ph-tile{display:flex;align-items:center;justify-content:center;background:hsl(var(--th) 26% 90%);filter:none}
+.cover .ph-tile span{font-family:var(--f-display);font-weight:900;font-size:48px;color:hsl(var(--th) 30% 36%)}
+html[data-theme="night"] .cover .ph-tile{background:hsl(var(--th) 16% 19%)}
+html[data-theme="night"] .cover .ph-tile span{color:hsl(var(--th) 26% 72%)}
 .cover .cb{padding:10px 12px 12px}
 .cover .cn{font-family:var(--f-display);font-weight:600;font-size:16px;line-height:1.2;color:var(--ink);
   display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
@@ -189,6 +193,18 @@ svg.gl{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:1.5
 .photo::after{content:"";position:absolute;inset:0;background:var(--scrim);pointer-events:none}
 .photo .mono-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   font-family:var(--f-display);font-weight:900;font-size:96px;color:var(--ink-2);background:var(--paper-raised)}
+/* branded tile — the honest default when no owner-provided photo exists */
+.photo.tile{display:flex;align-items:center;justify-content:center;background:hsl(var(--th) 26% 90%)}
+.photo.tile::after{display:none}
+.photo.tile .tl{font-family:var(--f-display);font-weight:900;font-size:92px;line-height:1;color:hsl(var(--th) 30% 34%)}
+.photo.tile .tc{position:absolute;left:12px;top:12px;font-family:var(--f-mono);font-weight:500;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:hsl(var(--th) 28% 38%)}
+html[data-theme="night"] .photo.tile{background:hsl(var(--th) 16% 19%)}
+html[data-theme="night"] .photo.tile .tl{color:hsl(var(--th) 26% 72%)}
+html[data-theme="night"] .photo.tile .tc{color:hsl(var(--th) 22% 62%)}
+.photo.tile .fav{filter:none;color:hsl(var(--th) 30% 40%)}
+html[data-theme="night"] .photo.tile .fav{color:hsl(var(--th) 26% 66%)}
+.photo.tile .fav.on{color:var(--accent)}
 .status{position:absolute;left:10px;bottom:10px;z-index:2;display:inline-flex;align-items:center;gap:6px;
   background:rgba(253,251,245,.92);border-radius:var(--r-pill);padding:5px 10px;
   font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.05em;text-transform:uppercase}
@@ -246,6 +262,9 @@ dialog#spread.in::backdrop{opacity:1}
 .grabber{padding:10px 0 6px;display:flex;justify-content:center;flex:none;touch-action:none;cursor:grab}
 .grabber::before{content:"";width:36px;height:5px;border-radius:var(--r-pill);background:var(--hairline)}
 .sp-hero{position:relative;height:200px;flex:none;background-size:cover;background-position:center;background-color:#2A2721}
+.sp-tile-letter{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-family:var(--f-display);font-weight:900;font-size:140px;line-height:1;color:rgba(255,255,255,.13)}
+.sp-hero.tile .sp-tile-letter{display:flex}
 .sp-hero img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.05);display:block}
 .sp-hero::after{content:"";position:absolute;inset:0;background:var(--scrim)}
 .sp-hero .sp-title{position:absolute;left:16px;bottom:12px;right:16px;z-index:2;color:#fff}
@@ -460,6 +479,7 @@ footer .disc{font-size:11px;opacity:.75;max-width:680px;margin:14px auto 0}
   <div class="sheet-scroll" id="sheet-scroll">
     <div class="grabber" id="grabber" aria-hidden="true"></div>
     <div class="sp-hero" id="sp-hero">
+      <span class="sp-tile-letter" id="sp-tile" aria-hidden="true"></span>
       <img id="sp-img" alt="" />
       <div class="sp-tools">
         <button id="sp-fav" aria-label="Save to favorites"><svg class="gl" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2.6 4.5 6.2 4.5c2.2 0 3.9 1.2 4.8 3 .9-1.8 2.6-3 4.8-3 3.6 0 5.7 3.5 4.2 7.2C19.5 16.3 12 21 12 21z"/></svg></button>
@@ -561,6 +581,7 @@ const IC={
 
 /* ---------- card ---------- */
 function imgUrls(u){
+  if(!u) return null;
   const base=u.split('?')[0];
   return {
     lqip: base+'?auto=format&fit=crop&w=24&q=30&blur=10',
@@ -568,6 +589,8 @@ function imgUrls(u){
     s800: base+'?auto=format&fit=crop&w=800&q=70'
   };
 }
+/* deterministic tile hue per cuisine (same cuisine = same tint) */
+function hueOf(s){let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))%360;return h;}
 function statusChip(st){
   const cls=st.open?(st.closingSoon?'st-soon':'st-open'):'st-closed';
   const dot=st.open?'<span class="sd" aria-hidden="true"></span>':'';
@@ -580,6 +603,20 @@ function card(r,i){
   const eager=i<2?'loading="eager" fetchpriority="high"':'loading="lazy"';
   const menuTerms=r.menu.map(s=>s.items.map(x=>x.n).join(' ')).join(' ');
   const topTags=(r.tags||[]).slice(0,2).join(' · ');
+  const photoHtml=u?`
+    <div class="photo" style="background-image:url('${u.lqip}')">
+      <img src="${u.s800}" srcset="${u.s480} 480w, ${u.s800} 800w" sizes="(max-width:720px) 100vw, 380px"
+        alt="${esc(r.name)} — ${esc(cu)} restaurant in Alameda" ${eager} decoding="async" width="800" height="533"
+        onload="this.classList.add('ok')" onerror="this.remove()">
+      ${statusChip(st)}
+      <button class="fav pressable ${isFav?'on':''}" data-fav="${id}" aria-pressed="${isFav}" aria-label="Save ${esc(r.name)} to favorites">${IC.heart}</button>
+    </div>`:`
+    <div class="photo tile" style="--th:${hueOf(cu)}" aria-hidden="false">
+      <span class="tc">${esc(cu)}</span>
+      <span class="tl" aria-hidden="true">${esc(r.name.charAt(0))}</span>
+      ${statusChip(st)}
+      <button class="fav pressable ${isFav?'on':''}" data-fav="${id}" aria-pressed="${isFav}" aria-label="Save ${esc(r.name)} to favorites">${IC.heart}</button>
+    </div>`;
   return `
   <article class="card${r.featured?' is-featured':''}${firstRender?' enter':''}" id="card-${id}" data-id="${id}"
     data-cuisine="${esc(cu)}" data-cats="${(r.cats||[]).join(' ')}" data-open="${st.open}" data-featured="${!!r.featured}"
@@ -587,13 +624,7 @@ function card(r,i){
     data-text="${esc((r.name+' '+cu+' '+(r.tags||[]).join(' ')+' '+r.desc+' '+menuTerms).toLowerCase())}"
     ${firstRender?`style="animation-delay:${Math.min(i,8)*30}ms"`:''}>
     ${r.featured?`<span class="feat-mark">${IC.laurel}Featured</span>`:''}
-    <div class="photo" style="background-image:url('${u.lqip}')">
-      <img src="${u.s800}" srcset="${u.s480} 480w, ${u.s800} 800w" sizes="(max-width:720px) 100vw, 380px"
-        alt="${esc(r.name)} — ${esc(cu)} restaurant in Alameda" ${eager} decoding="async" width="800" height="533"
-        onload="this.classList.add('ok')" onerror="this.parentElement.insertAdjacentHTML('afterbegin','&lt;div class=&quot;mono-fallback&quot;&gt;${esc(r.name.charAt(0))}&lt;/div&gt;');this.remove()">
-      ${statusChip(st)}
-      <button class="fav pressable ${isFav?'on':''}" data-fav="${id}" aria-pressed="${isFav}" aria-label="Save ${esc(r.name)} to favorites">${IC.heart}</button>
-    </div>
+    ${photoHtml}
     <div class="cbody">
       <div class="meta-line">${esc(cu)} · ${r.price} · ★ ${r.rating}${topTags?' · '+esc(topTags):''}</div>
       <h2 class="name"><button class="nb" aria-label="${esc(r.name)} — open details">${esc(r.name)}</button></h2>
@@ -799,10 +830,20 @@ function openSpread(id,{opener=null,fromHash=false}={}){
   const st=status(r);
   const u=imgUrls(r.img);
   const hero=document.getElementById('sp-hero');
-  hero.style.backgroundImage=`url('${u.lqip}')`;
   const img=document.getElementById('sp-img');
-  img.style.display=''; img.onerror=()=>{img.style.display='none';};
-  img.src=u.s800; img.alt=`${r.name} — ${r.cuisine} restaurant in Alameda`;
+  if(u){
+    hero.classList.remove('tile');
+    hero.style.background='';
+    hero.style.backgroundImage=`url('${u.lqip}')`;
+    img.style.display=''; img.onerror=()=>{img.style.display='none';};
+    img.src=u.s800; img.alt=`${r.name} — ${r.cuisine} restaurant in Alameda`;
+  } else {
+    hero.classList.add('tile');
+    hero.style.backgroundImage='none';
+    hero.style.background=`hsl(${hueOf(r.cuisine||'Italian')} 20% 22%)`;
+    img.style.display='none'; img.removeAttribute('src');
+    document.getElementById('sp-tile').textContent=r.name.charAt(0);
+  }
   document.getElementById('sp-meta').textContent=`${r.cuisine} · ${r.price} · ★ ${r.rating}`;
   document.getElementById('sp-name').textContent=r.name;
   const stEl=document.getElementById('sp-status');
@@ -916,8 +957,10 @@ function updateTonight(){
   document.getElementById('tonight-title').textContent=dp.rail;
   document.getElementById('tonight-strip').innerHTML=picks.map(r=>{
     const st=status(r); const u=imgUrls(r.img);
+    const ph=u?`<div class="ph" style="background-image:url('${u.s480}')"></div>`
+             :`<div class="ph ph-tile" style="--th:${hueOf(r.cuisine||'Italian')}"><span>${esc(r.name.charAt(0))}</span></div>`;
     return `<button class="cover pressable" data-open-slug="${slug(r.name)}">
-      <div class="ph" style="background-image:url('${u.s480}')"></div>
+      ${ph}
       <div class="cb"><div class="cn">${esc(r.name)}</div><div class="cm">${esc(st.label)}</div></div>
     </button>`;
   }).join('');
@@ -1045,7 +1088,7 @@ themeBtn.addEventListener('click',()=>{
   function ohs(r){const out=[];r.hours.forEach((day,i)=>{(day||[]).forEach(iv=>{out.push({"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/"+DAY[i],"opens":hm(iv[0]),"closes":hm(iv[1])});});});return out;}
   function addr(a){const m=a.match(/^(.*),\s*Alameda,\s*CA\s*(\d{5})/);return {"@type":"PostalAddress","streetAddress":m?m[1]:a,"addressLocality":"Alameda","addressRegion":"CA","postalCode":m?m[2]:"","addressCountry":"US"};}
   const items=RESTAURANTS.map((r,i)=>({"@type":"ListItem","position":i+1,"item":{
-    "@type":"Restaurant","name":r.name,"image":r.img,"servesCuisine":r.cuisine||"Italian","priceRange":r.price,
+    "@type":"Restaurant","name":r.name,...(r.img?{"image":r.img}:{}),"servesCuisine":r.cuisine||"Italian","priceRange":r.price,
     "telephone":r.phone,"url":CONFIG.CANONICAL+"#card-"+slug(r.name),"address":addr(r.address),
     "hasMenu":r.menuUrl,"acceptsReservations":/opentable|resy|reservation/i.test(r.reserve||'')?"True":"False",
     "openingHoursSpecification":ohs(r)}}));
