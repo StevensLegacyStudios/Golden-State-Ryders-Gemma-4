@@ -1,8 +1,8 @@
 /* Isola — Alameda Eats service worker.
    Bump CACHE_VERSION on every deploy or users get stale data.js. */
-const CACHE_VERSION = 'isola-v8';
+const CACHE_VERSION = 'isola-v9';
 const SHELL = ['./', './index.html', './data.js', './manifest.json',
-  'https://fonts.googleapis.com/css2?family=Fraunces:wght@600;900&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@500&display=swap'];
+  'https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap'];
 const IMG_CACHE = CACHE_VERSION + '-img';
 const IMG_MAX = 60;
 

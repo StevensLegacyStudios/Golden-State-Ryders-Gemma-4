@@ -13,53 +13,61 @@
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23F6F1E7'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Georgia,serif' font-weight='900' font-size='42' fill='%23191713'%3EI%3C/text%3E%3Ccircle cx='47' cy='44' r='4' fill='%23B4432F'/%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E86B0'/%3E%3Ccircle cx='32' cy='24' r='11' fill='%23FFB648'/%3E%3Cpath d='M8 42c6-5 11-5 17 0s11 5 17 0 8-4 14 0' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;900&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-  :root{--paper:#F6F1E7;--paper-raised:#FDFBF5;--ink:#191713;--ink-2:#5C564A;--hairline:#DCD2BF;
-    --accent:#B4432F;--sea:#175E63;--gold:#A87F2E}
-  body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);
-    background:var(--paper);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
-  header{max-width:860px;margin:0 auto;padding:20px 20px 0;text-align:left}
-  header .rule{border-top:1px solid var(--hairline)}
-  header .rule2{border-top:1px solid var(--hairline);height:3px;border-bottom:1px solid var(--hairline);margin-top:14px}
-  header .kick{font-family:'Spline Sans Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--ink-2);padding:8px 0;border-bottom:1px solid var(--hairline)}
-  header h1{margin:16px 0 0;font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(30px,6vw,52px);
-    letter-spacing:-.02em;line-height:1.05}
-  header p{margin:8px 0 0;font-size:13px;font-weight:500;color:var(--ink-2);max-width:640px}
-  header a.home{color:var(--accent);text-decoration:none;font-weight:600}
+  :root{--sky:#4FC3EA;--ocean:#0E86B0;--sea-deep:#075A78;--sand:#FAF3E3;--foam:#FFFFFF;
+    --coral:#FF6B54;--sun:#FFB648;--ink:#123B4F;--ink-2:#4E7286;--hairline:#E7DCC4}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+    background:var(--sand);line-height:1.6;font-size:15.5px;-webkit-font-smoothing:antialiased}
+  header{position:relative;color:#fff;text-align:left;overflow:hidden;padding:22px 20px 46px;
+    background:radial-gradient(280px 280px at 85% -50px, rgba(255,214,130,.7), transparent 68%),
+      linear-gradient(165deg,#8ADDF6 0%,#4FC3EA 35%,#0E86B0 78%,#075A78 100%)}
+  header .inner{max-width:860px;margin:0 auto}
+  header .rule,header .rule2{display:none}
+  header .kick{display:inline-block;font-family:'Outfit',sans-serif;font-weight:700;font-size:11px;
+    letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.35);padding:6px 13px;border-radius:999px;margin-bottom:10px}
+  header h1{margin:6px 0 0;font-family:'Outfit',sans-serif;font-weight:800;
+    font-size:clamp(28px,6vw,48px);letter-spacing:-.02em;line-height:1.08;text-shadow:0 2px 12px rgba(7,50,70,.3)}
+  header p{margin:10px 0 0;font-size:14px;font-weight:500;max-width:640px;opacity:.97}
+  header a.home{color:#FFD98F;text-decoration:none;font-weight:700}
   main{max-width:860px;margin:0 auto;padding:22px 20px 50px}
-  .nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
-  .nav a{font-family:'Spline Sans Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
-    text-decoration:none;color:var(--ink-2);background:var(--paper-raised);border:1px solid var(--hairline);
-    padding:7px 11px;border-radius:8px}
-  .nav a:hover{color:var(--ink);border-color:var(--ink-2)}
-  .r{background:var(--paper-raised);border:1px solid var(--hairline);border-radius:12px;padding:16px 18px;margin:14px 0}
-  .r h2{margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;letter-spacing:-.01em;color:var(--ink)}
-  .r h2 span{color:var(--ink-2);font-size:15px}
-  .r .meta{font-family:'Spline Sans Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.06em;
-    text-transform:uppercase;color:var(--ink-2);margin:4px 0 8px}
-  .r .desc{font-size:15px;color:var(--ink-2);margin:0 0 8px}
-  .r .hrs{font-family:'Spline Sans Mono',monospace;font-weight:500;font-size:11px;color:var(--ink-2);margin:0 0 12px}
+  .nav{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
+  .nav a{font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;letter-spacing:.03em;text-transform:uppercase;
+    text-decoration:none;color:var(--ink);background:var(--foam);border:1px solid var(--hairline);
+    padding:8px 13px;border-radius:999px;box-shadow:0 1px 3px rgba(8,57,81,.06)}
+  .nav a:hover{border-color:var(--ocean);color:var(--ocean)}
+  .r{background:var(--foam);border:0;border-radius:20px;padding:18px 20px;margin:14px 0;
+    box-shadow:0 2px 6px rgba(8,57,81,.06),0 16px 36px -18px rgba(8,57,81,.2)}
+  .r h2{margin:0;font-family:'Outfit',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.01em;color:var(--ink)}
+  .r h2 span{color:var(--ink-2);font-size:15px;font-weight:700}
+  .r .meta{font-family:'Outfit',sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ocean);margin:5px 0 8px}
+  .r .desc{font-size:14.5px;color:var(--ink-2);margin:0 0 8px}
+  .r .hrs{font-weight:600;font-size:12px;color:var(--ink-2);margin:0 0 12px;font-variant-numeric:tabular-nums}
   .r .links{display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--hairline);padding-top:12px}
-  .r .links a{font-size:13px;font-weight:600;text-decoration:none;padding:9px 13px;border-radius:8px;border:1px solid var(--hairline)}
-  .a-call,.a-map{color:var(--sea)}.a-menu{background:var(--accent);border-color:var(--accent);color:#fff}
+  .r .links a{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;text-decoration:none;
+    padding:10px 15px;border-radius:999px;border:1.5px solid var(--hairline)}
+  .a-call,.a-map{color:var(--ocean)}.a-menu{background:linear-gradient(135deg,#FF6B54,#E85340);border-color:transparent;color:#fff}
   .a-live{color:var(--ink-2)}
   .intro{font-size:16px;color:var(--ink);margin:0 0 6px}
-  .back-cta{background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:11px 18px;border-radius:8px;display:inline-block}
-  footer{text-align:center;color:var(--ink-2);font-size:12px;padding:24px 18px;border-top:1px solid var(--hairline);margin-top:24px}
-  footer a{color:var(--sea)}</style>
+  .back-cta{background:linear-gradient(135deg,#FF6B54,#E85340);color:#fff;text-decoration:none;
+    font-family:'Outfit',sans-serif;font-weight:700;padding:13px 22px;border-radius:999px;display:inline-block;
+    box-shadow:0 4px 14px rgba(232,83,64,.35)}
+  footer{text-align:center;color:var(--ink-2);font-size:12.5px;padding:24px 18px;border-top:1px solid var(--hairline);margin-top:24px}
+  footer a{color:var(--ocean);font-weight:600}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ItemList","name":"Japanese Restaurants in Alameda, CA","numberOfItems":3,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Restaurant","name":"Angel Fish Japanese Restaurant","servesCuisine":"Japanese","priceRange":"$$","telephone":"+15107490460","url":"https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/#card-angel-fish-japanese-restaurant","address":{"@type":"PostalAddress","streetAddress":"883 Island Dr, Ste C-2","addressLocality":"Alameda","addressRegion":"CA","postalCode":"94502","addressCountry":"US"},"hasMenu":"https://www.angelfishalameda.com/menu/","acceptsReservations":"False","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"16:00","closes":"20:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Tuesday","opens":"11:30","closes":"14:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Tuesday","opens":"16:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Wednesday","opens":"11:30","closes":"14:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Wednesday","opens":"16:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Thursday","opens":"11:30","closes":"14:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Thursday","opens":"16:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Friday","opens":"11:30","closes":"14:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Friday","opens":"16:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Saturday","opens":"15:00","closes":"21:00"}]}},{"@type":"ListItem","position":2,"item":{"@type":"Restaurant","name":"Hashi Gawa","servesCuisine":"Japanese","priceRange":"$$","telephone":"+15102275187","url":"https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/#card-hashi-gawa","address":{"@type":"PostalAddress","streetAddress":"2661 Blanding Ave","addressLocality":"Alameda","addressRegion":"CA","postalCode":"94501","addressCountry":"US"},"hasMenu":"https://www.doordash.com/store/hashi-gawa-alameda-2301846/","acceptsReservations":"False","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"12:00","closes":"15:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"16:30","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Tuesday","opens":"16:30","closes":"21:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Wednesday","opens":"11:30","closes":"14:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Wednesday","opens":"16:30","closes":"21:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Thursday","opens":"11:30","closes":"14:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Thursday","opens":"16:30","closes":"21:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Friday","opens":"11:30","closes":"14:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Friday","opens":"16:30","closes":"21:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Saturday","opens":"12:00","closes":"15:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Saturday","opens":"16:30","closes":"21:30"}]}},{"@type":"ListItem","position":3,"item":{"@type":"Restaurant","name":"Waki Japanese Cuisine","servesCuisine":"Japanese","priceRange":"$$","telephone":"+15102178396","url":"https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/#card-waki-japanese-cuisine","address":{"@type":"PostalAddress","streetAddress":"1403 Webster St","addressLocality":"Alameda","addressRegion":"CA","postalCode":"94501","addressCountry":"US"},"hasMenu":"https://www.wakisushi1403.com/","acceptsReservations":"False","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"12:00","closes":"14:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"16:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Monday","opens":"17:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Tuesday","opens":"17:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Wednesday","opens":"17:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Thursday","opens":"17:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Friday","opens":"17:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Saturday","opens":"17:00","closes":"21:00"}]}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Alameda Restaurants","item":"https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/"},{"@type":"ListItem","position":2,"name":"Japanese Restaurants in Alameda, CA","item":"https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/japanese.html"}]}]}</script>
 </head>
 <body>
 <header>
+  <div class="inner">
   <div class="kick">FROM ISOLA — ALAMEDA EATS · UPDATED JUNE 2026</div>
   <h1>Japanese Restaurants in Alameda, CA</h1>
   <p>Part of <a class="home" href="index.html">Isola — Alameda Eats</a>, the Island's live restaurant guide — open-now status, menus and one-tap directions.</p>
-  <div class="rule2"></div>
+  </div>
 </header>
 <main>
   <nav class="nav"><a href="index.html">🏠 All Restaurants</a><a href="italian.html">🍝 Italian</a><a href="mexican.html">🌮 Mexican</a><a href="thai.html">🍜 Thai</a><a href="chinese.html">🥟 Chinese</a><a href="vietnamese.html">🍲 Vietnamese</a><a href="japanese.html" style="background:#0b6e8f;color:#fff">🍣 Japanese</a><a href="indian.html">🍛 Indian</a><a href="american.html">🍔 American</a><a href="seafood.html">🦞 Seafood</a><a href="cafe.html">🥐 Cafe</a><a href="mediterranean.html">🥙 Mediterranean</a><a href="vegetarian.html">🥗 Vegetarian</a><a href="korean.html">🍽️ Korean</a><a href="bbq.html">🍽️ BBQ</a><a href="burmese.html">🍽️ Burmese</a><a href="german.html">🍽️ German</a><a href="latin-american.html">🍽️ Latin American</a><a href="dessert.html">🍽️ Dessert</a><a href="cambodian.html">🍽️ Cambodian</a><a href="waterfront.html">🌊 Waterfront</a><a href="patio.html">🌿 Patio &amp; Outdoor</a><a href="breakfast.html">🍳 Breakfast &amp; Brunch</a><a href="open-late.html">🌙 Open Late</a><a href="family-friendly.html">👨‍👩‍👧 Family-Friendly</a><a href="bars.html">🍸 Bars &amp; Cocktails</a></nav>
