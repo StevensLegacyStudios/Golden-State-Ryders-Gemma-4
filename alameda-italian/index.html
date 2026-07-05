@@ -408,6 +408,18 @@ footer nav{margin:8px 0 6px}
 footer nav a{margin:0 8px}
 footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
 
+/* filter panels + labeled FAB */
+.sort-pop.panel{left:20px;right:20px;max-width:640px}
+.pop-h{font-family:var(--f-display);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:4px 4px 10px}
+.pop-grid{display:flex;flex-wrap:wrap;gap:8px}
+.pop-grid button{display:inline-flex;align-items:center;gap:6px;background:var(--sand);border:1px solid var(--hairline);
+  border-radius:var(--r-pill);padding:9px 14px;font-family:var(--f-display);font-weight:600;font-size:13px;color:var(--ink);cursor:pointer}
+.pop-grid button:hover{border-color:var(--ocean);color:var(--ocean)}
+.pop-grid button.on{background:var(--ocean);border-color:var(--ocean);color:#fff}
+.pop-grid button .ct{font-size:11px;font-weight:700;color:var(--ocean);background:rgba(14,134,176,.12);padding:1px 7px;border-radius:var(--r-pill)}
+.pop-grid button.on .ct{color:#fff;background:rgba(255,255,255,.25)}
+#surprise{width:auto;padding:0 20px 0 16px;gap:9px;border-radius:var(--r-pill);font-family:var(--f-display);font-weight:700;font-size:14.5px}
+
 /* ============ REDUCED MOTION ============ */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -456,6 +468,8 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
   </div>
   <div style="position:relative">
     <nav class="rail" id="rail" aria-label="Filter restaurants"></nav>
+    <div class="sort-pop panel" id="cuisine-pop" role="group" aria-label="Filter by cuisine"></div>
+    <div class="sort-pop panel" id="features-pop" role="group" aria-label="More filters"></div>
     <div class="sort-pop" id="sort-pop" role="group" aria-label="Sort restaurants"></div>
   </div>
 </div>
@@ -528,6 +542,7 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
 
 <button id="surprise" class="pressable" aria-label="Surprise me — pick an open spot">
   <svg class="gl" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>
+  <span>Surprise me</span>
 </button>
 
 <!-- ============ THE SPREAD ============ -->
@@ -777,60 +792,89 @@ function updateCounts(shown){
   document.getElementById('hearts-count').textContent=favs.size;
 }
 
-/* ---------- filter rail ---------- */
+/* ---------- filter rail + discoverable popover panels ---------- */
+const CAT_DEFS=[['waterfront','Waterfront'],['patio','Patio'],['breakfast','Breakfast'],['vegan','Veg-friendly']];
 function buildRail(){
-  const counts={}; RESTAURANTS.forEach(r=>{const c=r.cuisine||'Italian';counts[c]=(counts[c]||0)+1;});
-  const cuisines=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]||a.localeCompare(b));
-  const catCount=k=>RESTAURANTS.filter(r=>(r.cats||[]).includes(k)).length;
+  const cc={}; RESTAURANTS.forEach(r=>{const k=r.cuisine||'Italian';cc[k]=(cc[k]||0)+1;});
   const featCount=RESTAURANTS.filter(r=>r.featured).length;
   let html='';
   html+=`<button class="tab" data-tab="all" data-filter="all">All <span class="ct">${RESTAURANTS.length}</span></button>`;
   html+=`<button class="tab open-toggle" data-tab="open" aria-pressed="false">Open now <span class="ct">0</span></button>`;
+  html+=`<button class="tab" id="cuisine-btn" aria-haspopup="true" aria-expanded="false"><span id="cuisine-label">Cuisines</span> ▾</button>`;
+  html+=`<button class="tab" id="features-btn" aria-haspopup="true" aria-expanded="false"><span id="features-label">More</span> ▾</button>`;
   html+=`<button class="tab" data-tab="fav" data-filter="fav">Favorites <span class="ct">${favs.size}</span></button>`;
-  if(featCount) html+=`<button class="tab" data-filter="featured">Featured <span class="ct">${featCount}</span></button>`;
-  [['waterfront','Waterfront'],['patio','Patio'],['breakfast','Breakfast'],['vegan','Veg-friendly']].forEach(([k,l])=>{
-    const c=catCount(k); if(c) html+=`<button class="tab" data-filter="cat:${k}">${l} <span class="ct">${c}</span></button>`;
-  });
-  cuisines.forEach(c=>{ html+=`<button class="tab" data-filter="cuisine:${esc(c)}">${esc(c)} <span class="ct">${counts[c]}</span></button>`; });
-  html+=`<button class="tab" id="sort-btn" aria-haspopup="menu" aria-expanded="false">Sort: <span id="sort-label">Open first</span> ▾</button>`;
+  html+=`<button class="tab" id="sort-btn" aria-haspopup="true" aria-expanded="false">Sort: <span id="sort-label">Open first</span> ▾</button>`;
   document.getElementById('rail').innerHTML=html;
+  const cuisines=Object.keys(cc).sort((x,y)=>cc[y]-cc[x]||x.localeCompare(y));
+  document.getElementById('cuisine-pop').innerHTML=
+    `<div class="pop-h">Filter by cuisine</div><div class="pop-grid">`+
+    cuisines.map(c=>`<button data-filter="cuisine:${esc(c)}">${esc(c)} <span class="ct">${cc[c]}</span></button>`).join('')+`</div>`;
+  let fh=`<div class="pop-h">More filters</div><div class="pop-grid">`;
+  CAT_DEFS.forEach(([k,l])=>{const n=RESTAURANTS.filter(r=>(r.cats||[]).includes(k)).length;
+    if(n) fh+=`<button data-filter="cat:${k}">${l} <span class="ct">${n}</span></button>`;});
+  if(featCount) fh+=`<button data-filter="featured">★ Featured <span class="ct">${featCount}</span></button>`;
+  document.getElementById('features-pop').innerHTML=fh+`</div>`;
+}
+const POPS=['cuisine-pop','features-pop','sort-pop'];
+const POP_BTNS={'cuisine-pop':'cuisine-btn','features-pop':'features-btn','sort-pop':'sort-btn'};
+function closeAllPops(){POPS.forEach(id=>{document.getElementById(id).classList.remove('show');
+  const b=document.getElementById(POP_BTNS[id]); if(b) b.setAttribute('aria-expanded','false');});}
+function togglePop(popId){
+  const p=document.getElementById(popId); const willShow=!p.classList.contains('show');
+  closeAllPops();
+  if(willShow){p.classList.add('show');document.getElementById(POP_BTNS[popId]).setAttribute('aria-expanded','true');}
+}
+function railMark(){
+  document.querySelectorAll('#rail .tab').forEach(t=>{if(t.dataset.tab!=='open')t.classList.remove('on');});
+  const cl=document.getElementById('cuisine-label'), fl=document.getElementById('features-label');
+  if(cl) cl.textContent='Cuisines'; if(fl) fl.textContent='More';
+  if(activeFilter==='all'){const b=document.querySelector('[data-tab="all"]'); if(b)b.classList.add('on');}
+  else if(activeFilter==='fav'){const b=document.querySelector('[data-tab="fav"]'); if(b)b.classList.add('on');}
+  else if(activeFilter.startsWith('cuisine:')){document.getElementById('cuisine-btn').classList.add('on'); if(cl)cl.textContent=activeFilter.slice(8);}
+  else if(activeFilter.startsWith('cat:')||activeFilter==='featured'){
+    document.getElementById('features-btn').classList.add('on');
+    const map={'cat:waterfront':'Waterfront','cat:patio':'Patio','cat:breakfast':'Breakfast','cat:vegan':'Veg-friendly','featured':'★ Featured'};
+    if(fl) fl.textContent=map[activeFilter]||'More';
+  }
+  document.querySelectorAll('#cuisine-pop [data-filter],#features-pop [data-filter]')
+    .forEach(x=>x.classList.toggle('on',x.dataset.filter===activeFilter));
 }
 document.getElementById('rail').addEventListener('click',e=>{
   const b=e.target.closest('.tab'); if(!b) return;
-  if(b.id==='sort-btn'){ toggleSortPop(); return; }
+  if(b.id==='sort-btn'){togglePop('sort-pop');return;}
+  if(b.id==='cuisine-btn'){togglePop('cuisine-pop');return;}
+  if(b.id==='features-btn'){togglePop('features-pop');return;}
+  closeAllPops();
   if(b.dataset.tab==='open'){
     openOnly=!openOnly; b.classList.toggle('on',openOnly); b.setAttribute('aria-pressed',String(openOnly));
     applyFilter(); return;
   }
   const f=b.dataset.filter;
-  if(activeFilter===f && f!=='all'){ activeFilter='all'; b.classList.remove('on'); railMark(); }
-  else { activeFilter=f; railMark(b); }
-  b.scrollIntoView({inline:'nearest',block:'nearest',behavior:SB()});
-  applyFilter();
+  activeFilter=(activeFilter===f&&f!=='all')?'all':f;
+  railMark(); applyFilter();
 });
-function railMark(active){
-  document.querySelectorAll('#rail .tab').forEach(t=>{ if(t.dataset.tab!=='open') t.classList.remove('on'); });
-  if(active) active.classList.add('on');
-  else { const all=document.querySelector('[data-tab="all"]'); if(activeFilter==='all'&&all) all.classList.add('on'); }
-}
+['cuisine-pop','features-pop'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{
+    const b=e.target.closest('[data-filter]'); if(!b) return;
+    activeFilter=(activeFilter===b.dataset.filter)?'all':b.dataset.filter;
+    closeAllPops(); railMark(); applyFilter();
+  });
+});
 /* sort popover */
 const SORTS=[['smart','Open first'],['rating','Top rated'],['name','A–Z']];
 const sortPop=document.getElementById('sort-pop');
 sortPop.innerHTML=SORTS.map(([v,l])=>`<button data-sort="${v}" class="${v==='smart'?'on':''}" aria-pressed="${v==='smart'}">${l}</button>`).join('');
-function toggleSortPop(force){
-  const show=force!==undefined?force:!sortPop.classList.contains('show');
-  sortPop.classList.toggle('show',show);
-  const btn=document.getElementById('sort-btn'); if(btn) btn.setAttribute('aria-expanded',String(show));
-}
 sortPop.addEventListener('click',e=>{
   const b=e.target.closest('[data-sort]'); if(!b)return;
   sortBy=b.dataset.sort;
   sortPop.querySelectorAll('button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',String(x===b));});
   document.getElementById('sort-label').textContent=b.textContent;
-  toggleSortPop(false); render();
+  closeAllPops(); render();
 });
-document.addEventListener('click',e=>{ if(!e.target.closest('#sort-pop')&&!e.target.closest('#sort-btn')) toggleSortPop(false); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') toggleSortPop(false); });
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.sort-pop')&&!e.target.closest('#sort-btn')&&!e.target.closest('#cuisine-btn')&&!e.target.closest('#features-btn')) closeAllPops();
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeAllPops(); });
 
 /* ---------- search ---------- */
 const searchEl=document.getElementById('search'), clearEl=document.getElementById('search-clear');
@@ -857,7 +901,7 @@ grid.addEventListener('click',e=>{
   const c=e.target.closest('.card'); if(c) openSpread(c.dataset.id,{opener:c.querySelector('.nb')||c});
 });
 document.getElementById('hearts-btn').addEventListener('click',()=>{
-  activeFilter='fav'; railMark(document.querySelector('[data-tab="fav"]')); applyFilter();
+  activeFilter='fav'; railMark(); applyFilter();
   document.getElementById('grid').scrollIntoView({behavior:SB()});
 });
 
@@ -1196,7 +1240,7 @@ if('serviceWorker' in navigator){
 /* ---------- init ---------- */
 document.getElementById('spotcount').textContent=RESTAURANTS.length;
 buildRail();
-railMark(document.querySelector('[data-tab="all"]'));
+railMark();
 render();
 tick();
 lastOpenSig=RESTAURANTS.map(r=>{const s=status(r);return s.open?(s.closingSoon?'s':'o'):'c';}).join('');
