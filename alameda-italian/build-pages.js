@@ -24,60 +24,100 @@ function hoursLine(r){
 function hm(t){let h=Math.floor(t),m=Math.round((t-h)*60);if(h>=24){h=23;m=59;}return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');}
 function addrObj(a){const m=a.match(/^(.*),\s*Alameda,\s*CA\s*(\d{5})/);return {street:m?m[1]:a,zip:m?m[2]:''};}
 function ohs(r){const out=[];r.hours.forEach((d,i)=>{(d||[]).forEach(iv=>out.push({"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/"+DAYFULL[i],"opens":hm(iv[0]),"closes":hm(iv[1])}));});return out;}
+const PLACE_TYPE={'Bar & Lounge':'BarOrPub','Nightlife':'BarOrPub','Brewery':'Brewery',
+  'Distillery & Winery':'Distillery','Attraction':'TouristAttraction','Games & Fun':'EntertainmentBusiness',
+  'Movies & Shows':'MovieTheater','Golf & Mini Golf':'GolfCourse','Beach & Shoreline':'Beach',
+  'Parks & Trails':'Park','Boating & Water':'SportsActivityLocation'};
 function restaurantLd(r){
   const a=addrObj(r.address);
-  return {"@type":"Restaurant","name":r.name,...(r.img?{image:r.img}:{}),"servesCuisine":r.cuisine,"priceRange":r.price,
-    "telephone":r.phone,"url":CANON+"#card-"+slug(r.name),
+  const isPlace=r.kind==='place';
+  const base={"@type":isPlace?(PLACE_TYPE[r.cuisine]||'LocalBusiness'):'Restaurant',
+    "name":r.name,...(r.img?{image:r.img}:{}),"priceRange":r.price,
+    ...(r.phone?{"telephone":r.phone}:{}),"url":CANON+"#card-"+slug(r.name),
     "address":{"@type":"PostalAddress","streetAddress":a.street,"addressLocality":"Alameda","addressRegion":"CA","postalCode":a.zip,"addressCountry":"US"},
-    "hasMenu":r.menuUrl,"acceptsReservations":/opentable|resy|reservation/i.test(r.reserve||'')?"True":"False",
     "openingHoursSpecification":ohs(r)};
+  if(!isPlace){
+    base.servesCuisine=r.cuisine;
+    if(r.menuUrl)base.hasMenu=r.menuUrl;
+    base.acceptsReservations=/opentable|resy|reservation/i.test(r.reserve||'')?"True":"False";
+  }
+  return base;
 }
 
 /* --- page definitions --- */
-const cuisines = [...new Set(RESTAURANTS.map(r=>r.cuisine))];
+const isPlace = r => r.kind==='place';
+const cuisines = [...new Set(RESTAURANTS.filter(r=>!isPlace(r)).map(r=>r.cuisine))];
 const cuisinePages = cuisines.map(c=>({
   file: slug(c)+'.html',
   h1: `${c} Restaurants in Alameda, CA`,
   title: `Best ${c} Restaurants in Alameda, CA — Menus, Hours & Open Now | Isola Eats`,
-  desc: `The best ${c} restaurants in Alameda, California. See menus, photos, hours and who's open now, with one-tap call, directions and ordering. Updated June 2026.`,
+  desc: `The best ${c} restaurants in Alameda, California. See menus, photos, hours and who's open now, with one-tap call, directions and ordering. Updated July 2026.`,
   intro: `Looking for ${c.toLowerCase()} food in Alameda? Here are the Island's ${c.toLowerCase()} spots — with menus, prices, hours and live "open now" status. Tap any restaurant to call, get directions, or see the full live menu.`,
-  match: r=>r.cuisine===c,
+  match: r=>!isPlace(r)&&r.cuisine===c,
   emoji: ({Italian:'🍝',Mexican:'🌮',Thai:'🍜',Chinese:'🥟',Vietnamese:'🍲',Japanese:'🍣',Indian:'🍛',American:'🍔',Seafood:'🦞',Cafe:'🥐',Mediterranean:'🥙',Vegetarian:'🥗'})[c]||'🍽️'
 }));
+/* place-category pages: "Breweries in Alameda, CA", not "Brewery Restaurants..." */
+const PLACE_LABEL={'Bar & Lounge':'Bars & Lounges','Nightlife':'Nightlife','Brewery':'Breweries & Taprooms',
+  'Distillery & Winery':'Distilleries & Wineries','Attraction':'Attractions & Museums',
+  'Games & Fun':'Arcades, Games & Fun','Movies & Shows':'Movies, Comedy & Shows',
+  'Golf & Mini Golf':'Golf & Mini Golf','Beach & Shoreline':'Beaches & Shoreline',
+  'Parks & Trails':'Parks & Trails','Boating & Water':'Boating & Water Sports'};
+const PLACE_EMOJI={'Bar & Lounge':'🍹','Nightlife':'🎶','Brewery':'🍺','Distillery & Winery':'🥃',
+  'Attraction':'🛳️','Games & Fun':'🕹️','Movies & Shows':'🎬','Golf & Mini Golf':'⛳',
+  'Beach & Shoreline':'🏖️','Parks & Trails':'🌳','Boating & Water':'🛶'};
+const placeCats = [...new Set(RESTAURANTS.filter(isPlace).map(r=>r.cuisine))];
+const placePages = placeCats.map(c=>{
+  const label=PLACE_LABEL[c]||c;
+  return {
+    file: slug(label)+'.html',
+    h1: `${label} in Alameda, CA`,
+    title: `${label} in Alameda, CA — Hours, What to Expect & Open Now | Isola`,
+    desc: `The best ${label.toLowerCase()} in Alameda, California — with hours, live open-now status, highlights and one-tap directions. Updated July 2026.`,
+    intro: `Looking for ${label.toLowerCase()} in Alameda? Here's what the Island has — with hours, highlights and live "open now" status. Tap any spot for directions or the full details.`,
+    match: r=>isPlace(r)&&r.cuisine===c,
+    emoji: PLACE_EMOJI[c]||'🌟',
+    place: true
+  };
+});
 const featurePages = [
   {file:'waterfront.html', label:'Waterfront', emoji:'🌊', h1:'Waterfront Restaurants in Alameda, CA',
    title:'Waterfront Restaurants in Alameda, CA — Bay Views, Menus & Hours | Isola Eats',
-   desc:"Alameda restaurants with waterfront and bay views. Menus, hours, open-now status and one-tap directions for dining on the water. Updated June 2026.",
+   desc:"Alameda restaurants with waterfront and bay views. Menus, hours, open-now status and one-tap directions for dining on the water. Updated July 2026.",
    intro:"Alameda is an island — so eat on the water. These spots serve up bay and estuary views along with the meal. See menus, hours and who's open now.",
    match:r=>(r.cats||[]).includes('waterfront')},
   {file:'patio.html', label:'Patio & Outdoor', emoji:'🌿', h1:'Restaurants with Patios & Outdoor Dining in Alameda, CA',
    title:'Patio & Outdoor Dining in Alameda, CA — Menus & Hours | Isola Eats',
-   desc:"Alameda restaurants with patios and outdoor seating. Menus, hours, open-now status and tap-to-call directions. Updated June 2026.",
+   desc:"Alameda restaurants with patios and outdoor seating. Menus, hours, open-now status and tap-to-call directions. Updated July 2026.",
    intro:"Eat outside on the Island. These Alameda restaurants offer patios or outdoor seating — here are menus, hours and live open-now status.",
    match:r=>(r.cats||[]).includes('patio')},
   {file:'breakfast.html', label:'Breakfast & Brunch', emoji:'🍳', h1:'Breakfast & Brunch in Alameda, CA',
    title:'Best Breakfast & Brunch in Alameda, CA — Menus & Hours | Isola Eats',
-   desc:"The best breakfast and brunch spots in Alameda, California — diners, bakeries and cafes. Menus, hours, open-now and directions. Updated June 2026.",
+   desc:"The best breakfast and brunch spots in Alameda, California — diners, bakeries and cafes. Menus, hours, open-now and directions. Updated July 2026.",
    intro:"Start the day right on the Island. Alameda's breakfast and brunch spots — classic diners, bakeries and cafes — with menus, hours and open-now status.",
    match:r=>(r.cats||[]).includes('breakfast')},
-  {file:'open-late.html', label:'Open Late', emoji:'🌙', h1:'Restaurants Open Late in Alameda, CA',
-   title:'Restaurants Open Late in Alameda, CA — Late-Night Food, Menus & Hours | Isola Eats',
-   desc:"Hungry late in Alameda? These restaurants stay open until 9:30pm or later. Menus, hours, open-now status and one-tap directions. Updated June 2026.",
-   intro:"Late-night cravings on the Island? These Alameda spots serve until 9:30pm or later on at least some nights. Always check the live hours before you head out.",
+  {file:'open-late.html', label:'Open Late', emoji:'🌙', h1:'Open Late in Alameda, CA',
+   title:'Open Late in Alameda, CA — Late-Night Food, Bars & Hours | Isola',
+   desc:"Out late in Alameda? These restaurants and bars stay open until 9:30pm or later — some until 2am. Hours, open-now status and one-tap directions. Updated July 2026.",
+   intro:"Late night on the Island? These Alameda restaurants and bars serve until 9:30pm or later — a few pour until 2am. Always check the live hours before you head out.",
    match:r=>r.hours.some(d=>(d||[]).some(iv=>iv[1]>=21.5))},
-  {file:'family-friendly.html', label:'Family-Friendly', emoji:'👨‍👩‍👧', h1:'Family-Friendly Restaurants in Alameda, CA',
-   title:'Family-Friendly Restaurants in Alameda, CA — Kid-Friendly Menus & Hours | Isola Eats',
-   desc:"Family-friendly restaurants in Alameda, California — relaxed, kid-welcoming spots with hearty menus. Hours, open-now status and directions. Updated June 2026.",
-   intro:"Feeding the whole crew on the Island? These Alameda restaurants are easygoing, family-owned or family-favorite spots. See menus, hours and who's open now.",
-   match:r=>r.tags.some(t=>/family/i.test(t))},
+  {file:'family-friendly.html', label:'Family-Friendly', emoji:'👨‍👩‍👧', h1:'Family-Friendly Things to Do & Eat in Alameda, CA',
+   title:'Family-Friendly Restaurants & Things to Do in Alameda, CA — Hours & Open Now | Isola',
+   desc:"Family-friendly restaurants and activities in Alameda, California — relaxed, kid-welcoming spots. Hours, open-now status and directions. Updated July 2026.",
+   intro:"Bringing the whole crew to the Island? These Alameda spots — restaurants, parks, arcades and attractions — are easygoing and kid-welcoming. See hours and who's open now.",
+   match:r=>r.tags.concat(r.cats||[]).some(t=>/family|kid/i.test(t))},
+  {file:'date-night.html', label:'Date Night', emoji:'💫', h1:'Date Night Ideas in Alameda, CA',
+   title:'Best Date Night Ideas in Alameda, CA — Dinner, Drinks & Things to Do | Isola',
+   desc:"Date night in Alameda, California — romantic restaurants, cocktail lounges, sunset beaches and fun things to do, with hours and live open-now status. Updated July 2026.",
+   intro:"Planning a date on the Island? Start with dinner or cocktails, then a sunset walk on the beach, a tiki bar, mini golf or a comedy show. Everything here is date-tested — with hours and live open-now status.",
+   match:r=>r.tags.concat(r.cats||[]).some(t=>/date/i.test(t))},
   {file:'bars.html', label:'Bars & Cocktails', emoji:'🍸', h1:'Bars, Cocktails & Drinks in Alameda, CA',
    title:'Best Bars & Cocktail Restaurants in Alameda, CA — Menus & Hours | Isola Eats',
-   desc:"Where to drink in Alameda, California — restaurants and bars with craft cocktails, tequila and wine lists. Hours, open-now status and directions. Updated June 2026.",
+   desc:"Where to drink in Alameda, California — restaurants and bars with craft cocktails, tequila and wine lists. Hours, open-now status and directions. Updated July 2026.",
    intro:"Grab a drink on the Island. These Alameda restaurants and bars are known for craft cocktails, tequila or strong wine lists — with menus, hours and open-now status.",
    match:r=>r.tags.some(t=>/cocktail|tequila|wine|bar/i.test(t))}
 ].filter(f=>RESTAURANTS.some(f.match));
 
-const allPages = [...cuisinePages, ...featurePages];
+const allPages = [...cuisinePages, ...placePages, ...featurePages];
 
 /* --- shared CSS (Island Edition brand) --- */
 const CSS = `
@@ -129,15 +169,18 @@ const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com" />
 function maps(a){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(a);}
 
 function renderRestaurant(r){
+  const place=r.kind==='place';
+  const mainUrl=r.menuUrl||r.website;
+  const mainLink=mainUrl?`<a class="a-menu" href="${esc(mainUrl)}" target="_blank" rel="noopener">${place?'ℹ️ Details':'📖 Menu'}</a>`:'';
   return `<article class="r">
     <h2>${esc(r.name)} <span style="color:#5a7d3c">${r.price}</span></h2>
     <p class="meta">★ ${r.rating} · ${esc(r.cuisine)} · ${esc(r.address)}</p>
     <p class="desc">${esc(r.desc)}</p>
     <p class="hrs"><strong>Hours:</strong> ${esc(hoursLine(r))}</p>
     <div class="links">
-      <a class="a-call" href="tel:${r.phone}">📞 Call</a>
+      ${r.phone?`<a class="a-call" href="tel:${r.phone}">📞 Call</a>`:''}
       <a class="a-map" href="${maps(r.address)}" target="_blank" rel="noopener">🗺️ Directions</a>
-      <a class="a-menu" href="${esc(r.menuUrl)}" target="_blank" rel="noopener">📖 Menu</a>
+      ${mainLink}
       <a class="a-live" href="${CANON}#card-${slug(r.name)}">🟢 Live hours &amp; more →</a>
     </div>
   </article>`;
@@ -145,8 +188,9 @@ function renderRestaurant(r){
 
 function navLinks(currentFile){
   const links = cuisinePages.map(p=>`<a href="${p.file}"${p.file===currentFile?' style="background:#0b6e8f;color:#fff"':''}>${p.emoji} ${esc(p.h1.replace(' Restaurants in Alameda, CA',''))}</a>`).join('');
+  const places = placePages.map(p=>`<a href="${p.file}"${p.file===currentFile?' style="background:#0b6e8f;color:#fff"':''}>${p.emoji} ${esc(p.h1.replace(' in Alameda, CA',''))}</a>`).join('');
   const feats = featurePages.map(p=>`<a href="${p.file}"${p.file===currentFile?' style="background:#0b6e8f;color:#fff"':''}>${p.emoji} ${esc(p.label)}</a>`).join('');
-  return `<a href="index.html">🏠 All Restaurants</a>${links}${feats}`;
+  return `<a href="index.html">🏠 The Whole Island</a>${links}${places}${feats}`;
 }
 
 function buildPage(p){
@@ -160,12 +204,14 @@ function buildPage(p){
   const priceLo = list.map(r=>r.price.length).sort((a,b)=>a-b)[0]||0;
   const ratingsAvg = list.length ? (list.reduce((s,r)=>s+parseFloat(r.rating),0)/list.length).toFixed(1) : '';
   const summary = list.length
-    ? `We track ${list.length} ${list.length===1?'spot':'spots'} here, averaging ${ratingsAvg}★. Every listing shows the day's hours, a sample menu with prices, and one-tap call, directions and ordering — plus live "open now" status on the main guide.`
+    ? (p.place
+      ? `We track ${list.length} ${list.length===1?'spot':'spots'} here, averaging ${ratingsAvg}★. Every listing shows the day's hours, what to expect with typical prices, and one-tap directions — plus live "open now" status on the main guide.`
+      : `We track ${list.length} ${list.length===1?'spot':'spots'} here, averaging ${ratingsAvg}★. Every listing shows the day's hours, a sample menu with prices, and one-tap call, directions and ordering — plus live "open now" status on the main guide.`)
     : '';
   const itemList = {"@type":"ItemList","name":p.h1,"numberOfItems":list.length,
     "itemListElement":list.map((r,i)=>({"@type":"ListItem","position":i+1,"item":restaurantLd(r)}))};
   const breadcrumb = {"@type":"BreadcrumbList","itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Alameda Restaurants","item":CANON},
+    {"@type":"ListItem","position":1,"name":"Things to Do in Alameda","item":CANON},
     {"@type":"ListItem","position":2,"name":p.h1,"item":url}]};
   const ld = {"@context":"https://schema.org","@graph":[itemList,breadcrumb]};
   return `<!DOCTYPE html>
@@ -191,9 +237,9 @@ ${FONTS}
 <body>
 <header>
   <div class="inner">
-  <div class="kick">FROM ISOLA — ALAMEDA EATS · UPDATED JUNE 2026</div>
+  <div class="kick">FROM ISOLA — ALAMEDA'S ISLAND GUIDE · UPDATED JULY 2026</div>
   <h1>${esc(p.h1)}</h1>
-  <p>Part of <a class="home" href="index.html">Isola — Alameda Eats</a>, the Island's live restaurant guide — open-now status, menus and one-tap directions.</p>
+  <p>Part of <a class="home" href="index.html">Isola</a>, the Island's live guide to eat, drink &amp; do — open-now status, menus and one-tap directions.</p>
   </div>
 </header>
 <main>
@@ -202,11 +248,11 @@ ${FONTS}
   <p class="intro" style="font-size:.92rem">${esc(summary)}</p>
   <p style="color:#5b6f78;font-size:.85rem">${esc(featuring)}</p>
   ${list.map(renderRestaurant).join('')}
-  <p style="margin-top:24px"><a href="index.html" class="back-cta">← See all Alameda restaurants (live open-now)</a></p>
+  <p style="margin-top:24px"><a href="index.html" class="back-cta">← See the whole Island (live open-now)</a></p>
 </main>
 <footer>
-  Isola — Alameda Eats · <a href="about.html">About</a> · <a href="privacy.html">Privacy &amp; Disclosures</a><br>
-  Hours &amp; menus are approximate — please confirm with the restaurant.
+  Isola — Alameda's Island Guide · <a href="about.html">About</a> · <a href="privacy.html">Privacy &amp; Disclosures</a><br>
+  Hours &amp; menus are approximate — please confirm with the venue.
 </footer>
 </body>
 </html>`;
@@ -219,7 +265,7 @@ allPages.forEach(p=>{ fs.writeFileSync(path+'/'+p.file, buildPage(p)); });
 const urls = [CANON, CANON+'about.html', CANON+'privacy.html', ...allPages.map(p=>CANON+p.file)];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u,i)=>`  <url><loc>${u}</loc><lastmod>2026-06-29</lastmod><changefreq>${i===0?'weekly':'monthly'}</changefreq><priority>${i===0?'1.0':'0.7'}</priority></url>`).join('\n')}
+${urls.map((u,i)=>`  <url><loc>${u}</loc><lastmod>2026-07-06</lastmod><changefreq>${i===0?'weekly':'monthly'}</changefreq><priority>${i===0?'1.0':'0.7'}</priority></url>`).join('\n')}
 </urlset>
 `;
 fs.writeFileSync(path+'/sitemap.xml', sitemap);

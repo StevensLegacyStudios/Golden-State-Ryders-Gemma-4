@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="google-site-verification" content="IbxTYmalcBs3AUrqCtbfS_G3g_MGMsX9px7jC5zhjKY" />
 <title>Things to Do in Alameda, CA — Restaurants, Bars, Beaches &amp; Date Nights | Isola</title>
-<meta name="description" content="The Island's guide to everything: the best restaurants, bars, breweries, beaches, trails, attractions and date-night spots in Alameda, CA — with live open-now status, menus, hours and one-tap directions. Updated June 2026." />
+<meta name="description" content="The Island's guide to everything: the best restaurants, bars, breweries, beaches, trails, attractions and date-night spots in Alameda, CA — with live open-now status, menus, hours and one-tap directions. Updated July 2026." />
 <meta name="keywords" content="things to do in Alameda, Alameda restaurants, Alameda bars, date night Alameda, Alameda beaches, Alameda attractions, restaurants open now Alameda, Alameda nightlife, Crown Beach, USS Hornet" />
 <link rel="canonical" href="https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/" />
 <meta name="robots" content="index,follow" />
@@ -451,9 +451,9 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
     </button>
   </div>
   <svg class="hero-logo" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="19" r="8.5" fill="#FFB648"/><path d="M5 31c4.8-3.8 8.7-3.8 13.5 0s8.7 3.8 13.5 0 8.7-3.8 11 0" stroke="#FFFFFF" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M5 39c4.8-3.8 8.7-3.8 13.5 0s8.7 3.8 13.5 0 8.7-3.8 11 0" stroke="#FFFFFF" opacity=".65" stroke-width="3.4" fill="none" stroke-linecap="round"/></svg>
-  <h1 class="wordmark">Isola<span class="visually-hidden"> — Best Restaurants in Alameda, CA: open now, menus &amp; hours</span></h1>
+  <h1 class="wordmark">Isola<span class="visually-hidden"> — Things to do in Alameda, CA: restaurants, bars, beaches &amp; date nights, open now</span></h1>
   <p class="deck">Everything on the Island — restaurants, bars, beaches and things to do. Who's open right now, one tap to go.</p>
-  <p class="edition">Updated June 2026 · <span id="spotcount">59</span> island spots · eat, drink &amp; do</p>
+  <p class="edition">Updated July 2026 · <span id="spotcount">90</span> island spots · eat, drink &amp; do</p>
   <p class="dateline"><span class="dot" aria-hidden="true"></span><span id="dateline">LOADING ISLAND TIME…</span></p>
   <div class="waves" aria-hidden="true"><svg viewBox="0 0 1440 74" preserveAspectRatio="none"><path fill="rgba(250,243,227,.3)" d="M0,30 C240,58 480,6 720,26 C960,46 1200,10 1440,32 L1440,74 L0,74 Z"/><path fill="var(--sand)" d="M0,46 C240,70 480,24 720,42 C960,58 1200,28 1440,48 L1440,74 L0,74 Z"/></svg></div>
 </header>
@@ -816,6 +816,7 @@ function updateCounts(shown){
 /* ---------- filter rail + discoverable popover panels ---------- */
 const CAT_DEFS=[['waterfront','Waterfront'],['patio','Patio'],['breakfast','Breakfast'],['vegan','Veg-friendly'],['family','Family']];
 function inGroup(r){return activeGroup==='all'||((r.group||'eat')===activeGroup);}
+function catLabel(){return activeGroup==='eat'?'Cuisines':'Categories';}
 function buildRail(){
   const pool=RESTAURANTS.filter(inGroup);
   const cc={}; pool.forEach(r=>{const k=r.cuisine||'Italian';cc[k]=(cc[k]||0)+1;});
@@ -823,14 +824,14 @@ function buildRail(){
   let html='';
   html+=`<button class="tab" data-tab="all" data-filter="all">All <span class="ct">${pool.length}</span></button>`;
   html+=`<button class="tab open-toggle" data-tab="open" aria-pressed="false">Open now <span class="ct">0</span></button>`;
-  html+=`<button class="tab" id="cuisine-btn" aria-haspopup="true" aria-expanded="false"><span id="cuisine-label">Cuisines</span> ▾</button>`;
+  html+=`<button class="tab" id="cuisine-btn" aria-haspopup="true" aria-expanded="false"><span id="cuisine-label">${catLabel()}</span> ▾</button>`;
   html+=`<button class="tab" id="features-btn" aria-haspopup="true" aria-expanded="false"><span id="features-label">More</span> ▾</button>`;
   html+=`<button class="tab" data-tab="fav" data-filter="fav">Favorites <span class="ct">${favs.size}</span></button>`;
   html+=`<button class="tab" id="sort-btn" aria-haspopup="true" aria-expanded="false">Sort: <span id="sort-label">Open first</span> ▾</button>`;
   document.getElementById('rail').innerHTML=html;
   const cuisines=Object.keys(cc).sort((x,y)=>cc[y]-cc[x]||x.localeCompare(y));
   document.getElementById('cuisine-pop').innerHTML=
-    `<div class="pop-h">Filter by cuisine</div><div class="pop-grid">`+
+    `<div class="pop-h">${activeGroup==='eat'?'Filter by cuisine':'Filter by category'}</div><div class="pop-grid">`+
     cuisines.map(c=>`<button data-filter="cuisine:${esc(c)}">${esc(c)} <span class="ct">${cc[c]}</span></button>`).join('')+`</div>`;
   let fh=`<div class="pop-h">More filters</div><div class="pop-grid">`;
   const dn=pool.filter(r=>(r.tags||[]).join(' ').toLowerCase().includes('date night')).length;
@@ -853,7 +854,7 @@ function togglePop(popId){
 function railMark(){
   document.querySelectorAll('#rail .tab').forEach(t=>{if(t.dataset.tab!=='open')t.classList.remove('on');});
   const cl=document.getElementById('cuisine-label'), fl=document.getElementById('features-label');
-  if(cl) cl.textContent='Cuisines'; if(fl) fl.textContent='More';
+  if(cl) cl.textContent=catLabel(); if(fl) fl.textContent='More';
   if(activeFilter==='all'){const b=document.querySelector('[data-tab="all"]'); if(b)b.classList.add('on');}
   else if(activeFilter==='fav'){const b=document.querySelector('[data-tab="fav"]'); if(b)b.classList.add('on');}
   else if(activeFilter.startsWith('cuisine:')){document.getElementById('cuisine-btn').classList.add('on'); if(cl)cl.textContent=activeFilter.slice(8);}
@@ -1276,6 +1277,12 @@ if('serviceWorker' in navigator){
     try{localStorage.setItem('isola-pwa-dismissed','1');}catch(e){}
   });
 })();
+
+/* hide any mode whose group has no entries yet */
+document.querySelectorAll('.mode').forEach(b=>{
+  const g=b.dataset.group;
+  if(g!=='all'&&!RESTAURANTS.some(r=>(r.group||'eat')===g)) b.style.display='none';
+});
 
 /* ---------- init ---------- */
 document.getElementById('spotcount').textContent=RESTAURANTS.length;
