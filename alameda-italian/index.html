@@ -814,7 +814,7 @@ function updateCounts(shown){
 }
 
 /* ---------- filter rail + discoverable popover panels ---------- */
-const CAT_DEFS=[['waterfront','Waterfront'],['patio','Patio'],['breakfast','Breakfast'],['vegan','Veg-friendly'],['family','Family']];
+const CAT_DEFS=[['waterfront','Waterfront'],['patio','Patio'],['breakfast','Breakfast'],['family','Family']];
 function inGroup(r){return activeGroup==='all'||((r.group||'eat')===activeGroup);}
 function catLabel(){return activeGroup==='eat'?'Cuisines':'Categories';}
 function buildRail(){
@@ -826,6 +826,8 @@ function buildRail(){
   html+=`<button class="tab open-toggle" data-tab="open" aria-pressed="false">Open now <span class="ct">0</span></button>`;
   html+=`<button class="tab" id="cuisine-btn" aria-haspopup="true" aria-expanded="false"><span id="cuisine-label">${catLabel()}</span> ▾</button>`;
   html+=`<button class="tab" id="features-btn" aria-haspopup="true" aria-expanded="false"><span id="features-label">More</span> ▾</button>`;
+  const vegCount=pool.filter(r=>(r.cats||[]).includes('vegan')).length;
+  if(vegCount) html+=`<button class="tab" data-tab="veg" data-filter="cat:vegan">🌱 Vegan &amp; Veg <span class="ct">${vegCount}</span></button>`;
   html+=`<button class="tab" data-tab="fav" data-filter="fav">Favorites <span class="ct">${favs.size}</span></button>`;
   html+=`<button class="tab" id="sort-btn" aria-haspopup="true" aria-expanded="false">Sort: <span id="sort-label">Open first</span> ▾</button>`;
   document.getElementById('rail').innerHTML=html;
@@ -858,9 +860,12 @@ function railMark(){
   if(activeFilter==='all'){const b=document.querySelector('[data-tab="all"]'); if(b)b.classList.add('on');}
   else if(activeFilter==='fav'){const b=document.querySelector('[data-tab="fav"]'); if(b)b.classList.add('on');}
   else if(activeFilter.startsWith('cuisine:')){document.getElementById('cuisine-btn').classList.add('on'); if(cl)cl.textContent=activeFilter.slice(8);}
+  else if(activeFilter==='cat:vegan'&&document.querySelector('[data-tab="veg"]')){
+    document.querySelector('[data-tab="veg"]').classList.add('on');
+  }
   else if(activeFilter.startsWith('cat:')||activeFilter==='featured'||activeFilter==='tag:date'){
     document.getElementById('features-btn').classList.add('on');
-    const map={'cat:waterfront':'Waterfront','cat:patio':'Patio','cat:breakfast':'Breakfast','cat:vegan':'Veg-friendly','cat:family':'Family','featured':'★ Featured','tag:date':'Date Night'};
+    const map={'cat:waterfront':'Waterfront','cat:patio':'Patio','cat:breakfast':'Breakfast','cat:vegan':'Vegan & Veg','cat:family':'Family','featured':'★ Featured','tag:date':'Date Night'};
     if(fl) fl.textContent=map[activeFilter]||'More';
   }
   document.querySelectorAll('#cuisine-pop [data-filter],#features-pop [data-filter]')
