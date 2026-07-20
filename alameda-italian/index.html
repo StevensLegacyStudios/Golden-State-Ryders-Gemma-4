@@ -463,7 +463,7 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
   <svg class="hero-logo" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="19" r="8.5" fill="#FFB648"/><path d="M5 31c4.8-3.8 8.7-3.8 13.5 0s8.7 3.8 13.5 0 8.7-3.8 11 0" stroke="#FFFFFF" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M5 39c4.8-3.8 8.7-3.8 13.5 0s8.7 3.8 13.5 0 8.7-3.8 11 0" stroke="#FFFFFF" opacity=".65" stroke-width="3.4" fill="none" stroke-linecap="round"/></svg>
   <h1 class="wordmark">Isola<span class="visually-hidden"> — Things to do in Alameda, CA: restaurants, bars, beaches &amp; date nights, open now</span></h1>
   <p class="deck">Everything on the Island — restaurants, bars, beaches and things to do. Who's open right now, one tap to go.</p>
-  <p class="edition">Updated July 2026 · <span id="spotcount">91</span> island spots · eat, drink &amp; do</p>
+  <p class="edition">Updated July 2026 · <span id="spotcount">103</span> island spots · eat, drink &amp; do</p>
   <p class="dateline"><span class="dot" aria-hidden="true"></span><span id="dateline">LOADING ISLAND TIME…</span></p>
   <div class="waves" aria-hidden="true"><svg viewBox="0 0 1440 74" preserveAspectRatio="none"><path fill="rgba(250,243,227,.3)" d="M0,30 C240,58 480,6 720,26 C960,46 1200,10 1440,32 L1440,74 L0,74 Z"/><path fill="var(--sand)" d="M0,46 C240,70 480,24 720,42 C960,58 1200,28 1440,48 L1440,74 L0,74 Z"/></svg></div>
 </header>
@@ -633,6 +633,7 @@ function status(r){
   const n=nowLA(); const today=r.hours[n.day]||[];
   for(const iv of today){
     if(n.dec>=iv[0]&&n.dec<iv[1]){
+      if(iv[0]===0&&iv[1]===24) return {open:true, closingSoon:false, label:'Open 24 hours'};
       const soon=(iv[1]-n.dec)<=1;
       return {open:true, closingSoon:soon, label:(soon?'Last call · closes ':'Open · closes ')+fmt(iv[1])};
     }
@@ -673,7 +674,7 @@ let activeFilter='all', activeGroup='all', openOnly=false, query='', sortBy='sma
 function loadFavs(){try{return new Set(JSON.parse(localStorage.getItem('isola-favs')||'[]'))}catch(e){return new Set()}}
 let favs=loadFavs();
 function saveFavs(){try{localStorage.setItem('isola-favs',JSON.stringify([...favs]))}catch(e){}}
-const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function maps(addr){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 const bySlug={}; RESTAURANTS.forEach(r=>bySlug[slug(r.name)]=r);
@@ -1262,7 +1263,7 @@ themeBtn.addEventListener('click',()=>{
   const hm=t=>{let h=Math.floor(t),m=Math.round((t-h)*60);if(h>=24){h=23;m=59;}return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');};
   function ohs(r){const out=[];r.hours.forEach((day,i)=>{(day||[]).forEach(iv=>{out.push({"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/"+DAY[i],"opens":hm(iv[0]),"closes":hm(iv[1])});});});return out;}
   function addr(a){const m=a.match(/^(.*),\s*Alameda,\s*CA\s*(\d{5})/);return {"@type":"PostalAddress","streetAddress":m?m[1]:a,"addressLocality":"Alameda","addressRegion":"CA","postalCode":m?m[2]:"","addressCountry":"US"};}
-  const PLACE_TYPE={'Bar & Lounge':'BarOrPub','Brewery':'Brewery','Distillery & Winery':'Distillery','Nightlife':'NightClub','Attraction':'TouristAttraction','Games & Fun':'EntertainmentBusiness','Movies & Shows':'MovieTheater','Golf & Mini Golf':'GolfCourse','Beach & Shoreline':'Beach','Parks & Trails':'Park','Boating & Water':'BoatRental'};
+  const PLACE_TYPE={'Bar & Lounge':'BarOrPub','Brewery':'Brewery','Distillery & Winery':'Distillery','Nightlife':'NightClub','Attraction':'TouristAttraction','Games & Fun':'EntertainmentBusiness','Movies & Shows':'MovieTheater','Golf & Mini Golf':'GolfCourse','Beach & Shoreline':'Beach','Parks & Trails':'Park','Boating & Water':'BoatRental','Convenience Store':'ConvenienceStore','Grocery & Deli':'GroceryStore'};
   const items=RESTAURANTS.map((r,i)=>{
     const isPlace=r.kind==='place';
     const it={"@type":isPlace?(PLACE_TYPE[r.cuisine]||'LocalBusiness'):'Restaurant',

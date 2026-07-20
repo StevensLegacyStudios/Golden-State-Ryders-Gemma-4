@@ -27,7 +27,8 @@ function ohs(r){const out=[];r.hours.forEach((d,i)=>{(d||[]).forEach(iv=>out.pus
 const PLACE_TYPE={'Bar & Lounge':'BarOrPub','Nightlife':'BarOrPub','Brewery':'Brewery',
   'Distillery & Winery':'Distillery','Attraction':'TouristAttraction','Games & Fun':'EntertainmentBusiness',
   'Movies & Shows':'MovieTheater','Golf & Mini Golf':'GolfCourse','Beach & Shoreline':'Beach',
-  'Parks & Trails':'Park','Boating & Water':'SportsActivityLocation'};
+  'Parks & Trails':'Park','Boating & Water':'SportsActivityLocation',
+  'Convenience Store':'ConvenienceStore','Grocery & Deli':'GroceryStore'};
 function restaurantLd(r){
   const a=addrObj(r.address);
   const isPlace=r.kind==='place';
@@ -54,17 +55,19 @@ const cuisinePages = cuisines.map(c=>({
   desc: `The best ${c} restaurants in Alameda, California. See menus, photos, hours and who's open now, with one-tap call, directions and ordering. Updated July 2026.`,
   intro: `Looking for ${c.toLowerCase()} food in Alameda? Here are the Island's ${c.toLowerCase()} spots — with menus, prices, hours and live "open now" status. Tap any restaurant to call, get directions, or see the full live menu.`,
   match: r=>!isPlace(r)&&r.cuisine===c,
-  emoji: ({Italian:'🍝',Mexican:'🌮',Thai:'🍜',Chinese:'🥟',Vietnamese:'🍲',Japanese:'🍣',Indian:'🍛',American:'🍔',Seafood:'🦞',Cafe:'🥐',Mediterranean:'🥙',Vegetarian:'🥗'})[c]||'🍽️'
+  emoji: ({Italian:'🍝',Mexican:'🌮',Thai:'🍜',Chinese:'🥟',Vietnamese:'🍲',Japanese:'🍣',Indian:'🍛',American:'🍔',Seafood:'🦞',Cafe:'🥐',Mediterranean:'🥙',Vegetarian:'🥗',"Fast Food":'🍟',Bakery:'🥯'})[c]||'🍽️'
 }));
 /* place-category pages: "Breweries in Alameda, CA", not "Brewery Restaurants..." */
 const PLACE_LABEL={'Bar & Lounge':'Bars & Lounges','Nightlife':'Nightlife','Brewery':'Breweries & Taprooms',
   'Distillery & Winery':'Distilleries & Wineries','Attraction':'Attractions & Museums',
   'Games & Fun':'Arcades, Games & Fun','Movies & Shows':'Movies, Comedy & Shows',
   'Golf & Mini Golf':'Golf & Mini Golf','Beach & Shoreline':'Beaches & Shoreline',
-  'Parks & Trails':'Parks & Trails','Boating & Water':'Boating & Water Sports'};
+  'Parks & Trails':'Parks & Trails','Boating & Water':'Boating & Water Sports',
+  'Convenience Store':'24-Hour Convenience Stores','Grocery & Deli':'Late-Night Grocery'};
 const PLACE_EMOJI={'Bar & Lounge':'🍹','Nightlife':'🎶','Brewery':'🍺','Distillery & Winery':'🥃',
   'Attraction':'🛳️','Games & Fun':'🕹️','Movies & Shows':'🎬','Golf & Mini Golf':'⛳',
-  'Beach & Shoreline':'🏖️','Parks & Trails':'🌳','Boating & Water':'🛶'};
+  'Beach & Shoreline':'🏖️','Parks & Trails':'🌳','Boating & Water':'🛶',
+  'Convenience Store':'🏪','Grocery & Deli':'🛒'};
 const placeCats = [...new Set(RESTAURANTS.filter(isPlace).map(r=>r.cuisine))];
 const placePages = placeCats.map(c=>{
   const label=PLACE_LABEL[c]||c;
