@@ -420,6 +420,16 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
 .pop-grid button.on .ct{color:#fff;background:rgba(255,255,255,.25)}
 #surprise{width:auto;padding:0 20px 0 16px;gap:9px;border-radius:var(--r-pill);font-family:var(--f-display);font-weight:700;font-size:14.5px}
 
+/* after-hours nudge (shows late at night only) */
+.late-banner{display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;
+  margin:0 0 16px;padding:14px 18px;border:0;border-radius:var(--r-card,18px);color:#EAF6FC;
+  background:linear-gradient(135deg,#0A2432 0%,#075A78 60%,#0E86B0 100%);
+  box-shadow:0 4px 16px rgba(7,50,70,.35);font-family:var(--f-body,Inter,sans-serif);font-size:14.5px}
+.late-banner .lb-moon{font-size:22px}
+.late-banner strong{font-family:var(--f-display);font-weight:800;letter-spacing:.01em}
+.late-banner #lb-sub{opacity:.9}
+.late-banner:hover{filter:brightness(1.08)}
+
 /* mode switcher */
 .modes{max-width:1080px;margin:2px auto 0;display:flex;gap:6px;padding:4px 20px 0}
 .mode{flex:1;max-width:130px;cursor:pointer;height:40px;border:0;border-radius:var(--r-pill);
@@ -499,6 +509,10 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
   </section>
 
   <div class="wrap">
+    <button class="late-banner" id="late-banner" hidden>
+      <span class="lb-moon" aria-hidden="true">🌙</span>
+      <span class="lb-text"><strong>After hours on the Island.</strong> <span id="lb-sub">See what's still slinging food →</span></span>
+    </button>
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" style="display:none">Nothing on the Island matches that — try another filter.</div>
     <div class="ad-insert" id="ad-slot" hidden><div class="ad-label">Advertisement</div><div id="ad-unit"></div></div>
@@ -623,6 +637,14 @@ function status(r){
       return {open:true, closingSoon:soon, label:(soon?'Last call · closes ':'Open · closes ')+fmt(iv[1])};
     }
   }
+  // yesterday's hours can spill past midnight (close > 24, e.g. 26 = 2am)
+  const yday=r.hours[(n.day+6)%7]||[];
+  for(const iv of yday){
+    if(iv[1]>24 && n.dec+24>=iv[0] && n.dec+24<iv[1]){
+      const soon=(iv[1]-(n.dec+24))<=1;
+      return {open:true, closingSoon:soon, label:(soon?'Last call · closes ':'Open · closes ')+fmt(iv[1])};
+    }
+  }
   for(const iv of today){ if(n.dec<iv[0]) return {open:false, closingSoon:false, label:'Opens '+fmt(iv[0])}; }
   // find next open day
   for(let d=1;d<=7;d++){
@@ -631,6 +653,8 @@ function status(r){
   }
   return {open:false, closingSoon:false, label:'Closed'};
 }
+/* open past midnight (close > 24) or a true 24-hour day */
+function isLate(r){return r.hours.some(d=>(d||[]).some(iv=>iv[1]>24||(iv[0]===0&&iv[1]===24)));}
 function daypart(dec){
   if(dec>=5&&dec<8)   return {k:'DAWN ON THE ISLAND', rail:'FIRST UP THIS MORNING', mode:'breakfast'};
   if(dec>=8&&dec<11)  return {k:'MORNING EDITION', rail:'ON THE ISLAND THIS MORNING', mode:'breakfast'};
@@ -678,7 +702,7 @@ function imgUrls(u){
 /* branded placeholder: blurred generic food backdrop per cuisine + Isola logo watermark.
    Decorative (blurred + logo-stamped) — never presented as the restaurant's own photo. */
 const LOGO='<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="19" r="8.5" fill="#FFB648"/><path d="M5 31c4.8-3.8 8.7-3.8 13.5 0s8.7 3.8 13.5 0 8.7-3.8 11 0" stroke="#FFFFFF" stroke-width="3.4" fill="none" stroke-linecap="round"/><path d="M5 39c4.8-3.8 8.7-3.8 13.5 0s8.7 3.8 13.5 0 8.7-3.8 11 0" stroke="#FFFFFF" opacity=".65" stroke-width="3.4" fill="none" stroke-linecap="round"/></svg>';
-const CUISINE_PHOTO={Italian:'1551183053-bf91a1d81141',Mexican:'1565299585323-38d6b0865b47',Thai:'1559314809-0d155014e29e',Chinese:'1585032226651-759b368d7246',Vietnamese:'1582878826629-29b7ad1cdc43',Japanese:'1579871494447-9811cf80d66c',Korean:'1498654896293-37aacf113fd9',Indian:'1585937421612-70a008356fbe',Cafe:'1495474472287-4d71bcdd2085',American:'1568901346375-23c9450c58cd',Seafood:'1559339352-11d035aa65de',Mediterranean:'1544025162-d76694265947',Vegetarian:'1512621776951-a57141f2eefd',BBQ:'1555939594-58d7cb561ad1',Burmese:'1512058564366-18510be2db19',German:'1509440159596-0249088772ff',"Latin American":'1551504734-5ee1c4a1479b',Dessert:'1563805042-7684c019e1cb',Cambodian:'1504674900247-0877df9cc836'};
+const CUISINE_PHOTO={Italian:'1551183053-bf91a1d81141',Mexican:'1565299585323-38d6b0865b47',Thai:'1559314809-0d155014e29e',Chinese:'1585032226651-759b368d7246',Vietnamese:'1582878826629-29b7ad1cdc43',Japanese:'1579871494447-9811cf80d66c',Korean:'1498654896293-37aacf113fd9',Indian:'1585937421612-70a008356fbe',Cafe:'1495474472287-4d71bcdd2085',American:'1568901346375-23c9450c58cd',Seafood:'1559339352-11d035aa65de',Mediterranean:'1544025162-d76694265947',Vegetarian:'1512621776951-a57141f2eefd',BBQ:'1555939594-58d7cb561ad1',Burmese:'1512058564366-18510be2db19',German:'1509440159596-0249088772ff',"Latin American":'1551504734-5ee1c4a1479b',Dessert:'1563805042-7684c019e1cb',Cambodian:'1504674900247-0877df9cc836',"Fast Food":'1568901346375-23c9450c58cd'};
 const GROUP_PHOTO={eat:'1504674900247-0877df9cc836',drink:'1514362545857-3bc16c4c7d1b',out:'1507525428034-b723cf961d3e','do':'1511512578047-dfb367046420'};
 function blurPh(r,w){const cu=r.cuisine||'Italian';const id=CUISINE_PHOTO[cu]||GROUP_PHOTO[r.group||'eat']||GROUP_PHOTO.eat;return 'https://images.unsplash.com/photo-'+id+'?auto=format&fit=crop&w='+(w||600)+'&q=55';}
 function statusChip(st){
@@ -710,7 +734,7 @@ function card(r,i){
     </div>`;
   return `
   <article class="card${r.featured?' is-featured':''}${firstRender?' enter':''}" id="card-${id}" data-id="${id}" data-group="${r.group||'eat'}"
-    data-cuisine="${esc(cu)}" data-cats="${(r.cats||[]).join(' ')}" data-open="${st.open}" data-featured="${!!r.featured}"
+    data-cuisine="${esc(cu)}" data-cats="${(r.cats||[]).join(' ')}" data-open="${st.open}" data-featured="${!!r.featured}" data-late="${isLate(r)?'1':'0'}"
     data-rating="${r.rating}" data-name="${esc(r.name)}"
     data-text="${esc((r.name+' '+cu+' '+(r.tags||[]).join(' ')+' '+r.desc+' '+menuTerms).toLowerCase())}"
     ${firstRender?`style="animation-delay:${Math.min(i,8)*30}ms"`:''}>
@@ -773,6 +797,7 @@ function cardMatches(c){
   else if(activeFilter.startsWith('cuisine:')) ok=c.dataset.cuisine===activeFilter.slice(8);
   else if(activeFilter.startsWith('cat:')) ok=(c.dataset.cats||'').split(' ').includes(activeFilter.slice(4));
   else if(activeFilter==='tag:date') ok=c.dataset.text.includes('date night');
+  else if(activeFilter==='late') ok=c.dataset.late==='1';
   if(ok && openOnly) ok=c.dataset.open==='true';
   if(ok && query) ok=c.dataset.text.includes(query);
   return ok;
@@ -838,6 +863,8 @@ function buildRail(){
   let fh=`<div class="pop-h">More filters</div><div class="pop-grid">`;
   const dn=pool.filter(r=>(r.tags||[]).join(' ').toLowerCase().includes('date night')).length;
   if(dn) fh+=`<button data-filter="tag:date">Date Night <span class="ct">${dn}</span></button>`;
+  const ln=pool.filter(isLate).length;
+  if(ln) fh+=`<button data-filter="late">🌙 After Hours <span class="ct">${ln}</span></button>`;
   CAT_DEFS.forEach(([k,l])=>{const n=pool.filter(r=>(r.cats||[]).includes(k)).length;
     if(n) fh+=`<button data-filter="cat:${k}">${l} <span class="ct">${n}</span></button>`;});
   if(featCount) fh+=`<button data-filter="featured">★ Featured <span class="ct">${featCount}</span></button>`;
@@ -863,9 +890,9 @@ function railMark(){
   else if(activeFilter==='cat:vegan'&&document.querySelector('[data-tab="veg"]')){
     document.querySelector('[data-tab="veg"]').classList.add('on');
   }
-  else if(activeFilter.startsWith('cat:')||activeFilter==='featured'||activeFilter==='tag:date'){
+  else if(activeFilter.startsWith('cat:')||activeFilter==='featured'||activeFilter==='tag:date'||activeFilter==='late'){
     document.getElementById('features-btn').classList.add('on');
-    const map={'cat:waterfront':'Waterfront','cat:patio':'Patio','cat:breakfast':'Breakfast','cat:vegan':'Vegan & Veg','cat:family':'Family','featured':'★ Featured','tag:date':'Date Night'};
+    const map={'cat:waterfront':'Waterfront','cat:patio':'Patio','cat:breakfast':'Breakfast','cat:vegan':'Vegan & Veg','cat:family':'Family','featured':'★ Featured','tag:date':'Date Night','late':'🌙 After Hours'};
     if(fl) fl.textContent=map[activeFilter]||'More';
   }
   document.querySelectorAll('#cuisine-pop [data-filter],#features-pop [data-filter]')
@@ -1291,10 +1318,29 @@ document.querySelectorAll('.mode').forEach(b=>{
 
 /* ---------- init ---------- */
 document.getElementById('spotcount').textContent=RESTAURANTS.length;
+/* after-hours nudge: late at night, point to what's still open */
+const lateBanner=document.getElementById('late-banner');
+function lateNudge(){
+  const dec=nowLA().dec;
+  const isNight=dec>=21.5||dec<4.5;
+  const lateOpen=RESTAURANTS.filter(r=>isLate(r)&&status(r).open).length;
+  if(isNight&&lateOpen){
+    document.getElementById('lb-sub').textContent=lateOpen+(lateOpen===1?' spot is':' spots are')+' still slinging food →';
+    lateBanner.hidden=false;
+  } else lateBanner.hidden=true;
+}
+lateBanner.addEventListener('click',()=>{
+  activeGroup='all';
+  document.querySelectorAll('.mode').forEach(m=>m.classList.toggle('on',m.dataset.group==='all'));
+  buildRail(); activeFilter='late'; railMark(); applyFilter();
+  lateBanner.scrollIntoView({behavior:'smooth',block:'start'});
+});
 buildRail();
 railMark();
 render();
 tick();
+lateNudge();
+setInterval(lateNudge,60000);
 lastOpenSig=RESTAURANTS.map(r=>{const s=status(r);return s.open?(s.closingSoon?'s':'o'):'c';}).join('');
 setInterval(tick,60000);
 </script>
