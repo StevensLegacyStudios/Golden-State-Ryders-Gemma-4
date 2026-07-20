@@ -12,7 +12,10 @@ const CONFIG = {
   CANONICAL: "https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/",
   CONTACT_EMAIL: "StevensLegacyStudios@gmail.com", // where "Get Featured" + contact go
   ADSENSE_CLIENT: "",   // e.g. "ca-pub-1234567890123456" — leave "" until AdSense-approved
-  FORMSPREE_ID:   ""    // e.g. "xayzwvut" — newsletter capture endpoint (formspree.io/f/<id>)
+  FORMSPREE_ID:   "",   // e.g. "xayzwvut" — newsletter capture endpoint (formspree.io/f/<id>)
+  // Supabase backend (analytics + profile sync + reminders). Publishable key — safe in client.
+  SUPABASE_URL: "https://rlnnsywsqvobvwfqebzf.supabase.co",
+  SUPABASE_KEY: "sb_publishable_0_hSXHbAdqvC5gn0ThZ-lg_Oh_-1VY4"
 };
 
 /* ===========================================================

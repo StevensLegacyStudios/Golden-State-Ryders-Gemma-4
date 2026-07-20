@@ -420,6 +420,12 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
 .pop-grid button.on .ct{color:#fff;background:rgba(255,255,255,.25)}
 #surprise{width:auto;padding:0 20px 0 16px;gap:9px;border-radius:var(--r-pill);font-family:var(--f-display);font-weight:700;font-size:14.5px}
 
+/* remind-me pill in the Spread */
+.sp-remind{display:block;margin:10px 0 0;padding:10px 16px;border-radius:var(--r-pill);cursor:pointer;
+  border:1.5px solid var(--ocean);background:transparent;color:var(--ocean);
+  font-family:var(--f-display);font-weight:700;font-size:13.5px}
+.sp-remind.on{background:var(--ocean);color:#fff}
+
 /* after-hours nudge (shows late at night only) */
 .late-banner{display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;
   margin:0 0 16px;padding:14px 18px;border:0;border-radius:var(--r-card,18px);color:#EAF6FC;
@@ -593,6 +599,7 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
     </div>
     <div class="sp-body">
       <span class="status sp-status" id="sp-status"></span>
+      <button class="sp-remind" id="sp-remind" hidden></button>
       <p class="sp-lede" id="sp-desc"></p>
       <h3 class="sp-h">The Week</h3>
       <div class="week" id="sp-week"></div>
@@ -904,6 +911,7 @@ document.getElementById('modes').addEventListener('click',e=>{
   activeGroup=b.dataset.group;
   document.querySelectorAll('.mode').forEach(m=>m.classList.toggle('on',m===b));
   activeFilter='all'; closeAllPops(); buildRail(); railMark(); applyFilter();
+  try{track('mode',activeGroup);}catch(e){}
 });
 document.getElementById('rail').addEventListener('click',e=>{
   const b=e.target.closest('.tab'); if(!b) return;
@@ -918,6 +926,7 @@ document.getElementById('rail').addEventListener('click',e=>{
   const f=b.dataset.filter;
   activeFilter=(activeFilter===f&&f!=='all')?'all':f;
   railMark(); applyFilter();
+  try{track('filter',activeFilter);}catch(e){}
 });
 ['cuisine-pop','features-pop'].forEach(id=>{
   document.getElementById(id).addEventListener('click',e=>{
@@ -956,6 +965,8 @@ function toggleFav(id,btns){
   const on=!favs.has(id);
   if(on)favs.add(id); else favs.delete(id);
   saveFavs();
+  try{ if(on){sbRpc('isola_sync',{p_vid:vid,p_favs:[id],p_rems:[]});track('fav',id);}
+       else sbRpc('isola_unfav',{p_vid:vid,p_slug:id}); }catch(e){}
   btns.forEach(b=>{ if(!b)return; b.classList.toggle('on',on); b.setAttribute('aria-pressed',String(on)); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); });
   updateCounts([...grid.querySelectorAll('.card')].filter(c=>c.style.display!=='none').length);
   if(activeFilter==='fav') applyFilter();
@@ -1031,6 +1042,7 @@ function openSpread(id,{opener=null,fromHash=false}={}){
   const favBtn=document.getElementById('sp-fav');
   favBtn.classList.toggle('on',favs.has(id));
   favBtn.setAttribute('aria-pressed',String(favs.has(id)));
+  try{updateRemindBtn();track('spread',id);}catch(e){}
   document.getElementById('sp-actions').innerHTML=`
     <a href="tel:${r.phone}">${IC.phone}Call</a>
     <a href="${maps(r.address)}" target="_blank" rel="noopener">${IC.pin}Directions</a>
@@ -1115,6 +1127,115 @@ function toast(msg){
   clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
+/* ---------- cloud: analytics + profile sync + reminders (Supabase, $0 tier) ---------- */
+const SBURL=CONFIG.SUPABASE_URL||'', SBKEY=CONFIG.SUPABASE_KEY||'';
+const vid=(()=>{try{
+  let v=localStorage.getItem('isola-vid');
+  if(!/^[a-f0-9]{32}$/.test(v||'')){
+    v=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0')).join('');
+    localStorage.setItem('isola-vid',v);
+  }
+  return v;
+}catch(e){return '';}})();
+function sbIns(table,row){ if(!SBURL||!vid)return;
+  try{fetch(SBURL+'/rest/v1/'+table,{method:'POST',keepalive:true,
+    headers:{'apikey':SBKEY,'Authorization':'Bearer '+SBKEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify(row)}).catch(()=>{});}catch(e){}
+}
+function sbRpc(fn,args){ if(!SBURL||!vid)return Promise.resolve(null);
+  return fetch(SBURL+'/rest/v1/rpc/'+fn,{method:'POST',
+    headers:{'apikey':SBKEY,'Authorization':'Bearer '+SBKEY,'Content-Type':'application/json'},
+    body:JSON.stringify(args)}).then(r=>r.ok?r.json().catch(()=>null):null).catch(()=>null);
+}
+function track(name,detail){ sbIns('events',{name,detail:String(detail||'').slice(0,120),vid}); }
+sbIns('pageviews',{path:location.pathname,
+  ref:(document.referrer||'').split('/').slice(0,3).join('/')||null,
+  device:matchMedia('(pointer:coarse)').matches?'mobile':'desktop',
+  theme:(()=>{try{return localStorage.getItem('isola-theme')||'day'}catch(e){return 'day'}})(),
+  vid});
+
+/* reminders: set of "slug|kind" (kind: closing|opening), synced to cloud */
+function loadRems(){try{return new Set(JSON.parse(localStorage.getItem('isola-rems')||'[]'))}catch(e){return new Set()}}
+const rems=loadRems();
+function saveRems(){try{localStorage.setItem('isola-rems',JSON.stringify([...rems]))}catch(e){}}
+function remObjs(){return [...rems].map(k=>{const i=k.lastIndexOf('|');return {slug:k.slice(0,i),kind:k.slice(i+1)};});}
+
+/* merge-sync profile (favorites + reminders) with the cloud on load */
+(async()=>{
+  const res=await sbRpc('isola_sync',{p_vid:vid,p_favs:[...favs],p_rems:remObjs()});
+  if(!res)return;
+  let changed=false;
+  (res.favs||[]).forEach(s=>{if(!favs.has(s)){favs.add(s);changed=true;}});
+  (res.rems||[]).forEach(o=>{const k=o.slug+'|'+o.kind;if(!rems.has(k)){rems.add(k);changed=true;}});
+  if(changed){saveFavs();saveRems();render();}
+})();
+
+/* deliver a due reminder: SW notification → Notification → in-app toast */
+function notifyUser(title,body){
+  const show=async()=>{
+    try{const reg=await navigator.serviceWorker?.ready;
+      if(reg&&Notification.permission==='granted'){reg.showNotification(title,{body,icon:'icon-192.png',badge:'icon-192.png'});return true;}
+    }catch(e){}
+    try{if('Notification' in window&&Notification.permission==='granted'){new Notification(title,{body});return true;}}catch(e){}
+    return false;
+  };
+  show().then(ok=>{if(!ok)toast(body.toUpperCase());});
+}
+function checkReminders(){
+  if(!rems.size)return;
+  [...rems].forEach(k=>{
+    const i=k.lastIndexOf('|'); const id=k.slice(0,i), kind=k.slice(i+1);
+    const r=bySlug[id]; if(!r){rems.delete(k);saveRems();return;}
+    const st=status(r);
+    let msg=null;
+    if(kind==='closing'&&st.open&&st.closingSoon) msg=r.name+' — '+st.label.toLowerCase()+'. Last call!';
+    if(kind==='opening'&&st.open) msg=r.name+' just opened — '+st.label.toLowerCase()+'.';
+    if(msg){
+      notifyUser('Isola 🌊',msg);
+      rems.delete(k); saveRems();
+      sbRpc('isola_unremind',{p_vid:vid,p_slug:id,p_kind:kind});
+      if(spreadSlug===id)updateRemindBtn();
+    }
+  });
+}
+
+/* remind button in the Spread */
+function updateRemindBtn(){
+  const b=document.getElementById('sp-remind');
+  if(!spreadSlug){b.hidden=true;return;}
+  const r=bySlug[spreadSlug]; if(!r||!r.hours.some(d=>d.length)){b.hidden=true;return;}
+  const kind=status(r).open?'closing':'opening';
+  const on=rems.has(spreadSlug+'|'+kind);
+  b.hidden=false; b.dataset.kind=kind; b.classList.toggle('on',on);
+  b.textContent=on
+    ?'🔔 Reminder set — tap to cancel'
+    :(kind==='closing'?'🔔 Remind me before last call':'🔔 Remind me when it opens');
+}
+document.getElementById('sp-remind').addEventListener('click',async()=>{
+  if(!spreadSlug)return;
+  const kind=document.getElementById('sp-remind').dataset.kind;
+  const k=spreadSlug+'|'+kind;
+  if(rems.has(k)){
+    rems.delete(k); saveRems();
+    sbRpc('isola_unremind',{p_vid:vid,p_slug:spreadSlug,p_kind:kind});
+    toast('REMINDER CANCELLED');
+  } else {
+    rems.add(k); saveRems();
+    sbRpc('isola_sync',{p_vid:vid,p_favs:[],p_rems:[{slug:spreadSlug,kind}]});
+    try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{});}catch(e){}
+    toast(kind==='closing'?'WE’LL NUDGE YOU BEFORE LAST CALL':'WE’LL NUDGE YOU WHEN IT OPENS');
+    track('remind',kind+' '+spreadSlug);
+  }
+  updateRemindBtn();
+});
+
+/* lightweight event hooks */
+document.addEventListener('click',e=>{
+  const a=e.target.closest('.actions a, .sp-actions a, .full-menu');
+  if(a){const label=(a.textContent||'').replace(/\s+/g,' ').trim().slice(0,24);
+    track('out',label+' · '+(spreadSlug||(a.closest('.card')||{}).id||'').replace(/^card-/,''));}
+});
+
 /* ---------- tonight rail ---------- */
 function updateTonight(){
   const sec=document.getElementById('tonight');
@@ -1171,6 +1292,7 @@ function tick(){
   const shown=[...grid.querySelectorAll('.card')].filter(c=>c.style.display!=='none').length;
   updateCounts(shown);
   updateTonight();
+  try{checkReminders();}catch(e){}
   if(sig!==lastOpenSig){
     if(lastOpenSig && !dlg.open && sortBy==='smart' && !grid.contains(document.activeElement)){ render(); }
     lastOpenSig=sig;
