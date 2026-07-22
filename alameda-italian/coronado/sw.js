@@ -1,6 +1,6 @@
-/* Isola — Alameda Eats service worker.
+/* Isola — Coronado Eats service worker.
    Bump CACHE_VERSION on every deploy or users get stale data.js. */
-const CACHE_VERSION = 'isola-v22';
+const CACHE_VERSION = 'coronado-isola-v21';
 const SHELL = ['./', './index.html', './data.js', './manifest.json',
   'https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap'];
 const IMG_CACHE = CACHE_VERSION + '-img';

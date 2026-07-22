@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "",
+    "root": true,
+    "name": "Alameda",
+    "state": "CA",
+    "nickname": "the Island",
+    "tagline": "Everything on the Island — restaurants, bars, beaches and things to do.",
+    "zip_hint": "Alameda, CA",
+    "locality": "Alameda",
+    "on_phrase": "on the island"
+  },
+  {
+    "slug": "catalina",
+    "name": "Catalina Island",
+    "state": "CA",
+    "nickname": "the Island",
+    "tagline": "Everything on Catalina — where to eat, drink, play and swim in Avalon.",
+    "zip_hint": "Avalon, CA",
+    "city_match": "Avalon|Two Harbors",
+    "locality": "Avalon",
+    "on_phrase": "on the island"
+  },
+  {
+    "slug": "coronado",
+    "name": "Coronado",
+    "state": "CA",
+    "nickname": "the Crown City",
+    "tagline": "Everything in Coronado — restaurants, beach bars, the Del and beyond.",
+    "zip_hint": "Coronado, CA",
+    "city_match": "Coronado",
+    "locality": "Coronado",
+    "on_phrase": "in coronado"
+  }
+]
