@@ -4,7 +4,7 @@ A friendly, fast, Alameda island-themed web app for finding the best restaurants
 **all cuisines**, with live "open now," menus, photos, and one-tap call / directions / order.
 Single self-contained `index.html` (no build) + a few static pages. Deploys free on GitHub Pages.
 
-**Live:** https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/
+**Live:** https://isolaguides.com/
 
 ## Features
 - 🟢 **Live "Open Now"** — open / closed / "closes soon," computed in real time (Pacific), refreshed every minute.

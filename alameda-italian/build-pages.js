@@ -6,7 +6,7 @@
    =========================================================== */
 const fs = require('fs');
 const path = __dirname;
-const CANON = "https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/";
+const CANON = "https://isolaguides.com/";
 
 /* --- pull RESTAURANTS array out of data.js --- */
 const html = fs.readFileSync(path + '/data.js', 'utf8');

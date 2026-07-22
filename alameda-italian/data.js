@@ -9,7 +9,7 @@
    CONFIG — edit these to turn on revenue features
    =========================================================== */
 const CONFIG = {
-  CANONICAL: "https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/",
+  CANONICAL: "https://isolaguides.com/",
   CONTACT_EMAIL: "StevensLegacyStudios@gmail.com", // where "Get Featured" + contact go
   ADSENSE_CLIENT: "",   // e.g. "ca-pub-1234567890123456" — leave "" until AdSense-approved
   FORMSPREE_ID:   "",   // e.g. "xayzwvut" — newsletter capture endpoint (formspree.io/f/<id>)

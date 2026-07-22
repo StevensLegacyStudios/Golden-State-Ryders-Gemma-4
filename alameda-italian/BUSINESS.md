@@ -4,7 +4,7 @@ The operating manual for turning this app into revenue. Written so the owner
 does the **minimum possible** (account signups that legally require a human)
 and Claude handles everything else (data, code, pages, wiring links).
 
-**Live site:** https://stevenslegacystudios.github.io/Golden-State-Ryders-Gemma-4/
+**Live site:** https://isolaguides.com/
 **Status:** 45 verified Alameda restaurants · 13 cuisines · 19 SEO landing pages ·
 Google Search Console verified · sitemap submitted · monetization hooks built.
 
