@@ -233,6 +233,7 @@ function buildPage(p){
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="google-site-verification" content="IbxTYmalcBs3AUrqCtbfS_G3g_MGMsX9px7jC5zhjKY" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9317623446575927" crossorigin="anonymous"></script>
 <title>${esc(p.title)}</title>
 <meta name="description" content="${esc(p.desc)}" />
 <link rel="canonical" href="${url}" />

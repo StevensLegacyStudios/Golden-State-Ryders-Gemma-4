@@ -11,7 +11,7 @@
 const CONFIG = {
   CANONICAL: "https://isolaguides.com/",
   CONTACT_EMAIL: "StevensLegacyStudios@gmail.com", // where "Get Featured" + contact go
-  ADSENSE_CLIENT: "",   // e.g. "ca-pub-1234567890123456" — leave "" until AdSense-approved
+  ADSENSE_CLIENT: "ca-pub-9317623446575927",
   FORMSPREE_ID:   "",   // e.g. "xayzwvut" — newsletter capture endpoint (formspree.io/f/<id>)
   // Supabase backend (analytics + profile sync + reminders). Publishable key — safe in client.
   SUPABASE_URL: "https://rlnnsywsqvobvwfqebzf.supabase.co",

@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="google-site-verification" content="IbxTYmalcBs3AUrqCtbfS_G3g_MGMsX9px7jC5zhjKY" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9317623446575927" crossorigin="anonymous"></script>
 <title>Things to Do in Alameda, CA — Restaurants, Bars, Beaches &amp; Date Nights | Isola</title>
 <meta name="description" content="The Island's guide to everything: the best restaurants, bars, breweries, beaches, trails, attractions and date-night spots in Alameda, CA — with live open-now status, menus, hours and one-tap directions. Updated July 2026." />
 <meta name="keywords" content="things to do in Alameda, Alameda restaurants, Alameda bars, date night Alameda, Alameda beaches, Alameda attractions, restaurants open now Alameda, Alameda nightlife, Crown Beach, USS Hornet" />
@@ -1369,10 +1370,12 @@ themeBtn.addEventListener('click',()=>{
 })();
 (function(){
   if(!CONFIG.ADSENSE_CLIENT) return;
-  const s=document.createElement('script');
-  s.async=true; s.crossOrigin="anonymous";
-  s.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+CONFIG.ADSENSE_CLIENT;
-  document.head.appendChild(s);
+  if(!document.querySelector('script[src*="adsbygoogle.js"]')){
+    const s=document.createElement('script');
+    s.async=true; s.crossOrigin="anonymous";
+    s.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+CONFIG.ADSENSE_CLIENT;
+    document.head.appendChild(s);
+  }
   adSlotEl.hidden=false;
   document.getElementById('ad-unit').innerHTML=
     `<ins class="adsbygoogle" style="display:block" data-ad-client="${CONFIG.ADSENSE_CLIENT}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
