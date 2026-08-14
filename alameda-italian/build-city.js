@@ -227,11 +227,14 @@ REPLACEMENTS.forEach(([find, replace, expected], i) => {
 assert(html.includes('<meta name="google-site-verification" content="IbxTYmalcBs3AUrqCtbfS_G3g_MGMsX9px7jC5zhjKY" />'),
   'google-site-verification must stay unchanged');
 
-/* no stray Alameda left except the whitelisted maker credit */
+/* no stray Alameda left except the whitelisted maker credit + the
+   island-switcher's own entry for the Alameda guide (intentional: every
+   city's switcher must be able to link back to Alameda) */
 const leftovers = (html.match(/Alameda/gi) || []).length;
-assert.strictEqual(leftovers, 1,
-  `Expected exactly 1 remaining "Alameda" ("Built in Alameda" maker credit), found ${leftovers}`);
+assert.strictEqual(leftovers, 2,
+  `Expected exactly 2 remaining "Alameda" ("Built in Alameda" maker credit + island-switcher entry), found ${leftovers}`);
 assert(html.includes('Built in Alameda'), '"Built in Alameda" maker credit missing');
+assert(html.includes("name:'Alameda'"), 'island-switcher Alameda entry missing');
 
 fs.writeFileSync(path.join(outDir, 'index.html'), html);
 

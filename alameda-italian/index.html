@@ -188,6 +188,22 @@ html[data-theme="night"] .masthead{
 .sort-pop button:hover{background:var(--sand)}
 .sort-pop button.on{color:var(--coral)}
 
+/* island switcher (masthead) */
+.city-switch{position:relative}
+.city-switch-btn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+  color:#fff;border-radius:var(--r-pill);padding:6px 12px;font-family:var(--f-display);font-weight:700;font-size:12px;
+  letter-spacing:.02em;cursor:pointer}
+.city-switch-btn:hover{background:rgba(255,255,255,.26)}
+.city-switch-pop{position:absolute;left:0;top:100%;margin-top:6px;background:var(--foam);border:1px solid var(--hairline);
+  border-radius:var(--r-md);box-shadow:var(--shadow-pop);padding:6px;z-index:60;display:none;min-width:220px}
+.city-switch-pop.show{display:block}
+.city-switch-pop a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;
+  font-family:var(--f-display);font-weight:600;font-size:14px;color:var(--ink)}
+.city-switch-pop a:hover{background:var(--sand)}
+.city-switch-pop a.current{color:var(--ocean);background:rgba(14,134,176,.08)}
+.city-switch-pop a .cs-emoji{font-size:17px}
+.city-switch-pop a .cs-sub{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+
 .countline{max-width:1080px;margin:0 auto;padding:12px 22px 0;font-family:var(--f-display);font-weight:600;
   font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
 
@@ -466,6 +482,10 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
 <header class="masthead">
   <div class="kicker-bar">
     <span id="kicker">GOLDEN HOUR · ALAMEDA, CALIFORNIA</span>
+    <div class="city-switch" id="city-switch">
+      <button class="city-switch-btn" id="city-switch-btn" aria-haspopup="true" aria-expanded="false">🗺️ Islands ▾</button>
+      <div class="city-switch-pop" id="city-switch-pop" role="menu"></div>
+    </div>
     <button id="theme-toggle" class="pressable" aria-label="Toggle day and night theme">
       <svg class="gl" id="theme-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 108.6 12z"/></svg>
       <span id="theme-label">NIGHT</span>
@@ -1336,6 +1356,36 @@ fab.addEventListener('click',()=>{
       lastY=y; ticking=false;
     });
   },{passive:true});
+})();
+
+/* ---------- island switcher ---------- */
+(function(){
+  const CITIES=[
+    {slug:'', name:'Alameda', sub:'The Island', emoji:'🏠', url:'https://isolaguides.com/'},
+    {slug:'catalina', name:'Catalina Island', sub:'Avalon', emoji:'🏝️', url:'https://isolaguides.com/catalina/'},
+    {slug:'coronado', name:'Coronado', sub:'Crown City', emoji:'👑', url:'https://isolaguides.com/coronado/'}
+  ];
+  const here=location.pathname.replace(/^\/+|\/+$/g,'').split('/').filter(Boolean).pop()||'';
+  const current=CITIES.find(c=>c.slug&&here===c.slug)||CITIES[0];
+  const btn=document.getElementById('city-switch-btn');
+  const pop=document.getElementById('city-switch-pop');
+  if(!btn||!pop) return;
+  btn.innerHTML=current.emoji+' '+(current.slug?current.name:'Islands')+' ▾';
+  pop.innerHTML=CITIES.map(c=>{
+    const active=c===current;
+    return `<a href="${c.url}"${active?' class="current" aria-current="page"':''} role="menuitem">`+
+      `<span class="cs-emoji">${c.emoji}</span>${esc(c.name)}<span class="cs-sub">${active?'Here':esc(c.sub)}</span></a>`;
+  }).join('');
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const show=!pop.classList.contains('show');
+    pop.classList.toggle('show',show);
+    btn.setAttribute('aria-expanded',String(show));
+  });
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#city-switch')){pop.classList.remove('show');btn.setAttribute('aria-expanded','false');}
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){pop.classList.remove('show');btn.setAttribute('aria-expanded','false');}});
 })();
 
 /* ---------- theme ---------- */
