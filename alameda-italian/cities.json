@@ -31,5 +31,16 @@
     "city_match": "Coronado",
     "locality": "Coronado",
     "on_phrase": "in coronado"
+  },
+  {
+    "slug": "sacramento",
+    "name": "Sacramento",
+    "state": "CA",
+    "nickname": "the Capital",
+    "tagline": "Everything in Sacramento — restaurants, bars, breweries and things to do in the capital.",
+    "zip_hint": "Sacramento, CA",
+    "city_match": "Sacramento",
+    "locality": "Sacramento",
+    "on_phrase": "in sacramento"
   }
 ]

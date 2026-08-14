@@ -1363,7 +1363,8 @@ fab.addEventListener('click',()=>{
   const CITIES=[
     {slug:'', name:'Alameda', sub:'The Island', emoji:'🏠', url:'https://isolaguides.com/'},
     {slug:'catalina', name:'Catalina Island', sub:'Avalon', emoji:'🏝️', url:'https://isolaguides.com/catalina/'},
-    {slug:'coronado', name:'Coronado', sub:'Crown City', emoji:'👑', url:'https://isolaguides.com/coronado/'}
+    {slug:'coronado', name:'Coronado', sub:'Crown City', emoji:'👑', url:'https://isolaguides.com/coronado/'},
+    {slug:'sacramento', name:'Sacramento', sub:'The Capital', emoji:'🏛️', url:'https://isolaguides.com/sacramento/'}
   ];
   const here=location.pathname.replace(/^\/+|\/+$/g,'').split('/').filter(Boolean).pop()||'';
   const current=CITIES.find(c=>c.slug&&here===c.slug)||CITIES[0];
