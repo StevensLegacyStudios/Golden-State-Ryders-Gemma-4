@@ -19,7 +19,11 @@
     "zip_hint": "Avalon, CA",
     "city_match": "Avalon|Two Harbors",
     "locality": "Avalon",
-    "on_phrase": "on the island"
+    "on_phrase": "on the island",
+    "palette": {
+      "light": {"sky":"#3FD6C7","skyHi":"#8FEEE2","ocean":"#0F9AA3","seaDeep":"#0A6670","navy":"#0B3A42","coral":"#FF8A3D","coralDeep":"#E96D22","sun":"#FFC94D","palm":"#2E9E5B","gold":"#E0A83B"},
+      "dark": {"sky":"#115C58","skyHi":"#1B8078","ocean":"#3FD0C4","seaDeep":"#0C4A48","navy":"#062024","coral":"#FF9A5C","coralDeep":"#FF8A3D","sun":"#FFD873"}
+    }
   },
   {
     "slug": "coronado",
@@ -30,7 +34,11 @@
     "zip_hint": "Coronado, CA",
     "city_match": "Coronado",
     "locality": "Coronado",
-    "on_phrase": "in coronado"
+    "on_phrase": "in coronado",
+    "palette": {
+      "light": {"sky":"#4A7FC2","skyHi":"#8AB4E8","ocean":"#1E4E8C","seaDeep":"#123661","navy":"#0A1F3D","coral":"#B5442E","coralDeep":"#8F3322","sun":"#D9A23F","palm":"#2E9E5B","gold":"#E4B94A"},
+      "dark": {"sky":"#1B3A66","skyHi":"#2C548C","ocean":"#5E93D6","seaDeep":"#16305A","navy":"#081527","coral":"#D2664B","coralDeep":"#B5442E","sun":"#E9C266"}
+    }
   },
   {
     "slug": "sacramento",
@@ -41,6 +49,10 @@
     "zip_hint": "Sacramento, CA",
     "city_match": "Sacramento",
     "locality": "Sacramento",
-    "on_phrase": "in sacramento"
+    "on_phrase": "in sacramento",
+    "palette": {
+      "light": {"sky":"#5FA8D6","skyHi":"#A9D4EE","ocean":"#2E76A8","seaDeep":"#1C4F73","navy":"#0F324A","coral":"#D98A2E","coralDeep":"#B96E1E","sun":"#F0C24A","palm":"#3F8F4A","gold":"#E3A93E"},
+      "dark": {"sky":"#1F4D6E","skyHi":"#2F6F98","ocean":"#5FA8D6","seaDeep":"#173C56","navy":"#0B2131","coral":"#E4A34E","coralDeep":"#D98A2E","sun":"#F5D27A"}
+    }
   }
 ]

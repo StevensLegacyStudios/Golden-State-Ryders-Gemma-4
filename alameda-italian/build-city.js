@@ -218,6 +218,34 @@ REPLACEMENTS.forEach(([find, replace, expected], i) => {
     : html.split(find).join(replace);
 });
 
+/* ---------- per-city palette (visual "vibe") ----------
+   Optional cities.json `palette` swaps the brand accent colors so each
+   city reads distinctly (e.g. Catalina's tropical turquoise/sunset vs
+   Coronado's Hotel Del navy/crown-gold vs Sacramento's river-blue/
+   Capitol-gold). Root Alameda defines no palette, so its CSS is
+   untouched — this block is a no-op for the root build. */
+if (city.palette) {
+  const L = city.palette.light, D = city.palette.dark;
+  const PALETTE_REPLACEMENTS = [
+    ['--sky:#4FC3EA; --sky-hi:#8ADDF6; --ocean:#0E86B0; --sea-deep:#075A78; --navy:#083951;',
+     `--sky:${L.sky}; --sky-hi:${L.skyHi}; --ocean:${L.ocean}; --sea-deep:${L.seaDeep}; --navy:${L.navy};`, 1],
+    ['--coral:#FF6B54; --coral-deep:#E85340; --sun:#FFB648; --palm:#2E9E5B;',
+     `--coral:${L.coral}; --coral-deep:${L.coralDeep}; --sun:${L.sun}; --palm:${L.palm};`, 1],
+    ['--open:#1F9D5B; --lastcall:#E8920F; --closed:#93A6B0; --gold:#D9A23F;',
+     `--open:#1F9D5B; --lastcall:#E8920F; --closed:#93A6B0; --gold:${L.gold};`, 1],
+    ['--sky:#155A7A; --sky-hi:#1E7AA0; --ocean:#3FB3DC; --sea-deep:#0C4258; --navy:#061E2C;',
+     `--sky:${D.sky}; --sky-hi:${D.skyHi}; --ocean:${D.ocean}; --sea-deep:${D.seaDeep}; --navy:${D.navy};`, 1],
+    ['--coral:#FF7A62; --coral-deep:#FF6B54; --sun:#FFC266;',
+     `--coral:${D.coral}; --coral-deep:${D.coralDeep}; --sun:${D.sun};`, 1],
+  ];
+  PALETTE_REPLACEMENTS.forEach(([find, replace, expected], i) => {
+    const n = countMatches(html, find);
+    assert.strictEqual(n, expected,
+      `PALETTE_REPLACEMENTS[${i}] matched ${n}x (expected ${expected}): ${find.slice(0, 90)}`);
+    html = html.split(find).join(replace);
+  });
+}
+
 /* the app must keep loading its assets relatively (per-city copies) */
 ['<script src="data.js"></script>', "navigator.serviceWorker.register('sw.js')",
  '<link rel="manifest" href="manifest.json" />', '<link rel="apple-touch-icon" href="icon-192.png" />']
