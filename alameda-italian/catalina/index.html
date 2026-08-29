@@ -264,6 +264,47 @@ html[data-theme="night"] .masthead{
 html[data-theme="night"] .status{background:rgba(6,30,44,.9)}
 .status .sd{width:7px;height:7px;border-radius:50%;background:currentColor}
 .status.st-open{color:var(--open)} .status.st-soon{color:var(--lastcall)} .status.st-closed{color:var(--closed)}
+/* ---------- community-reported closure: swinging CLOSED sign + island mist ---------- */
+.card.is-reported .photo img,.card.is-reported .photo .blurph{filter:grayscale(.55) brightness(.72)}
+.hero-fx{position:absolute;inset:0;pointer-events:none;z-index:6}
+.mist{position:absolute;inset:0;pointer-events:none;z-index:4;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(226,236,241,.5) 55%,rgba(214,228,235,.82) 100%);
+  animation:mistdrift 7s ease-in-out infinite alternate}
+@keyframes mistdrift{from{opacity:.5;transform:translateX(-4%)}to{opacity:.85;transform:translateX(4%)}}
+.closed-sign{position:absolute;top:14px;left:50%;z-index:7;transform:translateX(-50%);transform-origin:50% -16px;
+  background:linear-gradient(180deg,#6d4c30,#4c3220);color:#f6ead6;border:2px solid #33210f;border-radius:9px;
+  padding:9px 22px 11px;text-align:center;font-family:var(--f-display);
+  box-shadow:0 12px 24px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.16);
+  animation:signdrop .7s cubic-bezier(.3,1.5,.5,1) both,signswing 3.4s ease-in-out .7s infinite}
+.closed-sign::before{content:"";position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:2px;height:16px;background:#2a1a0b}
+.cs-nail{position:absolute;top:5px;width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#e2c98f,#8a6a3a);box-shadow:0 1px 1px rgba(0,0,0,.55)}
+.cs-nail-l{left:8px}.cs-nail-r{right:8px}
+.cs-word{display:block;font-weight:800;font-size:19px;letter-spacing:.18em}
+.cs-detail{display:block;font-weight:600;font-size:11px;margin-top:3px;opacity:.95;max-width:170px;line-height:1.3}
+.cs-sub{display:block;font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;opacity:.72;margin-top:4px}
+@keyframes signdrop{0%{transform:translateX(-50%) translateY(-42px) rotate(-9deg);opacity:0}100%{transform:translateX(-50%) translateY(0) rotate(0);opacity:1}}
+@keyframes signswing{0%,100%{transform:translateX(-50%) rotate(-2.6deg)}50%{transform:translateX(-50%) rotate(2.6deg)}}
+.hero-fx .closed-sign{top:24px}
+/* report control in the detail sheet */
+.sp-report{margin:15px 0 2px}
+.rep-open{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid var(--hairline);
+  color:var(--ink-2);border-radius:var(--r-pill);padding:8px 14px;font-family:var(--f-ui);font-weight:600;font-size:12.5px;cursor:pointer}
+.rep-open:hover{background:var(--sand)}
+.rep-open svg{width:15px;height:15px}
+.rep-form{margin-top:10px;padding:13px;border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--sand)}
+.rep-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:9px}
+.rep-chips button{background:var(--foam);border:1px solid var(--hairline);border-radius:var(--r-pill);
+  padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+.rep-chips button.sel{background:var(--ocean);color:#fff;border-color:var(--ocean)}
+.rep-form input{width:100%;box-sizing:border-box;border:1px solid var(--hairline);border-radius:10px;
+  padding:9px 11px;font:inherit;font-size:13px;margin-bottom:9px;background:var(--foam);color:var(--ink)}
+.rep-send{background:var(--coral);color:#fff;border:0;border-radius:var(--r-pill);padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer}
+.rep-note{font-size:11.5px;color:var(--ink-2);margin:7px 2px 0;line-height:1.45}
+.sp-closed-flag{display:flex;gap:9px;align-items:flex-start;margin:13px 0 2px;padding:11px 13px;
+  border:1px solid var(--hairline);border-left:4px solid var(--closed);border-radius:12px;background:var(--sand)}
+.sp-closed-flag svg{width:17px;height:17px;flex:none;margin-top:1px;color:var(--closed)}
+.sp-closed-flag b{color:var(--ink)}
 .fav{position:absolute;right:8px;top:8px;z-index:3;width:44px;height:44px;background:none;border:0;cursor:pointer;
   display:flex;align-items:center;justify-content:center;color:#fff;filter:drop-shadow(0 2px 6px rgba(7,50,70,.55))}
 .fav svg{width:24px;height:24px;transition:color var(--t-micro)}
@@ -606,6 +647,7 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
     <div class="sp-hero" id="sp-hero">
       <span class="sp-tile-letter" id="sp-tile" aria-hidden="true"></span>
       <img id="sp-img" alt="" />
+      <div class="hero-fx" id="sp-hero-fx"></div>
       <div class="sp-tools">
         <button id="sp-fav" aria-label="Save to favorites"><svg class="gl" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2.6 4.5 6.2 4.5c2.2 0 3.9 1.2 4.8 3 .9-1.8 2.6-3 4.8-3 3.6 0 5.7 3.5 4.2 7.2C19.5 16.3 12 21 12 21z"/></svg></button>
         <button id="sp-share" aria-label="Share this restaurant"><svg class="gl" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="5.5" r="2.5"/><circle cx="17" cy="18.5" r="2.5"/><path d="M8.2 10.8l6.6-4M8.2 13.2l6.6 4"/></svg></button>
@@ -629,6 +671,7 @@ footer .disc{font-size:11.5px;opacity:.8;max-width:680px;margin:14px auto 0}
       <a class="sp-addr" id="sp-addr" target="_blank" rel="noopener">
         <span class="mono">Find it</span><span id="sp-addr-text"></span>
       </a>
+      <div class="sp-report" id="sp-report"></div>
     </div>
     <div class="sp-actions" id="sp-actions"></div>
   </div>
@@ -657,6 +700,8 @@ const DAY_SHORT=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
 /* extended status: {open, closingSoon, label} */
 function status(r){
+  const rep=window.REPORTED?REPORTED.get(slug(r.name)):null;
+  if(rep) return {open:false, closingSoon:false, reported:true, detail:rep.detail||'', label:'Closed today · reported'};
   const n=nowLA(); const today=r.hours[n.day]||[];
   for(const iv of today){
     if(n.dec>=iv[0]&&n.dec<iv[1]){
@@ -703,6 +748,16 @@ let favs=loadFavs();
 function saveFavs(){try{localStorage.setItem('isola-favs',JSON.stringify([...favs]))}catch(e){}}
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function maps(addr){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`}
+/* community-reported closures: which city am I, and who's been flagged closed */
+const CITY_SLUG=(location.pathname.replace(/^\/+|\/+$/g,'').split('/').filter(Boolean).pop()||'').replace(/\.html?$/i,'').toLowerCase();
+const REPORTED=new Map(); window.REPORTED=REPORTED;
+function closedSignHtml(detail){
+  return '<div class="mist"></div><div class="closed-sign" role="img" aria-label="Neighbor reported closed">'+
+    '<span class="cs-nail cs-nail-l"></span><span class="cs-nail cs-nail-r"></span>'+
+    '<span class="cs-word">CLOSED</span>'+
+    (detail?'<span class="cs-detail">'+esc(detail)+'</span>':'')+
+    '<span class="cs-sub">reported by a neighbor</span></div>';
+}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 const bySlug={}; RESTAURANTS.forEach(r=>bySlug[slug(r.name)]=r);
 const SB=()=>matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
@@ -740,6 +795,7 @@ function statusChip(st){
 }
 function card(r,i){
   const st=status(r);
+  const closedFx=st.reported?closedSignHtml(st.detail):'';
   const id=slug(r.name), isFav=favs.has(id), cu=r.cuisine||'Italian';
   const u=imgUrls(r.img);
   const eager=i<2?'loading="eager" fetchpriority="high"':'loading="lazy"';
@@ -752,6 +808,7 @@ function card(r,i){
         onload="this.classList.add('ok')" onerror="this.remove()">
       ${statusChip(st)}
       <button class="fav pressable ${isFav?'on':''}" data-fav="${id}" aria-pressed="${isFav}" aria-label="Save ${esc(r.name)} to favorites">${IC.heart}</button>
+      ${closedFx}
     </div>`:`
     <div class="photo tile">
       <img class="blurph" src="${blurPh(r,600)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.remove()">
@@ -759,9 +816,10 @@ function card(r,i){
       <span class="wm">${LOGO}<span class="wmt">Isola</span></span>
       ${statusChip(st)}
       <button class="fav pressable ${isFav?'on':''}" data-fav="${id}" aria-pressed="${isFav}" aria-label="Save ${esc(r.name)} to favorites">${IC.heart}</button>
+      ${closedFx}
     </div>`;
   return `
-  <article class="card${r.featured?' is-featured':''}${firstRender?' enter':''}" id="card-${id}" data-id="${id}" data-group="${r.group||'eat'}"
+  <article class="card${r.featured?' is-featured':''}${firstRender?' enter':''}${st.reported?' is-reported':''}" id="card-${id}" data-id="${id}" data-group="${r.group||'eat'}"
     data-cuisine="${esc(cu)}" data-cats="${(r.cats||[]).join(' ')}" data-open="${st.open}" data-featured="${!!r.featured}" data-late="${isLate(r)?'1':'0'}"
     data-rating="${r.rating}" data-name="${esc(r.name)}"
     data-text="${esc((r.name+' '+cu+' '+(r.tags||[]).join(' ')+' '+r.desc+' '+menuTerms).toLowerCase())}"
@@ -1051,6 +1109,7 @@ function openSpread(id,{opener=null,fromHash=false}={}){
   const stEl=document.getElementById('sp-status');
   stEl.className='status sp-status '+(st.open?(st.closingSoon?'st-soon':'st-open'):'st-closed');
   stEl.innerHTML=(st.open?'<span class="sd"></span>':'')+esc(st.label);
+  renderReport(r,id,st);
   document.getElementById('sp-desc').textContent=r.desc;
   document.getElementById('sp-week').innerHTML=weekHtml(r);
   document.getElementById('sp-menu-h').textContent=(r.kind==='place')?'Highlights':'The Menu';
@@ -1174,6 +1233,71 @@ sbIns('pageviews',{path:location.pathname,
   device:matchMedia('(pointer:coarse)').matches?'mobile':'desktop',
   theme:(()=>{try{return localStorage.getItem('isola-theme')||'day'}catch(e){return 'day'}})(),
   vid});
+
+/* ---------- community-reported closures: report flow + live sign ---------- */
+function reRenderClosures(){ try{ render(); if(typeof applyFilter==='function') applyFilter(); }catch(e){} }
+/* pull the closures a neighbor has flagged for this city (auto-expire handled by RLS) */
+(function(){ if(!SBURL) return;
+  const q=SBURL+'/rest/v1/closures?select=spot,detail,until&city=eq.'+encodeURIComponent(CITY_SLUG)+'&until=gt.'+encodeURIComponent(new Date().toISOString());
+  fetch(q,{headers:{'apikey':SBKEY,'Authorization':'Bearer '+SBKEY}}).then(r=>r.ok?r.json():[]).then(rows=>{
+    if(!Array.isArray(rows)) return; let any=false;
+    rows.forEach(x=>{ const cur=REPORTED.get(x.spot); if(!cur||new Date(x.until)>new Date(cur.until)){REPORTED.set(x.spot,{detail:x.detail||'',until:x.until});any=true;} });
+    if(any) reRenderClosures();
+  }).catch(()=>{});
+})();
+function submitClosure(id,name,scope,detail){
+  const now=new Date(); let until;
+  if(scope==='day'){ until=new Date(); until.setHours(23,59,59,0); if(until<=now) until=new Date(now.getTime()+4*3600e3); }
+  else { until=new Date(now.getTime()+4*3600e3); }
+  const untilIso=until.toISOString();
+  REPORTED.set(id,{detail:detail||'',until:untilIso});
+  try{ sbIns('closures',{city:CITY_SLUG,spot:id,name:name||'',detail:(detail||'').slice(0,140),until:untilIso,vid}); }catch(e){}
+  try{ track('report-closed',id); }catch(e){}
+  reRenderClosures();
+  const rr=bySlug[id]; if(rr) renderReport(rr,id,status(rr));
+  try{ toast("Thanks, neighbor. Flagged as closed — tap Call to confirm."); }catch(e){}
+}
+function renderReport(r,id,st){
+  const fx=document.getElementById('sp-hero-fx'); if(fx) fx.innerHTML=st.reported?closedSignHtml(st.detail):'';
+  const box=document.getElementById('sp-report'); if(!box) return;
+  if(st.reported){
+    box.innerHTML='<div class="sp-closed-flag">'+IC.pin+'<div><b>A neighbor reported this closed'+(st.detail?' ('+esc(st.detail)+')':'')+'.</b>'+
+      '<div class="rep-note">Hours can\'t catch a surprise closing, so tap Call to be sure before you head over. Back open? '+
+      '<button class="rep-open" data-clear="1" style="margin-top:8px">It\'s open, clear this</button></div></div></div>';
+    return;
+  }
+  box.innerHTML='<button class="rep-open" data-repopen="1">'+IC.pin+' Report it’s closed</button>';
+}
+document.getElementById('sp-report').addEventListener('click',function(e){
+  const r=bySlug[spreadSlug]; if(!r) return; const id=spreadSlug;
+  if(e.target.closest('[data-repopen]')){
+    this.innerHTML='<div class="rep-form">'+
+      '<div class="rep-chips">'+
+        '<button data-scope="day" class="sel">Closed today</button>'+
+        '<button data-scope="now">Closed right now</button>'+
+        '<button data-scope="temp">Temporarily closed</button>'+
+      '</div>'+
+      '<input id="rep-detail" type="text" maxlength="120" placeholder="Add details (optional): sign on the door, back at 5…">'+
+      '<button class="rep-send">Send it</button>'+
+      '<p class="rep-note">One tap drops a CLOSED sign so the next neighbor sees it before they make the trip. It clears itself once they’re likely open again.</p>'+
+    '</div>';
+    return;
+  }
+  const chip=e.target.closest('.rep-chips button');
+  if(chip){ this.querySelectorAll('.rep-chips button').forEach(b=>b.classList.remove('sel')); chip.classList.add('sel'); return; }
+  if(e.target.closest('.rep-send')){
+    const sel=this.querySelector('.rep-chips button.sel');
+    const scope=sel?sel.getAttribute('data-scope'):'day';
+    const detail=(this.querySelector('#rep-detail')||{}).value||'';
+    submitClosure(id,r.name,scope,detail.trim());
+    return;
+  }
+  if(e.target.closest('[data-clear]')){
+    REPORTED.delete(id); try{track('report-open',id);}catch(e2){}
+    reRenderClosures(); renderReport(r,id,status(r));
+    try{toast('Thanks — marked open again.');}catch(e2){}
+  }
+});
 
 /* reminders: set of "slug|kind" (kind: closing|opening), synced to cloud */
 function loadRems(){try{return new Set(JSON.parse(localStorage.getItem('isola-rems')||'[]'))}catch(e){return new Set()}}
