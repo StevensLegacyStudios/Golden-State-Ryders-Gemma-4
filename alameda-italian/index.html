@@ -1247,35 +1247,56 @@ sbIns('pageviews',{path:location.pathname,
   theme:(()=>{try{return localStorage.getItem('isola-theme')||'day'}catch(e){return 'day'}})(),
   vid});
 
-/* ---------- community-reported closures: report flow + live sign ---------- */
+/* ---------- community-reported closures: report flow, live sign, self-verify ---------- */
 function reRenderClosures(){ try{ render(); if(typeof applyFilter==='function') applyFilter(); }catch(e){} }
-/* pull the closures a neighbor has flagged for this city (auto-expire handled by RLS) */
+/* pull recent reports for this city, take the latest event per spot (close vs open) */
 (function(){ if(!SBURL) return;
-  const q=SBURL+'/rest/v1/closures?select=spot,detail,until&city=eq.'+encodeURIComponent(CITY_SLUG)+'&until=gt.'+encodeURIComponent(new Date().toISOString());
+  const q=SBURL+'/rest/v1/closures?select=spot,detail,until,kind,ts&city=eq.'+encodeURIComponent(CITY_SLUG)+'&order=ts.asc';
   fetch(q,{headers:{'apikey':SBKEY,'Authorization':'Bearer '+SBKEY}}).then(r=>r.ok?r.json():[]).then(rows=>{
-    if(!Array.isArray(rows)) return; let any=false;
-    rows.forEach(x=>{ const cur=REPORTED.get(x.spot); if(!cur||new Date(x.until)>new Date(cur.until)){REPORTED.set(x.spot,{detail:x.detail||'',until:x.until});any=true;} });
+    if(!Array.isArray(rows)||!rows.length) return; const latest={};
+    rows.forEach(x=>{ latest[x.spot]=x; });           // ascending, so last write wins
+    let any=false; const now=Date.now();
+    Object.keys(latest).forEach(spot=>{ const x=latest[spot];
+      if(x.kind!=='open' && x.until && new Date(x.until).getTime()>now){ REPORTED.set(spot,{detail:x.detail||'',until:x.until}); any=true; }
+      else if(REPORTED.delete(spot)){ any=true; }
+    });
     if(any) reRenderClosures();
   }).catch(()=>{});
 })();
-function submitClosure(id,name,scope,detail){
-  const now=new Date(); let until;
-  if(scope==='day'){ until=new Date(); until.setHours(23,59,59,0); if(until<=now) until=new Date(now.getTime()+4*3600e3); }
-  else { until=new Date(now.getTime()+4*3600e3); }
-  const untilIso=until.toISOString();
+/* auto-expiry built from exactly what the reporter picked */
+function closeUntil(scope,timeVal){
+  const now=new Date();
+  if(scope==='break') return new Date(now.getTime()+30*60e3);
+  if(scope==='hrs')   return new Date(now.getTime()+2*3600e3);
+  if(scope==='day'){ const e=new Date(); e.setHours(23,59,59,0); return e>now?e:new Date(now.getTime()+4*3600e3); }
+  if(scope==='time' && /^\d{1,2}:\d{2}$/.test(timeVal||'')){
+    const p=timeVal.split(':'); const e=new Date(); e.setHours(+p[0],+p[1],0,0);
+    if(e<=now) e.setDate(e.getDate()+1); return e;
+  }
+  return new Date(now.getTime()+3600e3);
+}
+function submitClosure(id,r,scope,timeVal,detail){
+  const untilIso=closeUntil(scope,timeVal).toISOString();
   REPORTED.set(id,{detail:detail||'',until:untilIso});
-  try{ sbIns('closures',{city:CITY_SLUG,spot:id,name:name||'',detail:(detail||'').slice(0,140),until:untilIso,vid}); }catch(e){}
+  try{ sbIns('closures',{city:CITY_SLUG,spot:id,name:r.name||'',phone:r.phone||'',detail:(detail||'').slice(0,140),until:untilIso,kind:'close',vid}); }catch(e){}
   try{ track('report-closed',id); }catch(e){}
   reRenderClosures();
   const rr=bySlug[id]; if(rr) renderReport(rr,id,status(rr));
-  try{ toast("Thanks, neighbor. Flagged as closed — tap Call to confirm."); }catch(e){}
+  try{ toast('Thanks, neighbor. Flagged closed. Tap Call to confirm.'); }catch(e){}
+}
+function reopenClosure(id,r){
+  REPORTED.delete(id);
+  try{ sbIns('closures',{city:CITY_SLUG,spot:id,name:(r&&r.name)||'',phone:(r&&r.phone)||'',detail:'reported open',until:new Date().toISOString(),kind:'open',vid}); }catch(e){}
+  try{ track('report-open',id); }catch(e){}
+  reRenderClosures(); const rr=bySlug[id]; if(rr) renderReport(rr,id,status(rr));
+  try{ toast('Thanks. Marked open again for everyone.'); }catch(e){}
 }
 function renderReport(r,id,st){
   const fx=document.getElementById('sp-hero-fx'); if(fx) fx.innerHTML=st.reported?closedSignHtml(st.detail):'';
   const box=document.getElementById('sp-report'); if(!box) return;
   if(st.reported){
     box.innerHTML='<div class="sp-closed-flag">'+IC.pin+'<div><b>A neighbor reported this closed'+(st.detail?' ('+esc(st.detail)+')':'')+'.</b>'+
-      '<div class="rep-note">Hours can\'t catch a surprise closing, so tap Call to be sure before you head over. Back open? '+
+      '<div class="rep-note">Hours can\'t catch a surprise closing, so tap Call to be sure before you head over. Are they actually open right now? '+
       '<button class="rep-open" data-clear="1" style="margin-top:8px">It\'s open, clear this</button></div></div></div>';
     return;
   }
@@ -1285,31 +1306,33 @@ document.getElementById('sp-report').addEventListener('click',function(e){
   const r=bySlug[spreadSlug]; if(!r) return; const id=spreadSlug;
   if(e.target.closest('[data-repopen]')){
     this.innerHTML='<div class="rep-form">'+
+      '<p class="rep-note" style="margin:0 2px 9px">How long? Pick what the sign or the staff said.</p>'+
       '<div class="rep-chips">'+
-        '<button data-scope="day" class="sel">Closed today</button>'+
-        '<button data-scope="now">Closed right now</button>'+
-        '<button data-scope="temp">Temporarily closed</button>'+
+        '<button data-scope="break">Quick break (30 min)</button>'+
+        '<button data-scope="hrs">Back in ~2 hrs</button>'+
+        '<button data-scope="time">Closed until a set time</button>'+
+        '<button data-scope="day" class="sel">Closed rest of today</button>'+
       '</div>'+
-      '<input id="rep-detail" type="text" maxlength="120" placeholder="Add details (optional): sign on the door, back at 5…">'+
+      '<input id="rep-time" type="time" style="display:none">'+
+      '<input id="rep-detail" type="text" maxlength="120" placeholder="Add details (optional): sign on the door, family emergency, back at 5…">'+
       '<button class="rep-send">Send it</button>'+
-      '<p class="rep-note">One tap drops a CLOSED sign so the next neighbor sees it before they make the trip. It clears itself once they’re likely open again.</p>'+
+      '<p class="rep-note">The second you send this, a CLOSED sign drops on this spot so the next neighbor sees it before they make the trip. It clears itself when the time you picked is up, or when someone reports it open again.</p>'+
     '</div>';
     return;
   }
   const chip=e.target.closest('.rep-chips button');
-  if(chip){ this.querySelectorAll('.rep-chips button').forEach(b=>b.classList.remove('sel')); chip.classList.add('sel'); return; }
+  if(chip){ this.querySelectorAll('.rep-chips button').forEach(b=>b.classList.remove('sel')); chip.classList.add('sel');
+    const t=this.querySelector('#rep-time'); if(t) t.style.display=(chip.getAttribute('data-scope')==='time')?'block':'none';
+    return; }
   if(e.target.closest('.rep-send')){
     const sel=this.querySelector('.rep-chips button.sel');
     const scope=sel?sel.getAttribute('data-scope'):'day';
-    const detail=(this.querySelector('#rep-detail')||{}).value||'';
-    submitClosure(id,r.name,scope,detail.trim());
+    const timeVal=(this.querySelector('#rep-time')||{}).value||'';
+    const detail=((this.querySelector('#rep-detail')||{}).value||'').trim();
+    submitClosure(id,r,scope,timeVal,detail);
     return;
   }
-  if(e.target.closest('[data-clear]')){
-    REPORTED.delete(id); try{track('report-open',id);}catch(e2){}
-    reRenderClosures(); renderReport(r,id,status(r));
-    try{toast('Thanks — marked open again.');}catch(e2){}
-  }
+  if(e.target.closest('[data-clear]')){ reopenClosure(id,r); }
 });
 
 /* reminders: set of "slug|kind" (kind: closing|opening), synced to cloud */

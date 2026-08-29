@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Isola — Closure Reports (admin)</title>
+<style>
+  :root{--ink:#123B4F;--ink2:#4E7286;--line:#e3dcc9;--card:#fff;--bg:#f6efe0;--ocean:#0E86B0;--coral:#E85340;--closed:#93A6B0;--open:#1F9D5B}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Outfit",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+  header{background:linear-gradient(160deg,#0b6e8f,#063a4d);color:#fff;padding:22px 18px}
+  header h1{margin:0;font-size:1.25rem}
+  header p{margin:5px 0 0;font-size:.82rem;opacity:.85}
+  main{max-width:760px;margin:0 auto;padding:16px}
+  .bar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+  .bar button{background:var(--ocean);color:#fff;border:0;border-radius:999px;padding:8px 16px;font-weight:700;font-size:13px;cursor:pointer}
+  .bar .muted{color:var(--ink2);font-size:12.5px}
+  .empty{color:var(--ink2);text-align:center;padding:40px 10px}
+  .rep{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--closed);border-radius:14px;padding:14px 15px;margin-bottom:12px;box-shadow:0 2px 8px rgba(8,57,81,.05)}
+  .rep h2{margin:0 0 2px;font-size:1.05rem}
+  .rep .city{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink2);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:2px 9px;margin-bottom:8px}
+  .rep .said{font-size:14px;margin:6px 0}
+  .rep .said b{color:var(--ink)}
+  .rep .meta{font-size:12px;color:var(--ink2);margin:2px 0}
+  .rep .acts{display:flex;gap:9px;margin-top:11px;flex-wrap:wrap}
+  .rep .acts a,.rep .acts button{border:0;border-radius:999px;padding:9px 15px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  .call{background:var(--open);color:#fff}
+  .keep{background:#fff;color:var(--ink);border:1px solid var(--line)!important}
+  .reopen{background:var(--coral);color:#fff}
+  .nophone{color:var(--ink2);font-size:12.5px;align-self:center}
+  footer{color:var(--ink2);font-size:11.5px;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Closure Reports</h1>
+  <p>Live neighbor reports across every Isola city. Call to verify. If you can't reach them, it stands.</p>
+</header>
+<main>
+  <div class="bar">
+    <button id="refresh">Refresh</button>
+    <span class="muted" id="count"></span>
+    <span class="muted" id="updated"></span>
+  </div>
+  <div id="list"><p class="empty">Loading…</p></div>
+</main>
+<footer>Auto-refreshes every 60s. This page is not linked or indexed.</footer>
+<script>
+const SBURL="https://rlnnsywsqvobvwfqebzf.supabase.co";
+const SBKEY="sb_publishable_0_hSXHbAdqvC5gn0ThZ-lg_Oh_-1VY4";
+const H={'apikey':SBKEY,'Authorization':'Bearer '+SBKEY};
+const CITY_LABEL={'':'Alameda',catalina:'Catalina',coronado:'Coronado',sacramento:'Sacramento'};
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function fmtTime(iso){const d=new Date(iso);return d.toLocaleString('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'numeric',minute:'2-digit'});}
+function ago(iso){const s=(Date.now()-new Date(iso))/1000;if(s<90)return'just now';if(s<3600)return Math.round(s/60)+' min ago';if(s<86400)return Math.round(s/3600)+' hr ago';return Math.round(s/86400)+' d ago';}
+function telHref(p){return 'tel:'+String(p||'').replace(/[^+\d]/g,'');}
+
+async function load(){
+  const q=SBURL+"/rest/v1/closures?select=id,ts,city,spot,name,phone,detail,until,kind&order=ts.asc";
+  let rows=[];
+  try{ const r=await fetch(q,{headers:H}); rows=r.ok?await r.json():[]; }catch(e){ rows=[]; }
+  // latest event per (city|spot)
+  const latest={};
+  rows.forEach(x=>{ latest[x.city+'|'+x.spot]=x; });
+  const now=Date.now();
+  const active=Object.values(latest).filter(x=>x.kind!=='open' && x.until && new Date(x.until).getTime()>now)
+    .sort((a,b)=>new Date(b.ts)-new Date(a.ts));
+  const list=document.getElementById('list');
+  document.getElementById('count').textContent=active.length+' active';
+  document.getElementById('updated').textContent='updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  if(!active.length){ list.innerHTML='<p class="empty">No active closure reports right now. 🎉</p>'; return; }
+  list.innerHTML=active.map(x=>{
+    const city=CITY_LABEL[x.city]!=null?CITY_LABEL[x.city]:(x.city||'Alameda');
+    const phone=x.phone||'';
+    return '<div class="rep">'+
+      '<span class="city">'+esc(city)+'</span>'+
+      '<h2>'+esc(x.name||x.spot)+'</h2>'+
+      (x.detail?'<p class="said">They said: <b>'+esc(x.detail)+'</b></p>':'<p class="said" style="color:#4E7286">No note left.</p>')+
+      '<p class="meta">Reported '+ago(x.ts)+' &middot; sign stays until '+fmtTime(x.until)+'</p>'+
+      '<div class="acts">'+
+        (phone?'<a class="call" href="'+telHref(phone)+'">Call to verify: '+esc(phone)+'</a>':'<span class="nophone">No phone on file</span>')+
+        '<button class="keep" data-keep="1">Keep (verified closed)</button>'+
+        '<button class="reopen" data-reopen="'+esc(x.city)+'|'+esc(x.spot)+'|'+esc(x.name||'')+'|'+esc(phone)+'">It’s open, clear it</button>'+
+      '</div></div>';
+  }).join('');
+}
+document.getElementById('list').addEventListener('click',async function(e){
+  const keep=e.target.closest('[data-keep]');
+  if(keep){ keep.textContent='Kept — stands until it expires'; keep.disabled=true; return; }
+  const ro=e.target.closest('[data-reopen]');
+  if(ro){
+    const [city,spot,name,phone]=ro.getAttribute('data-reopen').split('|');
+    ro.textContent='Clearing…'; ro.disabled=true;
+    try{ await fetch(SBURL+"/rest/v1/closures",{method:'POST',headers:Object.assign({'Content-Type':'application/json','Prefer':'return=minimal'},H),
+      body:JSON.stringify({city:city,spot:spot,name:name,phone:phone,detail:'admin verified open',until:new Date().toISOString(),kind:'open',vid:'admin'})}); }catch(err){}
+    setTimeout(load,400);
+  }
+});
+document.getElementById('refresh').addEventListener('click',load);
+load(); setInterval(load,60000);
+</script>
+</body>
+</html>
