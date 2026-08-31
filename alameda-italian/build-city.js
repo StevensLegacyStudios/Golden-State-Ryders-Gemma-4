@@ -177,7 +177,7 @@ const REPLACEMENTS = [
   ['"I\'d like to feature my Alameda restaurant on Isola"',
    `"I'd like to feature my ${N} restaurant on Isola"`, 1],
   // brand line — twitter:title, footer brand, contact mail subject, JSON-LD WebSite name
-  ['Isola — Alameda Eats', `Isola — ${N} Eats`, 4],
+  ['Isola — Alameda Eats', `Isola — ${N} Eats`, 5],
   // footer
   ["· The Island's restaurant guide", `· ${city.nickCap}'s restaurant guide`, 1],
   ['Browse Alameda restaurants by cuisine', `Browse ${N} restaurants by cuisine`, 1],
