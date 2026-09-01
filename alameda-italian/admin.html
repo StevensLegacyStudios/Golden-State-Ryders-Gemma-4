@@ -30,6 +30,18 @@
   .reopen{background:var(--coral);color:#fff}
   .nophone{color:var(--ink2);font-size:12.5px;align-self:center}
   footer{color:var(--ink2);font-size:11.5px;text-align:center;padding:20px}
+  .sec-title{font-size:1rem;margin:26px 0 4px;color:var(--ink)}
+  .sec-sub{color:var(--ink2);font-size:12px;margin:0 0 12px}
+  .tstat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+  .tstat b{font-size:1.5rem}
+  .tstat .lbl{color:var(--ink2);font-size:12.5px}
+  .tcity{display:inline-block;font-size:12.5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 11px;margin:2px 6px 2px 0}
+  .trow{display:flex;align-items:center;gap:10px;margin:5px 0;font-size:12.5px}
+  .trow .tdate{width:50px;color:var(--ink2);flex:none;text-align:right}
+  .trow .ttrack{flex:1;background:var(--bg);border-radius:999px;height:15px;overflow:hidden}
+  .trow .tfill{height:100%;background:var(--ocean);border-radius:999px;min-width:2px}
+  .trow.today .tfill{background:var(--coral)}
+  .trow .tnum{width:78px;flex:none;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -44,6 +56,11 @@
     <span class="muted" id="updated"></span>
   </div>
   <div id="list"><p class="empty">Loading…</p></div>
+  <section id="traffic">
+    <h2 class="sec-title">Traffic</h2>
+    <p class="sec-sub">Daily visits across every Isola city (views · visitors). Today's bar is coral.</p>
+    <div id="traffic-body"><p class="empty">Loading…</p></div>
+  </section>
 </main>
 <footer>Auto-refreshes every 60s. This page is not linked or indexed.</footer>
 <script>
@@ -97,8 +114,32 @@ document.getElementById('list').addEventListener('click',async function(e){
     setTimeout(load,400);
   }
 });
-document.getElementById('refresh').addEventListener('click',load);
-load(); setInterval(load,60000);
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const CITY_T={alameda:'Alameda',catalina:'Catalina',coronado:'Coronado',sacramento:'Sacramento'};
+function dlabel(day){const p=String(day).split('-');return MON[(+p[1])-1]+' '+(+p[2]);}
+function todayLA(){return new Date().toLocaleDateString('en-CA',{timeZone:'America/Los_Angeles'});}
+async function loadTraffic(){
+  const body=document.getElementById('traffic-body');
+  let s=null;
+  try{ const r=await fetch(SBURL+"/rest/v1/rpc/traffic_summary",{method:'POST',headers:Object.assign({'Content-Type':'application/json'},H),body:'{}'}); if(r.ok) s=await r.json(); }catch(e){}
+  if(!s){ body.innerHTML='<p class="empty">Traffic unavailable right now.</p>'; return; }
+  const daily=s.daily||[];
+  const max=daily.reduce((m,d)=>Math.max(m,d.views),1);
+  const today=todayLA();
+  const bars=daily.slice(0,21).map(d=>{
+    const w=Math.round(d.views/max*100);
+    return '<div class="trow'+(d.day===today?' today':'')+'"><span class="tdate">'+dlabel(d.day)+'</span>'+
+      '<span class="ttrack"><span class="tfill" style="width:'+w+'%"></span></span>'+
+      '<span class="tnum">'+d.views+' &middot; '+d.visitors+'</span></div>';
+  }).join('');
+  const cities=(s.today_by_city||[]).map(c=>'<span class="tcity">'+esc(CITY_T[c.city]||c.city)+': <b>'+c.visitors+'</b></span>').join('');
+  body.innerHTML=
+    '<div class="tstat"><b>'+(s.last7_visitors||0)+'</b> <span class="lbl">visitors in the last 7 days &middot; '+(s.last7_views||0)+' views</span></div>'+
+    (cities?'<div style="margin:2px 0 14px">Today so far: '+cities+'</div>':'')+
+    bars;
+}
+document.getElementById('refresh').addEventListener('click',()=>{load();loadTraffic();});
+load(); loadTraffic(); setInterval(()=>{load();loadTraffic();},60000);
 </script>
 </body>
 </html>
