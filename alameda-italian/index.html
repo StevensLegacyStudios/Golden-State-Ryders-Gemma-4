@@ -1282,10 +1282,19 @@ function closeUntil(scope,timeVal){
   }
   return new Date(now.getTime()+3600e3);
 }
+/* abuse cap: at most REP_CAP close-reports per device, per location, per day.
+   Mistakes happen, so it's lenient, but it stops one person spamming a spot.
+   The device id (vid) is logged server-side too, so real abuse is traceable. */
+const REP_CAP=3;
+function repCapKey(id){ const d=new Date(); return CITY_SLUG+'|'+id+'|'+d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function repCapGet(id){ try{ return (JSON.parse(localStorage.getItem('isola-repcap')||'{}'))[repCapKey(id)]||0; }catch(e){ return 0; } }
+function repCapBump(id){ try{ const m=JSON.parse(localStorage.getItem('isola-repcap')||'{}'); const k=repCapKey(id); m[k]=(m[k]||0)+1; localStorage.setItem('isola-repcap',JSON.stringify(m)); }catch(e){} }
 function submitClosure(id,r,scope,timeVal,detail){
+  if(repCapGet(id)>=REP_CAP){ try{ toast("You've flagged this spot a few times today, so we'll leave it as is. We've got it."); }catch(e){} return; }
   const untilIso=closeUntil(scope,timeVal).toISOString();
   REPORTED.set(id,{detail:detail||'',until:untilIso});
   try{ sbIns('closures',{city:CITY_SLUG,spot:id,name:r.name||'',phone:r.phone||'',detail:(detail||'').slice(0,140),until:untilIso,kind:'close',vid}); }catch(e){}
+  repCapBump(id);
   try{ track('report-closed',id); }catch(e){}
   reRenderClosures();
   const rr=bySlug[id]; if(rr) renderReport(rr,id,status(rr));
